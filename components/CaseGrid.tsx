@@ -112,7 +112,7 @@ export default function CaseGrid({ cases }: { cases: CaseMeta[] }) {
             </button>
 
             {sectorOpen ? (
-              <div className="absolute left-0 top-[calc(100%+0.75rem)] z-40 min-w-[220px] space-y-3 rounded-3xl border border-white/60 bg-white p-5 shadow-xl backdrop-blur-xl">
+              <div className="absolute left-1/2 top-[calc(100%+0.75rem)] z-40 w-[min(90vw,320px)] -translate-x-1/2 space-y-3 rounded-3xl border border-white/60 bg-white p-5 shadow-xl backdrop-blur-xl sm:left-0 sm:w-auto sm:min-w-[220px] sm:translate-x-0">
                 <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-fg/50">
                   <span>Sector</span>
                   {sectorFilters.length ? (
@@ -161,7 +161,7 @@ export default function CaseGrid({ cases }: { cases: CaseMeta[] }) {
             </button>
 
             {roleOpen ? (
-              <div className="absolute left-0 top-[calc(100%+0.75rem)] z-40 min-w-[220px] space-y-3 rounded-3xl border border-white/60 bg-white p-5 shadow-xl backdrop-blur-xl">
+              <div className="absolute left-1/2 top-[calc(100%+0.75rem)] z-40 w-[min(90vw,320px)] -translate-x-1/2 space-y-3 rounded-3xl border border-white/60 bg-white p-5 shadow-xl backdrop-blur-xl sm:left-0 sm:w-auto sm:min-w-[220px] sm:translate-x-0">
                 <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-fg/50">
                   <span>Roles</span>
                   {roleFilters.length ? (
