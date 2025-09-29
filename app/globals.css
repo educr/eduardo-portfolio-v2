@@ -15,6 +15,7 @@ body {
     radial-gradient(circle at 50% 80%, rgba(200, 180, 230, 0.22), transparent 25%);
   background-attachment: fixed;
   color: theme(colors.fg);
+  animation: page-fade 0.6s ease-out both;
 }
 
 @layer base {
@@ -55,7 +56,7 @@ h6 {
   @media (min-width: 768px) {
     .glass-panel {
       border-color: rgba(255, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.22);
       box-shadow: 0 20px 45px -25px rgba(57, 41, 94, 0.55);
       backdrop-filter: blur(32px);
     }
@@ -92,17 +93,45 @@ h6 {
     border-color: rgba(142, 124, 195, 0.35);
   }
 
-  .glass-tag {
-    @apply rounded-full px-3 py-1 text-xs font-medium text-accent;
-    background: rgba(142, 124, 195, 0.15);
-    border: 1px solid rgba(142, 124, 195, 0.35);
+  .tag-chip {
+    @apply rounded-full px-3 py-1 text-xs font-medium transition-colors duration-200;
+    backdrop-filter: blur(6px);
   }
 
-  .glass-tag:hover,
-  .glass-tag:focus-visible {
-    color: var(--color-accent-dark);
-    border-color: rgba(142, 124, 195, 0.55);
+  .tag-sector {
+    @apply border border-accent/40 text-accent;
+    background: rgba(142, 124, 195, 0.18);
   }
+
+  .tag-sector:hover,
+  .tag-sector:focus-visible {
+    color: var(--color-accent-dark);
+    border-color: rgba(142, 124, 195, 0.6);
+  }
+
+  .tag-role {
+    @apply border border-fg/15 text-fg/70;
+    background: rgba(255, 255, 255, 0.75);
+  }
+
+  .tag-role:hover,
+  .tag-role:focus-visible {
+    @apply text-fg;
+    border-color: rgba(57, 41, 94, 0.2);
+  }
+
+
+@keyframes page-fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 
   .case-body {

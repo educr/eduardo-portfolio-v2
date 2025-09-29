@@ -5,6 +5,7 @@ import Image from 'next/image'
 import type { CaseMeta } from '@/lib/cases'
 
 export default function CaseCard({ data }: { data: CaseMeta }) {
+  const sectors = data.sector?.length ? data.sector : data.category ?? []
   const displayDate = (() => {
     if (data.date) {
       const parsed = Date.parse(data.date)
@@ -43,22 +44,26 @@ export default function CaseCard({ data }: { data: CaseMeta }) {
       )}
       <div className="p-4 space-y-3">
         {displayDate ? (
-          <p className="text-xs font-medium uppercase tracking-[0.3em] text-fg/50">
+          <span className="inline-block text-xs font-medium uppercase tracking-[0.3em] text-fg/50">
             {displayDate}
-          </p>
+          </span>
         ) : null}
         <h3 className="font-semibold text-lg">{data.title}</h3>
         <p className="text-sm text-fg/70">{data.summary}</p>
-        <div className="flex flex-wrap gap-2">
-          {data.sector?.map(sector => (
-            <span
-              key={sector}
-              className="text-xs bg-accent/10 text-accent px-2 py-0.5 rounded-full"
-            >
-              {sector}
-            </span>
-          ))}
-        </div>
+        {(sectors.length || (data.role?.length ?? 0) > 0) ? (
+          <div className="flex flex-wrap gap-1.5">
+            {sectors.map(sector => (
+              <span key={`sector-${sector}`} className="tag-chip tag-sector text-[0.65rem]">
+                {sector}
+              </span>
+            ))}
+            {data.role?.map(role => (
+              <span key={`role-${role}`} className="tag-chip tag-role text-[0.65rem]">
+                {role}
+              </span>
+            ))}
+          </div>
+        ) : null}
       </div>
     </Link>
   )

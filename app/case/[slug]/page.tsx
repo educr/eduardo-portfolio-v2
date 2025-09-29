@@ -85,6 +85,8 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
     notFound()
   }
 
+  const sectors = entry.sector?.length ? entry.sector : entry.category ?? []
+  const roles = entry.role ?? []
   const displayDate = (() => {
     if (entry.date) {
       const parsed = Date.parse(entry.date)
@@ -119,26 +121,31 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
 
       <article className="glass-panel p-10">
         <header className="flex flex-col gap-4">
-          <h1 className="text-3xl font-semibold tracking-tight text-fg">
-            {entry.title}
-          </h1>
-          {displayDate ? (
-            <p className="text-xs font-medium uppercase tracking-[0.3em] text-fg/50">
-              {displayDate}
-            </p>
-          ) : null}
-          <p className="text-base leading-relaxed text-fg/70">
-            {entry.summary}
-          </p>
-          {!!entry.category?.length && (
-            <div className="flex flex-wrap gap-2">
-              {entry.category.map(tag => (
-                <span key={tag} className="glass-tag">
-                  {tag}
+          {(displayDate || sectors.length || roles.length) ? (
+            <div className="flex flex-wrap items-center gap-2">
+              {displayDate ? (
+                <span className="text-xs font-medium uppercase tracking-[0.3em] text-fg/50">
+                  {displayDate}
+                </span>
+              ) : null}
+              {sectors.map(sector => (
+                <span key={`sector-${sector}`} className="tag-chip tag-sector text-xs">
+                  {sector}
+                </span>
+              ))}
+              {roles.map(role => (
+                <span key={`role-${role}`} className="tag-chip tag-role text-xs">
+                  {role}
                 </span>
               ))}
             </div>
-          )}
+          ) : null}
+          <h1 className="text-3xl font-semibold tracking-tight text-fg">
+            {entry.title}
+          </h1>
+          <p className="text-base leading-relaxed text-fg/70">
+            {entry.summary}
+          </p>
         </header>
 
         {entry.content?.trim() ? <MdxContent source={entry.content} /> : null}

@@ -65,7 +65,6 @@ export default async function Home() {
       <section className="glass-panel space-y-6 px-4 py-6 md:px-8 md:py-10">
         <div className="flex flex-col gap-2 text-center md:text-left">
           <h2 className="text-2xl font-semibold text-fg/90">All Work</h2>
-          <p className="text-sm text-fg/70">Browse the full archive by focus area or depth.</p>
         </div>
         <CaseGrid cases={others} />
       </section>
