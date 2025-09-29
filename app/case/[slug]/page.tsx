@@ -85,6 +85,26 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
     notFound()
   }
 
+  const displayDate = (() => {
+    if (entry.date) {
+      const parsed = Date.parse(entry.date)
+      if (!Number.isNaN(parsed)) {
+        return new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric' }).format(new Date(parsed))
+      }
+      return entry.date
+    }
+
+    if (entry.yearLabel) {
+      return entry.yearLabel
+    }
+
+    if (typeof entry.year === 'number') {
+      return entry.year.toString()
+    }
+
+    return null
+  })()
+
   return (
     <div className="relative mx-auto flex max-w-5xl flex-col gap-6 px-6 py-16">
       <div className="pointer-events-none absolute -left-16 top-40 h-64 w-64 rounded-full bg-accent/25 blur-3xl" />
@@ -102,6 +122,11 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
           <h1 className="text-3xl font-semibold tracking-tight text-fg">
             {entry.title}
           </h1>
+          {displayDate ? (
+            <p className="text-xs font-medium uppercase tracking-[0.3em] text-fg/50">
+              {displayDate}
+            </p>
+          ) : null}
           <p className="text-base leading-relaxed text-fg/70">
             {entry.summary}
           </p>
