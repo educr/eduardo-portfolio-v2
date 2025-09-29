@@ -43,12 +43,12 @@ export default function CaseCard({ data }: { data: CaseMeta }) {
         </div>
       )}
       <div className="p-4 space-y-3">
+        <h3 className="font-semibold text-lg">{data.title}</h3>
         {displayDate ? (
-          <span className="inline-block text-xs font-medium uppercase tracking-[0.3em] text-fg/50">
+          <span className="text-xs font-medium uppercase tracking-[0.3em] text-fg/50">
             {displayDate}
           </span>
         ) : null}
-        <h3 className="font-semibold text-lg">{data.title}</h3>
         <p className="text-sm text-fg/70">{data.summary}</p>
         {(sectors.length || (data.role?.length ?? 0) > 0) ? (
           <div className="flex flex-wrap gap-1.5">

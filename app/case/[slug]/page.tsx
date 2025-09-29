@@ -108,7 +108,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
   })()
 
   return (
-    <div className="relative mx-auto flex max-w-5xl flex-col gap-6 px-6 py-16">
+    <div className="page-fade relative mx-auto flex max-w-5xl flex-col gap-6 px-6 py-16">
       <div className="pointer-events-none absolute -left-16 top-40 h-64 w-64 rounded-full bg-accent/25 blur-3xl" />
       <div className="pointer-events-none absolute right-0 top-8 h-80 w-80 rounded-full bg-white/40 blur-3xl" />
 

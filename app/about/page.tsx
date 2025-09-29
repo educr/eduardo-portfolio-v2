@@ -5,7 +5,7 @@ export const metadata = { title: 'About' }
 
 export default function AboutPage() {
   return (
-    <div className="py-10 max-w-3xl">
+    <div className="page-fade py-10 max-w-3xl">
       <h1 className="text-3xl font-bold mb-6">About Me</h1>
       <div className="flex flex-col md:flex-row gap-6 items-start">
         <div className="relative w-40 aspect-square rounded-full overflow-hidden border border-border">
