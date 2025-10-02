@@ -6,13 +6,15 @@ import { compileMDX } from 'next-mdx-remote/rsc'
 import remarkGfm from 'remark-gfm'
 import type { AnchorHTMLAttributes, HTMLAttributes, ImgHTMLAttributes, ReactElement } from 'react'
 import { getAllCases, getCaseBySlug } from '@/lib/cases'
+import CaseCarousel from '@/components/CaseCarousel'
+import ZoomImage from '@/components/ZoomImage'
 
 const mdxComponents = {
   hr: () => <div className="my-10 h-px w-full bg-white/40" />,
   img: (props: ImgHTMLAttributes<HTMLImageElement>) => (
     <img
       {...props}
-      className={['w-full rounded-2xl border border-white/20 bg-white/10', props.className].filter(Boolean).join(' ')}
+      className={['w-full rounded-[28px] border border-white/20 bg-white/10', props.className].filter(Boolean).join(' ')}
     />
   ),
   figure: ({ children, ...props }: HTMLAttributes<HTMLElement>) => (
@@ -34,14 +36,16 @@ const mdxComponents = {
   Image: (props: ImageProps) => {
     const { className, ...rest } = props
     return (
-      <div className="my-10 overflow-hidden rounded-3xl border border-white/20 bg-white/10 p-2">
+      <div className="my-10 overflow-hidden rounded-[32px] border border-white/20 bg-white/10 p-2">
         <NextImage
           {...rest}
-          className={['h-auto w-full rounded-2xl object-cover', className].filter(Boolean).join(' ')}
+          className={['h-auto w-full rounded-[28px] object-cover', className].filter(Boolean).join(' ')}
         />
       </div>
     )
-  }
+  },
+  Carousel: CaseCarousel,
+  ZoomImage
 }
 
 async function MdxContent({ source }: { source: string }): Promise<ReactElement> {
@@ -85,7 +89,8 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
     notFound()
   }
 
-  const sectors = entry.sector?.length ? entry.sector : entry.category ?? []
+  const sectors = entry.sector ?? []
+  const categories = entry.category ?? []
   const roles = entry.role ?? []
   const displayDate = (() => {
     if (entry.date) {
@@ -121,7 +126,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
 
       <article className="glass-panel p-10">
         <header className="flex flex-col gap-4">
-          {(displayDate || sectors.length || roles.length) ? (
+          {(displayDate || sectors.length || categories.length || roles.length) ? (
             <div className="flex flex-wrap items-center gap-2">
               {displayDate ? (
                 <span className="text-xs font-medium uppercase tracking-[0.3em] text-fg/50">
@@ -131,6 +136,11 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
               {sectors.map(sector => (
                 <span key={`sector-${sector}`} className="tag-chip tag-sector text-xs">
                   {sector}
+                </span>
+              ))}
+              {categories.map(category => (
+                <span key={`category-${category}`} className="tag-chip tag-category text-xs">
+                  {category}
                 </span>
               ))}
               {roles.map(role => (

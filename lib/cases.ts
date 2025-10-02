@@ -36,8 +36,13 @@ export async function getAllCases(): Promise<CaseMeta[]> {
       const { slug: frontmatterSlug, category, sector, date, year, ...rest } = data as Record<string, unknown>
       const resolvedSector = Array.isArray(sector)
         ? sector
-        : Array.isArray(category)
-          ? category
+        : typeof sector === 'string' && sector.trim()
+          ? [sector.trim()]
+          : undefined
+      const resolvedCategory = Array.isArray(category)
+        ? category
+        : typeof category === 'string' && category.trim()
+          ? [category.trim()]
           : undefined
 
       const yearString = typeof year === 'string' ? year.trim() : undefined
@@ -56,7 +61,7 @@ export async function getAllCases(): Promise<CaseMeta[]> {
         slug,
         ...rest,
         sector: resolvedSector,
-        category: Array.isArray(category) ? category : undefined,
+        category: resolvedCategory,
         year: resolvedYear,
         date: resolvedDate,
         yearLabel: determineYearLabel(year, resolvedYear)
@@ -76,8 +81,13 @@ export async function getCaseBySlug(slug: string): Promise<CaseEntry | null> {
   const { slug: frontmatterSlug, category, sector, date, year, ...rest } = data as Record<string, unknown>
   const resolvedSector = Array.isArray(sector)
     ? sector
-    : Array.isArray(category)
-      ? category
+    : typeof sector === 'string' && sector.trim()
+      ? [sector.trim()]
+      : undefined
+  const resolvedCategory = Array.isArray(category)
+    ? category
+    : typeof category === 'string' && category.trim()
+      ? [category.trim()]
       : undefined
 
   const yearString = typeof year === 'string' ? year.trim() : undefined
@@ -96,7 +106,7 @@ export async function getCaseBySlug(slug: string): Promise<CaseEntry | null> {
     slug,
     ...rest,
     sector: resolvedSector,
-    category: Array.isArray(category) ? category : undefined,
+    category: resolvedCategory,
     year: resolvedYear,
     date: resolvedDate,
     yearLabel: determineYearLabel(year, resolvedYear),

@@ -7,14 +7,21 @@ import type { CaseMeta } from '@/lib/cases'
 
 export default function CaseGrid({ cases }: { cases: CaseMeta[] }) {
   const [sectorFilters, setSectorFilters] = useState<string[]>([])
+  const [categoryFilters, setCategoryFilters] = useState<string[]>([])
   const [roleFilters, setRoleFilters] = useState<string[]>([])
   const [sectorOpen, setSectorOpen] = useState(false)
+  const [categoryOpen, setCategoryOpen] = useState(false)
   const [roleOpen, setRoleOpen] = useState(false)
   const sectorRef = useRef<HTMLDivElement>(null)
+  const categoryRef = useRef<HTMLDivElement>(null)
   const roleRef = useRef<HTMLDivElement>(null)
 
   const sectors = useMemo(
     () => Array.from(new Set(cases.flatMap(c => c.sector ?? []))).sort(),
+    [cases]
+  )
+  const categories = useMemo(
+    () => Array.from(new Set(cases.flatMap(c => c.category ?? []))).sort(),
     [cases]
   )
   const roles = useMemo(
@@ -23,18 +30,20 @@ export default function CaseGrid({ cases }: { cases: CaseMeta[] }) {
   )
 
   const filtered = useMemo(() => {
-    if (!sectorFilters.length && !roleFilters.length) {
+    if (!sectorFilters.length && !categoryFilters.length && !roleFilters.length) {
       return cases
     }
 
     return cases.filter(caseItem => {
       const sectorMatch =
         !sectorFilters.length || (caseItem.sector ?? []).some(sector => sectorFilters.includes(sector))
+      const categoryMatch =
+        !categoryFilters.length || (caseItem.category ?? []).some(category => categoryFilters.includes(category))
       const roleMatch =
         !roleFilters.length || (caseItem.role ?? []).some(role => roleFilters.includes(role))
-      return sectorMatch && roleMatch
+      return sectorMatch && categoryMatch && roleMatch
     })
-  }, [cases, sectorFilters, roleFilters])
+  }, [cases, sectorFilters, categoryFilters, roleFilters])
 
   useEffect(() => {
     function handleClick(event: MouseEvent) {
@@ -42,20 +51,27 @@ export default function CaseGrid({ cases }: { cases: CaseMeta[] }) {
       if (sectorOpen && sectorRef.current && !sectorRef.current.contains(target)) {
         setSectorOpen(false)
       }
+      if (categoryOpen && categoryRef.current && !categoryRef.current.contains(target)) {
+        setCategoryOpen(false)
+      }
       if (roleOpen && roleRef.current && !roleRef.current.contains(target)) {
         setRoleOpen(false)
       }
     }
 
-    if (sectorOpen || roleOpen) {
+    if (sectorOpen || categoryOpen || roleOpen) {
       window.addEventListener('mousedown', handleClick)
       return () => window.removeEventListener('mousedown', handleClick)
     }
     return undefined
-  }, [sectorOpen, roleOpen])
+  }, [sectorOpen, categoryOpen, roleOpen])
 
   const toggleSector = (value: string) => {
     setSectorFilters(prev => prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value])
+  }
+
+  const toggleCategory = (value: string) => {
+    setCategoryFilters(prev => prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value])
   }
 
   const toggleRole = (value: string) => {
@@ -64,12 +80,14 @@ export default function CaseGrid({ cases }: { cases: CaseMeta[] }) {
 
   const resetFilters = () => {
     setSectorFilters([])
+    setCategoryFilters([])
     setRoleFilters([])
     setSectorOpen(false)
+    setCategoryOpen(false)
     setRoleOpen(false)
   }
 
-  const hasActiveFilters = sectorFilters.length > 0 || roleFilters.length > 0
+  const hasActiveFilters = sectorFilters.length > 0 || categoryFilters.length > 0 || roleFilters.length > 0
 
   const triggerClass = (active: boolean, open: boolean) => [
     'inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40',
@@ -87,7 +105,7 @@ export default function CaseGrid({ cases }: { cases: CaseMeta[] }) {
 
   return (
     <div className="flex flex-col gap-6">
-      {sectorOpen || roleOpen ? (
+      {sectorOpen || categoryOpen || roleOpen ? (
         <button
           type="button"
           aria-hidden="true"
@@ -142,6 +160,55 @@ export default function CaseGrid({ cases }: { cases: CaseMeta[] }) {
                   })}
                   {!sectors.length ? (
                     <p className="text-xs text-fg/50">No sectors available.</p>
+                  ) : null}
+                </div>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
+
+        {categories.length ? (
+          <div className="relative z-30" ref={categoryRef}>
+            <button
+              type="button"
+              onClick={() => setCategoryOpen(open => !open)}
+              className={triggerClass(Boolean(categoryFilters.length), categoryOpen)}
+            >
+              <span>{categoryFilters.length ? `${categoryFilters.length} ${categoryFilters.length > 1 ? 'categories' : 'category'}` : 'All Categories'}</span>
+              <ChevronDown className={`h-4 w-4 transition ${categoryOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {categoryOpen ? (
+              <div className="absolute left-1/2 top-[calc(100%+0.75rem)] z-40 w-[min(90vw,320px)] -translate-x-1/2 space-y-3 rounded-3xl border border-white/60 bg-white p-5 shadow-xl backdrop-blur-xl sm:left-0 sm:w-auto sm:min-w-[220px] sm:translate-x-0">
+                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-fg/50">
+                  <span>Categories</span>
+                  {categoryFilters.length ? (
+                    <button
+                      type="button"
+                      className="text-accent underline-offset-4 hover:underline"
+                      onClick={() => setCategoryFilters([])}
+                    >
+                      Clear
+                    </button>
+                  ) : null}
+                </div>
+                <div className="flex flex-col gap-2">
+                  {categories.map(category => {
+                    const checked = categoryFilters.includes(category)
+                    return (
+                      <button
+                        key={category}
+                        type="button"
+                        onClick={() => toggleCategory(category)}
+                        className={optionClass(checked)}
+                      >
+                        <span className="truncate">{category}</span>
+                        {checked ? <Check className="h-4 w-4 text-accent" /> : null}
+                      </button>
+                    )
+                  })}
+                  {!categories.length ? (
+                    <p className="text-xs text-fg/50">No categories available.</p>
                   ) : null}
                 </div>
               </div>

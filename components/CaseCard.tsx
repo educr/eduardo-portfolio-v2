@@ -5,7 +5,8 @@ import Image from 'next/image'
 import type { CaseMeta } from '@/lib/cases'
 
 export default function CaseCard({ data }: { data: CaseMeta }) {
-  const sectors = data.sector?.length ? data.sector : data.category ?? []
+  const sectors = data.sector ?? []
+  const categories = data.category ?? []
   const displayDate = (() => {
     if (data.date) {
       const parsed = Date.parse(data.date)
@@ -50,11 +51,16 @@ export default function CaseCard({ data }: { data: CaseMeta }) {
           </span>
         ) : null}
         <p className="text-sm text-fg/70">{data.summary}</p>
-        {(sectors.length || (data.role?.length ?? 0) > 0) ? (
+        {(sectors.length || categories.length || (data.role?.length ?? 0) > 0) ? (
           <div className="flex flex-wrap gap-1.5">
             {sectors.map(sector => (
               <span key={`sector-${sector}`} className="tag-chip tag-sector text-[0.65rem]">
                 {sector}
+              </span>
+            ))}
+            {categories.map(category => (
+              <span key={`category-${category}`} className="tag-chip tag-category text-[0.65rem]">
+                {category}
               </span>
             ))}
             {data.role?.map(role => (

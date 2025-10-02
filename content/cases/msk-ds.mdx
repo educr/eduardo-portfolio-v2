@@ -3,8 +3,10 @@ slug: msk-design-system
 title: "MSK Design System"
 cover: "/cases/msk-ds/cover.jpg"
 summary: "A design system supporting both healthcare consumers and specialized clinical staff, adaptable with role-based modes."
-category:
+sector:
   - Healthcare
+category: 
+  - Design System
 role:
   - Interaction Design
   - Visual Design
@@ -35,9 +37,7 @@ The system provides a shared foundation for designers and developers, ensuring *
 How do you create a **single design system** that works for:
 
 - Consumer-facing apps that must be welcoming, accessible, and brand-aligned  
-- Professional clinical tools that demand **density, speed, and precision**
-
-Our task: build a **headless system** that supports both while remaining efficient for teams building on it.
+- Professional clinical tools that demand **density and precision**
 
 ---
 
@@ -65,6 +65,36 @@ Our solution: a **dual style strategy**.
 - **Gotham** → friendly, large-scale typography for consumer apps  
 - **Source Sans Pro** → compact, legible typeface for staff interfaces  
 
+<Carousel
+  images={[
+    {
+      src: '/cases/msk-ds/use-1.png',
+      alt: ''
+    },
+    {
+      src: '/cases/msk-ds/use-2.png',
+      alt: ''
+    },
+    {
+      src: '/cases/msk-ds/use-3.png',
+      alt: ''
+    },
+        {
+      src: '/cases/msk-ds/use-4.png',
+      alt: ''
+    },
+        {
+      src: '/cases/msk-ds/use-5.png',
+      alt: ''
+    },
+        {
+      src: '/cases/msk-ds/use-6.png',
+      alt: ''
+    }
+  ]}
+  caption="Selected implementations across the org"
+/>
+
 ---
 
 ## Tokens & Theming
@@ -79,6 +109,8 @@ We introduced a **semantic token taxonomy** (color, and in later iterations, siz
   <img src="/cases/msk-ds/tokens.png" alt="Semantic tokens example" />
   <figcaption>Semantic token taxonomy (spacing, size, color)</figcaption>
 </figure>
+
+
 
 Tokens became the backbone for adaptability — a **single source of truth** powering multiple app families.
 
@@ -120,6 +152,7 @@ Each configuration applies unique density, spacing, and typography rules.
 <video
   src="/cases/msk-ds/mode-toggle.mov"
   autoPlay
+  loop
   controls
   playsInline
   className="rounded-xl shadow"
@@ -139,4 +172,3 @@ Each configuration applies unique density, spacing, and typography rules.
 
 - Expand the library with **domain-specific components**  
 - Introduce UI components for **AI-driven features**
-

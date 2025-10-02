@@ -93,7 +93,7 @@ h6 {
   }
 
   .tag-chip {
-    @apply rounded-full px-3 py-1 text-xs font-medium transition-colors duration-200;
+    @apply rounded-full px-2 py-1 text-xs font-medium transition-colors duration-200;
     backdrop-filter: blur(6px);
   }
 
@@ -119,6 +119,54 @@ h6 {
     border-color: rgba(57, 41, 94, 0.2);
   }
 
+  .tag-category {
+    @apply border border-emerald-400/40 text-emerald-600;
+    background: rgba(16, 185, 129, 0.15);
+  }
+
+  .tag-category:hover,
+  .tag-category:focus-visible {
+    color: rgb(5, 150, 105);
+    border-color: rgba(16, 185, 129, 0.55);
+  }
+
+  .carousel-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .carousel-image {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 28px;
+    object-fit: contain;
+    pointer-events: auto;
+  }
+
+  .carousel-steady {
+    opacity: 1;
+  }
+
+  .carousel-enter-right {
+    animation: carousel-enter-right 450ms ease-out both;
+  }
+
+  .carousel-enter-left {
+    animation: carousel-enter-left 450ms ease-out both;
+  }
+
+  .carousel-exit-left {
+    animation: carousel-exit-left 450ms ease-out both;
+  }
+
+  .carousel-exit-right {
+    animation: carousel-exit-right 450ms ease-out both;
+  }
+
   .page-fade {
     animation: page-fade 0.6s ease-out both;
   }
@@ -133,6 +181,54 @@ h6 {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes carousel-enter-right {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes carousel-enter-left {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes carousel-exit-left {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+}
+
+@keyframes carousel-exit-right {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(40px);
   }
 }
 
@@ -155,6 +251,14 @@ h6 {
 
   .case-body p {
     @apply text-base leading-relaxed text-fg/75;
+  }
+
+  .case-body figure {
+    @apply my-8 space-y-3 text-center text-sm text-fg/70;
+  }
+
+  .case-body figure img {
+    @apply mx-auto w-full rounded-[28px] border border-white/20 bg-white/10;
   }
 
   .case-body ul {

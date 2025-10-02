@@ -2,8 +2,11 @@
 slug: planq
 title: "PlanQ"
 summary: "Growing a radiation oncology tool to a new user group"
-category:
+sector:
   - Healthcare
+category: 
+  - Dashboard
+  - AI
 featured: true
 role:
   - Visual Design
@@ -18,6 +21,8 @@ cover: "/cases/planq/cover.jpg"
 
 ![Hero](/cases/planq/cover.jpg)
 
+---
+
 ## Team
 Cross-departmental collaboration with UX design, medical physics, and clinical staff.  
 
@@ -29,40 +34,92 @@ Cross-departmental collaboration with UX design, medical physics, and clinical s
 - **No designers** had ever worked on the project, leading to heavy design debt.  
 - The dashboard’s **large table had too many columns**, requiring constant side-scrolling.  
 - Needed to **introduce and differentiate AI features** in a high-risk clinical context.  
-<figure>
-  <img src="/cases/planq/audit.png" />
-  <figcaption>View of original tool being audited by team</figcaption>
-</figure>
+
 ---
 
 ## Process
 
-The project demanded close collaboration with both **clinical staff** and **engineers**.  
-- I partnered with clinical staff to gather **data requirements**, mapping what information was critical at different steps of their workflow.  
-- In parallel, I worked with **developers** to understand technical constraints, such as how PlanQ’s APIs could or could not interact with existing clinical systems. This dialogue helped balance **ambition with feasibility**, ensuring the designs respected integration limits while still aiming for meaningful improvements.  
+The project demanded close collaboration with both **clinical staff** and **engineers**. 
 
-We began with a **visual design audit**, reconciling inconsistent patterns across the interface. From there, I assisted with creating a foundation for **consistent design standards** that would scale as the product evolved.  
+<figure>
+  <img src="/cases/planq/workshop.jpg" />
+  <figcaption>Kicking off our time together with a workshop.</figcaption>
+</figure>
+
+We then began a **visual design audit and heuristic evaluation**, recognizing usability issues and inconsistencies across the interface. From there, I assisted with creating a foundation for **consistent design standards** that would scale as the product evolved.  
+
+<figure>
+  <img src="/cases/planq/audit.jpg" />
+  <figcaption>View of original tool being audited by team</figcaption>
+</figure>
 
 We then conducted **on-site research** at MSK's Main Campus and a regional site, observing how radiation therapists worked in real clinical environments. These studies revealed workflow bottlenecks, circuitous flows, role-specific needs, and moments where visual hierarchy failed.  
-<figure>
-  <img src="/cases/planq/observation.png" />
-  <figcaption>On-site observation</figcaption>
-</figure>
+<Carousel
+  images={[
+    {
+      src: '/cases/planq/observation-1.jpg',
+      alt: '',
+    },
+    {
+      src: '/cases/planq/observation-2.jpg',
+      alt: '',
+    },
+        {
+      src: '/cases/planq/observation-3.jpg',
+      alt: '',
+    },
+        {
+      src: '/cases/planq/observation-4.jpg',
+      alt: '',
+    },
+            {
+      src: '/cases/planq/observation-5.jpg',
+      alt: '',
+    },
+                {
+      src: '/cases/planq/observation-6.jpg',
+      alt: '',
+    }
+  ]}
+      caption="On-site observation"
+/>
+
+- I partnered with clinical staff to gather **data requirements**, mapping what information was critical at different steps of their workflow. 
+- In parallel, I worked with **developers** to understand technical constraints, such as how PlanQ could or could not interact with existing clinical systems's APIs. This dialogue helped balance **ambition with feasibility**, ensuring the designs respected integration limits while still aiming for meaningful improvements.  
+
 To validate early concepts, we built **interactive Figma prototypes** and ran **user testing sessions with real therapists**. These sessions provided direct insights into usability and trust, guiding refinements before handoff.  
 
 ---
 
 ## Solutions
 
-- **Dashboard views tailored** to different radiation therapy tasks.  
+### General
 - **Visual design reconciliation** to reduce clutter and unify the interface.  
+
+### Dashboard
+- **Dashboard views tailored** to different radiation therapy tasks.  
 - Introduced a **card view** alongside the table view — supporting scannable workflows for therapists while retaining dense data for physicists. 
-<img src="/cases/planq/card-view.png" />
+
+<video
+  src="/cases/planq/card.mov"
+  autoPlay
+  loop
+  controls
+  playsInline
+  className="rounded-xl shadow"
+/>
+
+### Patient Details
 - Developed a **distinct style** for AI-generated or AI-flagged content, balancing clarity with clinical safety.  
-<img src="/cases/planq/ai.png" />
 
-
-
+<video
+  src="/cases/planq/ai.mov"
+  autoPlay
+  loop
+  controls
+  playsInline
+  className="rounded-xl shadow"
+/>
 
 ---
 
