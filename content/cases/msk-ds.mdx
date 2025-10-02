@@ -37,7 +37,8 @@ The system provides a shared foundation for designers and developers, ensuring *
 How do you create a **single design system** that works for:
 
 - Consumer-facing apps that must be welcoming, accessible, and brand-aligned  
-- Professional clinical tools that demand **density and precision**
+- Professional clinical tools that demand density and precision
+- Developers and designers across the organization using disparate components, styles, and processes
 
 ---
 
@@ -107,7 +108,7 @@ We introduced a **semantic token taxonomy** (color, and in later iterations, siz
 
 <figure>
   <img src="/cases/msk-ds/tokens.png" alt="Semantic tokens example" />
-  <figcaption>Semantic token taxonomy (spacing, size, color)</figcaption>
+  <figcaption>Token taxonomy</figcaption>
 </figure>
 
 
@@ -120,10 +121,27 @@ Tokens became the backbone for adaptability — a **single source of truth** pow
 
 As adoption grew, we transitioned from a Carbon fork to a **headless, MSK-owned system**.  
 
-<figure>
-  <img src="/cases/msk-ds/tags.png" alt="Toggle consumer vs pro mode" />
-  <figcaption>Ant Design's tags using our tokens  </figcaption>
-</figure>
+<Carousel
+  images={[
+    {
+      src: '/cases/msk-ds/tag.png',
+      alt: ''
+    },
+    {
+      src: '/cases/msk-ds/drawer.png',
+      alt: ''
+    },
+    {
+      src: '/cases/msk-ds/switch.png',
+      alt: ''
+    },
+        {
+      src: '/cases/msk-ds/button.png',
+      alt: ''
+    }
+  ]}
+  caption="Select AntD components using our tokens"
+/>
 
 Key milestones:
 
