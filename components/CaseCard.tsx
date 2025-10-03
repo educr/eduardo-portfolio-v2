@@ -1,10 +1,11 @@
 "use client"
 
+import { memo } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import type { CaseMeta } from '@/lib/cases'
 
-export default function CaseCard({ data }: { data: CaseMeta }) {
+function CaseCardComponent({ data }: { data: CaseMeta }) {
   const sectors = data.sector ?? []
   const categories = data.category ?? []
   const displayDate = (() => {
@@ -74,3 +75,5 @@ export default function CaseCard({ data }: { data: CaseMeta }) {
     </Link>
   )
 }
+
+export default memo(CaseCardComponent, (prev, next) => prev.data === next.data)

@@ -1,278 +1,215 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { Check, ChevronDown, RotateCcw } from 'lucide-react'
+import { useDeferredValue, useEffect, useMemo, useRef, useState, useTransition } from 'react'
+import { RotateCcw, SlidersHorizontal } from 'lucide-react'
 import CaseCard from '@/components/CaseCard'
 import type { CaseMeta } from '@/lib/cases'
+
+type FilterSection = {
+  key: 'sector' | 'category' | 'role'
+  label: string
+  items: string[]
+  filters: string[]
+  toggle: (value: string) => void
+  emptyLabel: string
+}
 
 export default function CaseGrid({ cases }: { cases: CaseMeta[] }) {
   const [sectorFilters, setSectorFilters] = useState<string[]>([])
   const [categoryFilters, setCategoryFilters] = useState<string[]>([])
   const [roleFilters, setRoleFilters] = useState<string[]>([])
-  const [sectorOpen, setSectorOpen] = useState(false)
-  const [categoryOpen, setCategoryOpen] = useState(false)
-  const [roleOpen, setRoleOpen] = useState(false)
-  const sectorRef = useRef<HTMLDivElement>(null)
-  const categoryRef = useRef<HTMLDivElement>(null)
-  const roleRef = useRef<HTMLDivElement>(null)
+  const [filtersOpen, setFiltersOpen] = useState(false)
+  const [isPending, startTransition] = useTransition()
+  const controlsRef = useRef<HTMLDivElement>(null)
+
+  const deferredCases = useDeferredValue(cases)
+  const deferredSectorFilters = useDeferredValue(sectorFilters)
+  const deferredCategoryFilters = useDeferredValue(categoryFilters)
+  const deferredRoleFilters = useDeferredValue(roleFilters)
 
   const sectors = useMemo(
-    () => Array.from(new Set(cases.flatMap(c => c.sector ?? []))).sort(),
-    [cases]
+    () => Array.from(new Set(deferredCases.flatMap(c => c.sector ?? []))).sort(),
+    [deferredCases]
   )
   const categories = useMemo(
-    () => Array.from(new Set(cases.flatMap(c => c.category ?? []))).sort(),
-    [cases]
+    () => Array.from(new Set(deferredCases.flatMap(c => c.category ?? []))).sort(),
+    [deferredCases]
   )
   const roles = useMemo(
-    () => Array.from(new Set(cases.flatMap(c => c.role ?? []))).sort(),
-    [cases]
+    () => Array.from(new Set(deferredCases.flatMap(c => c.role ?? []))).sort(),
+    [deferredCases]
   )
 
+  const sectorFilterSet = useMemo(() => new Set(deferredSectorFilters), [deferredSectorFilters])
+  const categoryFilterSet = useMemo(() => new Set(deferredCategoryFilters), [deferredCategoryFilters])
+  const roleFilterSet = useMemo(() => new Set(deferredRoleFilters), [deferredRoleFilters])
+
   const filtered = useMemo(() => {
-    if (!sectorFilters.length && !categoryFilters.length && !roleFilters.length) {
-      return cases
+    if (!sectorFilterSet.size && !categoryFilterSet.size && !roleFilterSet.size) {
+      return deferredCases
     }
 
-    return cases.filter(caseItem => {
-      const sectorMatch =
-        !sectorFilters.length || (caseItem.sector ?? []).some(sector => sectorFilters.includes(sector))
+    return deferredCases.filter(caseItem => {
+      const sectorMatch = !sectorFilterSet.size || (caseItem.sector ?? []).some(sector => sectorFilterSet.has(sector))
+      if (!sectorMatch) {
+        return false
+      }
+
       const categoryMatch =
-        !categoryFilters.length || (caseItem.category ?? []).some(category => categoryFilters.includes(category))
-      const roleMatch =
-        !roleFilters.length || (caseItem.role ?? []).some(role => roleFilters.includes(role))
-      return sectorMatch && categoryMatch && roleMatch
+        !categoryFilterSet.size || (caseItem.category ?? []).some(category => categoryFilterSet.has(category))
+      if (!categoryMatch) {
+        return false
+      }
+
+      const roleMatch = !roleFilterSet.size || (caseItem.role ?? []).some(role => roleFilterSet.has(role))
+      return roleMatch
     })
-  }, [cases, sectorFilters, categoryFilters, roleFilters])
+  }, [deferredCases, sectorFilterSet, categoryFilterSet, roleFilterSet])
 
   useEffect(() => {
     function handleClick(event: MouseEvent) {
+      if (!filtersOpen || !controlsRef.current) {
+        return
+      }
       const target = event.target as Node
-      if (sectorOpen && sectorRef.current && !sectorRef.current.contains(target)) {
-        setSectorOpen(false)
-      }
-      if (categoryOpen && categoryRef.current && !categoryRef.current.contains(target)) {
-        setCategoryOpen(false)
-      }
-      if (roleOpen && roleRef.current && !roleRef.current.contains(target)) {
-        setRoleOpen(false)
+      if (!controlsRef.current.contains(target)) {
+        setFiltersOpen(false)
       }
     }
 
-    if (sectorOpen || categoryOpen || roleOpen) {
+    if (filtersOpen) {
       window.addEventListener('mousedown', handleClick)
       return () => window.removeEventListener('mousedown', handleClick)
     }
+
     return undefined
-  }, [sectorOpen, categoryOpen, roleOpen])
+  }, [filtersOpen])
 
   const toggleSector = (value: string) => {
-    setSectorFilters(prev => prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value])
+    startTransition(() => {
+      setSectorFilters(prev => (prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value]))
+    })
   }
 
   const toggleCategory = (value: string) => {
-    setCategoryFilters(prev => prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value])
+    startTransition(() => {
+      setCategoryFilters(prev => (prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value]))
+    })
   }
 
   const toggleRole = (value: string) => {
-    setRoleFilters(prev => prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value])
+    startTransition(() => {
+      setRoleFilters(prev => (prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value]))
+    })
   }
 
   const resetFilters = () => {
-    setSectorFilters([])
-    setCategoryFilters([])
-    setRoleFilters([])
-    setSectorOpen(false)
-    setCategoryOpen(false)
-    setRoleOpen(false)
+    startTransition(() => {
+      setSectorFilters([])
+      setCategoryFilters([])
+      setRoleFilters([])
+      setFiltersOpen(false)
+    })
   }
 
   const hasActiveFilters = sectorFilters.length > 0 || categoryFilters.length > 0 || roleFilters.length > 0
+  const activeCount = sectorFilters.length + categoryFilters.length + roleFilters.length
 
-  const triggerClass = (active: boolean, open: boolean) => [
-    'inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40',
-    active || open
-      ? 'border-accent bg-accent text-white shadow-sm'
-      : 'border-white/40 bg-white/80 text-fg/70 hover:border-accent/40 hover:text-fg'
+  const toggleClass = (active: boolean) => [
+    'flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 whitespace-nowrap backdrop-blur-md bg-white/40',
+    active
+      ? 'border-accent bg-accent/80 text-white shadow-sm'
+      : 'border-white/40 text-fg/70 hover:border-accent/40 hover:text-fg'
   ].join(' ')
 
-  const optionClass = (checked: boolean) => [
-    'flex items-center justify-between gap-4 rounded-full border px-4 py-1.5 text-sm font-medium transition-colors whitespace-nowrap',
-    checked
-      ? 'border-accent/60 bg-accent/15 text-fg'
-      : 'border-transparent bg-white/60 text-fg/70 hover:border-accent/30 hover:text-fg'
-  ].join(' ')
+  const sections: FilterSection[] = [
+    {
+      key: 'sector',
+      label: 'Sector',
+      items: sectors,
+      filters: sectorFilters,
+      toggle: toggleSector,
+      emptyLabel: 'No sector tags yet.'
+    },
+    {
+      key: 'category',
+      label: 'Category',
+      items: categories,
+      filters: categoryFilters,
+      toggle: toggleCategory,
+      emptyLabel: 'No category tags yet.'
+    },
+    {
+      key: 'role',
+      label: 'Role',
+      items: roles,
+      filters: roleFilters,
+      toggle: toggleRole,
+      emptyLabel: 'No role tags yet.'
+    }
+  ]
 
   return (
-    <div className="flex flex-col gap-6">
-      {sectorOpen || categoryOpen || roleOpen ? (
-        <button
-          type="button"
-          aria-hidden="true"
-          tabIndex={-1}
-          className="fixed inset-0 z-20 cursor-default bg-transparent"
-          onClick={() => {
-            setSectorOpen(false)
-            setRoleOpen(false)
-          }}
-        />
-      ) : null}
-      <div className="flex flex-wrap items-center gap-3">
-        {sectors.length ? (
-          <div className="relative z-30" ref={sectorRef}>
-            <button
-              type="button"
-              onClick={() => setSectorOpen(open => !open)}
-              className={triggerClass(Boolean(sectorFilters.length), sectorOpen)}
-            >
-              <span>{sectorFilters.length ? `${sectorFilters.length} sector${sectorFilters.length > 1 ? 's' : ''}` : 'All Sectors'}</span>
-              <ChevronDown className={`h-4 w-4 transition ${sectorOpen ? 'rotate-180' : ''}`} />
-            </button>
-
-            {sectorOpen ? (
-              <div className="absolute left-1/2 top-[calc(100%+0.75rem)] z-40 w-[min(90vw,320px)] -translate-x-1/2 space-y-3 rounded-3xl border border-white/60 bg-white p-5 shadow-xl backdrop-blur-xl sm:left-0 sm:w-auto sm:min-w-[220px] sm:translate-x-0">
-                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-fg/50">
-                  <span>Sector</span>
-                  {sectorFilters.length ? (
-                    <button
-                      type="button"
-                      className="text-accent underline-offset-4 hover:underline"
-                      onClick={() => setSectorFilters([])}
-                    >
-                      Clear
-                    </button>
-                  ) : null}
-                </div>
-                <div className="flex flex-col gap-2">
-                  {sectors.map(sector => {
-                    const checked = sectorFilters.includes(sector)
-                    return (
-                      <button
-                        key={sector}
-                        type="button"
-                        onClick={() => toggleSector(sector)}
-                        className={optionClass(checked)}
-                      >
-                        <span className="truncate">{sector}</span>
-                        {checked ? <Check className="h-4 w-4 text-accent" /> : null}
-                      </button>
-                    )
-                  })}
-                  {!sectors.length ? (
-                    <p className="text-xs text-fg/50">No sectors available.</p>
-                  ) : null}
-                </div>
-              </div>
-            ) : null}
-          </div>
-        ) : null}
-
-        {categories.length ? (
-          <div className="relative z-30" ref={categoryRef}>
-            <button
-              type="button"
-              onClick={() => setCategoryOpen(open => !open)}
-              className={triggerClass(Boolean(categoryFilters.length), categoryOpen)}
-            >
-              <span>{categoryFilters.length ? `${categoryFilters.length} ${categoryFilters.length > 1 ? 'categories' : 'category'}` : 'All Categories'}</span>
-              <ChevronDown className={`h-4 w-4 transition ${categoryOpen ? 'rotate-180' : ''}`} />
-            </button>
-
-            {categoryOpen ? (
-              <div className="absolute left-1/2 top-[calc(100%+0.75rem)] z-40 w-[min(90vw,320px)] -translate-x-1/2 space-y-3 rounded-3xl border border-white/60 bg-white p-5 shadow-xl backdrop-blur-xl sm:left-0 sm:w-auto sm:min-w-[220px] sm:translate-x-0">
-                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-fg/50">
-                  <span>Categories</span>
-                  {categoryFilters.length ? (
-                    <button
-                      type="button"
-                      className="text-accent underline-offset-4 hover:underline"
-                      onClick={() => setCategoryFilters([])}
-                    >
-                      Clear
-                    </button>
-                  ) : null}
-                </div>
-                <div className="flex flex-col gap-2">
-                  {categories.map(category => {
-                    const checked = categoryFilters.includes(category)
-                    return (
-                      <button
-                        key={category}
-                        type="button"
-                        onClick={() => toggleCategory(category)}
-                        className={optionClass(checked)}
-                      >
-                        <span className="truncate">{category}</span>
-                        {checked ? <Check className="h-4 w-4 text-accent" /> : null}
-                      </button>
-                    )
-                  })}
-                  {!categories.length ? (
-                    <p className="text-xs text-fg/50">No categories available.</p>
-                  ) : null}
-                </div>
-              </div>
-            ) : null}
-          </div>
-        ) : null}
-
-        {roles.length ? (
-          <div className="relative z-30" ref={roleRef}>
-            <button
-              type="button"
-              onClick={() => setRoleOpen(open => !open)}
-              className={triggerClass(Boolean(roleFilters.length), roleOpen)}
-            >
-              <span>{roleFilters.length ? `${roleFilters.length} role${roleFilters.length > 1 ? 's' : ''}` : 'All Roles'}</span>
-              <ChevronDown className={`h-4 w-4 transition ${roleOpen ? 'rotate-180' : ''}`} />
-            </button>
-
-            {roleOpen ? (
-              <div className="absolute left-1/2 top-[calc(100%+0.75rem)] z-40 w-[min(90vw,320px)] -translate-x-1/2 space-y-3 rounded-3xl border border-white/60 bg-white p-5 shadow-xl backdrop-blur-xl sm:left-0 sm:w-auto sm:min-w-[220px] sm:translate-x-0">
-                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-fg/50">
-                  <span>Roles</span>
-                  {roleFilters.length ? (
-                    <button
-                      type="button"
-                      className="text-accent underline-offset-4 hover:underline"
-                      onClick={() => setRoleFilters([])}
-                    >
-                      Clear
-                    </button>
-                  ) : null}
-                </div>
-                <div className="flex flex-col gap-2">
-                  {roles.map(role => {
-                    const checked = roleFilters.includes(role)
-                    return (
-                      <button
-                        key={role}
-                        type="button"
-                        onClick={() => toggleRole(role)}
-                        className={optionClass(checked)}
-                      >
-                        <span className="truncate">{role}</span>
-                        {checked ? <Check className="h-4 w-4 text-accent" /> : null}
-                      </button>
-                    )
-                  })}
-                  {!roles.length ? (
-                    <p className="text-xs text-fg/50">No roles available.</p>
-                  ) : null}
-                </div>
-              </div>
-            ) : null}
-          </div>
-        ) : null}
-
-        {hasActiveFilters ? (
+    <div className="flex flex-col gap-6" aria-busy={isPending}>
+      <div className="flex flex-col gap-3" ref={controlsRef}>
+        <div className="flex flex-wrap items-center gap-3">
           <button
             type="button"
-            onClick={resetFilters}
-            className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/70 px-4 py-2 text-sm font-medium text-fg/70 shadow-sm transition hover:border-accent/40 hover:text-fg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+            onClick={() => setFiltersOpen(open => !open)}
+            className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/30 px-4 py-2 text-sm font-medium text-fg/70 shadow-sm backdrop-blur-md transition hover:border-accent/40 hover:text-fg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+            aria-expanded={filtersOpen}
           >
-            <RotateCcw className="h-4 w-4" /> Reset
+            <SlidersHorizontal className="h-4 w-4" /> Filters
+            {activeCount > 0 ? (
+              <span className="rounded-full bg-accent/15 px-2 py-0.5 text-xs font-semibold text-accent">
+                {activeCount}
+              </span>
+            ) : null}
           </button>
+          {hasActiveFilters ? (
+            <button
+              type="button"
+              onClick={resetFilters}
+              className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/25 px-4 py-2 text-sm font-medium text-fg/70 backdrop-blur transition hover:border-accent/40 hover:text-fg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+            >
+              <RotateCcw className="h-4 w-4" /> Reset all
+            </button>
+          ) : null}
+        </div>
+
+        {filtersOpen ? (
+          <div className="flex flex-col gap-5 rounded-3xl border border-white/30 bg-white/15 p-5 shadow-2xl backdrop-blur-2xl">
+            <div className="grid gap-5 md:grid-cols-3">
+              {sections.map(section => (
+                <div key={section.key} className="space-y-3">
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-fg/50">
+                    {section.label}
+                  </p>
+                  {section.items.length ? (
+                    <div className="flex flex-wrap gap-2">
+                      {section.items.map(item => {
+                        const active = section.filters.includes(item)
+                        return (
+                          <button
+                            key={`${section.key}-${item}`}
+                            type="button"
+                            onClick={() => section.toggle(item)}
+                            className={toggleClass(active)}
+                          >
+                            <span className={['truncate text-sm font-medium', active ? 'text-white' : 'text-fg'].join(' ')}>
+                              {item}
+                            </span>
+                          </button>
+                        )
+                      })}
+                    </div>
+                  ) : (
+                    <p className="text-xs text-fg/50">{section.emptyLabel}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         ) : null}
       </div>
 
