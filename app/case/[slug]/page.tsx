@@ -58,7 +58,7 @@ function MdxImage(props: ImgHTMLAttributes<HTMLImageElement>) {
   const resolvedSizes = typeof sizes === 'string' && sizes.trim().length > 0 ? sizes : DEFAULT_IMAGE_SIZES
   const loadingMode = loading === 'eager' ? 'eager' : 'lazy'
   const fitDirective = typeof dataProps['data-fit'] === 'string' ? dataProps['data-fit'] : undefined
-  const objectFitClass = fitDirective === 'contain' ? 'object-contain' : 'object-cover'
+  const objectFitClass = fitDirective === 'cover' ? 'object-cover' : 'object-contain'
   const unframed =
     dataProps['data-unframed'] === true ||
     dataProps['data-unframed'] === 'true' ||
