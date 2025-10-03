@@ -137,6 +137,8 @@ h6 {
     align-items: center;
     justify-content: center;
     pointer-events: none;
+    will-change: opacity, transform;
+    transform: translateZ(0);
   }
 
   .carousel-image {
@@ -152,19 +154,19 @@ h6 {
   }
 
   .carousel-enter-right {
-    animation: carousel-enter-right 450ms ease-out both;
+    animation: carousel-enter-right 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   .carousel-enter-left {
-    animation: carousel-enter-left 450ms ease-out both;
+    animation: carousel-enter-left 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   .carousel-exit-left {
-    animation: carousel-exit-left 450ms ease-out both;
+    animation: carousel-exit-left 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   .carousel-exit-right {
-    animation: carousel-exit-right 450ms ease-out both;
+    animation: carousel-exit-right 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   .page-fade {
@@ -187,48 +189,48 @@ h6 {
 @keyframes carousel-enter-right {
   from {
     opacity: 0;
-    transform: translateX(40px);
+    transform: translate3d(24px, 0, 0) scale(0.985);
   }
 
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
 @keyframes carousel-enter-left {
   from {
     opacity: 0;
-    transform: translateX(-40px);
+    transform: translate3d(-24px, 0, 0) scale(0.985);
   }
 
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
 @keyframes carousel-exit-left {
   from {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0) scale(1);
   }
 
   to {
     opacity: 0;
-    transform: translateX(-40px);
+    transform: translate3d(-24px, 0, 0) scale(0.985);
   }
 }
 
 @keyframes carousel-exit-right {
   from {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0) scale(1);
   }
 
   to {
     opacity: 0;
-    transform: translateX(40px);
+    transform: translate3d(24px, 0, 0) scale(0.985);
   }
 }
 

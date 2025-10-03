@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useId, useMemo, useState } from 'react'
+import NextImage from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 export type CarouselImage = {
@@ -95,25 +96,34 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
           <div className="absolute inset-0">
             {previousImage ? (
               <div className={`carousel-slide ${direction === 1 ? 'carousel-exit-left' : 'carousel-exit-right'}`}>
-                <img
-                  src={previousImage.src}
-                  alt={previousImage.alt}
-                  className="carousel-image"
-                  loading="lazy"
-                  aria-hidden="true"
-                />
+                <div className="relative h-full w-full">
+                  <NextImage
+                    src={previousImage.src}
+                    alt={previousImage.alt}
+                    fill
+                    sizes="(min-width: 1280px) 900px, (min-width: 768px) 720px, 100vw"
+                    loading="lazy"
+                    className="carousel-image"
+                    aria-hidden
+                  />
+                </div>
               </div>
             ) : null}
             <div
               key={`${carouselId}-${index}`}
               className={`carousel-slide ${prevIndex !== null ? (direction === 1 ? 'carousel-enter-right' : 'carousel-enter-left') : 'carousel-steady'}`}
             >
-              <img
-                src={activeImage.src}
-                alt={activeImage.alt}
-                className="carousel-image"
-                loading={index === 0 ? 'eager' : 'lazy'}
-              />
+              <div className="relative h-full w-full">
+                <NextImage
+                  src={activeImage.src}
+                  alt={activeImage.alt}
+                  fill
+                  sizes="(min-width: 1280px) 900px, (min-width: 768px) 720px, 100vw"
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                  priority={index === 0}
+                  className="carousel-image"
+                />
+              </div>
             </div>
           </div>
         </div>

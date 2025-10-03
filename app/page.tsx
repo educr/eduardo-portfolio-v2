@@ -44,7 +44,7 @@ export default async function Home() {
             >
               LinkedIn
             </Link>
-            <a href="https://drive.google.com/file/d/1NEuDrVZdjsjRjHXzOt8q4ZO0CgF-oZIj/view" className="glass-pill">
+             <a href="resume.pdf" className="glass-pill">
               Resume
             </a>
           </div>

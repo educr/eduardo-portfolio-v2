@@ -7,6 +7,7 @@ sector:
 category: 
   - Dashboard
   - AI
+  - Mobile
 featured: true
 role:
   - Visual Design
@@ -30,6 +31,7 @@ Cross-departmental collaboration with UX design, medical physics, and clinical s
 ## Challenges
 
 - The existing tool served some radiation therapy related roles but needed to expand to **radiation therapists**.  
+- Therapists's existing workflows without PlanQ required redundant **clicking and context-switching**
 - **No designers** had ever worked on the project, leading to heavy design debt.  
 - The dashboard’s **large table had too many columns**, requiring constant side-scrolling.  
 - Needed to **introduce and differentiate AI features** in a high-risk clinical context.  
@@ -108,6 +110,12 @@ To validate early concepts, we built **interactive Figma prototypes** and ran **
   className="rounded-xl shadow"
 />
 
+<figure>
+  <img src="/cases/planq/mobile.png" 
+  className="mx-auto w-full max-w-[320px]"/>
+  <figcaption>Card view better allows for mobile responsiveness</figcaption>
+</figure>
+
 ### Patient Details
 - Developed a **distinct style** for AI-generated or AI-flagged content, balancing clarity with clinical safety.  
 
@@ -130,7 +138,13 @@ Although I left MSK before the designs went into production, **user testing yiel
 - Some therapists reported that they **preferred the card view**.  
 - While there was **healthy skepticism toward AI features**, some therapists acknowledged potential value if used with thorough caution.  
 - Filtering **helped therapists quickly locate the data they needed**.  
-- One therapist remarked the design **exceeded expectations**, and some expressed excitement at seeing a workflow tool shaped directly around their needs.  
+- The design garnered **positive sentiment** among therapists seeing a tool shaped directly around their needs.  
+
+<div className="my-5 rounded-[28px] border border-white/40 bg-white/80 p-8 shadow-lg">
+  <blockquote className="text-xl font-semibold leading-relaxed text-fg">
+    "I will tell you that I was a little bit skeptical when I heard about this…but [using it today], I can honestly say like this is very useful for us. I can see why it's useful and why it was put into effect or is being worked on. It is better than I expected, and it is a lot more than I expected."
+  </blockquote>
+</div>
 
 Meanwhile, developers appreciated that the proposed solutions were **grounded in API and integration realities**, which eased adoption discussions.  
 

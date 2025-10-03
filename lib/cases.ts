@@ -20,6 +20,7 @@ export type CaseMeta = {
   year?: number
   date?: string
   yearLabel?: string
+  draft?: boolean
 }
 
 export type CaseEntry = CaseMeta & {
@@ -33,7 +34,11 @@ export async function getAllCases(): Promise<CaseMeta[]> {
       const slug = file.replace(/\.mdx$/, '')
       const raw = fs.readFileSync(path.join(casesDir, file), 'utf8')
       const { data } = matter(raw)
-      const { slug: frontmatterSlug, category, sector, date, year, ...rest } = data as Record<string, unknown>
+      if (data && typeof data === 'object' && 'draft' in data && data.draft === true) {
+        return null
+      }
+
+      const { slug: frontmatterSlug, category, sector, date, year, draft, ...rest } = data as Record<string, unknown>
       const resolvedSector = Array.isArray(sector)
         ? sector
         : typeof sector === 'string' && sector.trim()
@@ -64,9 +69,11 @@ export async function getAllCases(): Promise<CaseMeta[]> {
         category: resolvedCategory,
         year: resolvedYear,
         date: resolvedDate,
-        yearLabel: determineYearLabel(year, resolvedYear)
+        yearLabel: determineYearLabel(year, resolvedYear),
+        draft: draft === true ? true : undefined
       } as CaseMeta
     })
+    .filter((entry): entry is CaseMeta => Boolean(entry))
     .sort((a, b) => getCaseTimestamp(b) - getCaseTimestamp(a))
 }
 
@@ -78,7 +85,11 @@ export async function getCaseBySlug(slug: string): Promise<CaseEntry | null> {
 
   const raw = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(raw)
-  const { slug: frontmatterSlug, category, sector, date, year, ...rest } = data as Record<string, unknown>
+  if (data && typeof data === 'object' && 'draft' in data && data.draft === true) {
+    return null
+  }
+
+  const { slug: frontmatterSlug, category, sector, date, year, draft, ...rest } = data as Record<string, unknown>
   const resolvedSector = Array.isArray(sector)
     ? sector
     : typeof sector === 'string' && sector.trim()
@@ -110,6 +121,7 @@ export async function getCaseBySlug(slug: string): Promise<CaseEntry | null> {
     year: resolvedYear,
     date: resolvedDate,
     yearLabel: determineYearLabel(year, resolvedYear),
+    draft: draft === true ? true : undefined,
     content
   } as CaseEntry
 }
