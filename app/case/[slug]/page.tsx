@@ -4,93 +4,11 @@ import { ArrowLeft } from 'lucide-react'
 import NextImage, { type ImageProps } from 'next/image'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import remarkGfm from 'remark-gfm'
-import type { AnchorHTMLAttributes, CSSProperties, HTMLAttributes, ImgHTMLAttributes, ReactElement } from 'react'
+import type { AnchorHTMLAttributes, HTMLAttributes, ImgHTMLAttributes, ReactElement } from 'react'
 import { getAllCases, getCaseBySlug } from '@/lib/cases'
 import CaseCarousel from '@/components/CaseCarousel'
 import ZoomImage from '@/components/ZoomImage'
-
-const DEFAULT_IMAGE_SIZES = '(min-width: 1280px) 900px, (min-width: 768px) 720px, 100vw'
-const DEFAULT_MIN_HEIGHT = 360
-const DEFAULT_ASPECT = '16 / 9'
-
-function parseDimension(value: unknown): number | undefined {
-  if (typeof value === 'number' && Number.isFinite(value)) {
-    return value
-  }
-  if (typeof value === 'string') {
-    const parsed = Number.parseInt(value, 10)
-    if (Number.isFinite(parsed)) {
-      return parsed
-    }
-  }
-  return undefined
-}
-
-function parseAspect(value: unknown): string | undefined {
-  if (typeof value !== 'string') {
-    return undefined
-  }
-  const cleaned = value.replace(/\s+/g, '')
-  if (!cleaned.includes('/')) {
-    return undefined
-  }
-  const [w, h] = cleaned.split('/')
-  const width = Number.parseFloat(w)
-  const height = Number.parseFloat(h)
-  if (!Number.isFinite(width) || !Number.isFinite(height) || height === 0) {
-    return undefined
-  }
-  return `${width} / ${height}`
-}
-
-function MdxImage(props: ImgHTMLAttributes<HTMLImageElement>) {
-  const { src, alt = '', className, width, height, sizes, loading, style, title } = props
-  if (!src) {
-    return null
-  }
-
-  const numericWidth = parseDimension(width)
-  const numericHeight = parseDimension(height)
-  const dataProps = props as Record<string, unknown>
-  const aspectFromData = parseAspect(dataProps['data-aspect'])
-  const aspectRatio =
-    (numericWidth && numericHeight ? `${numericWidth} / ${numericHeight}` : undefined) ?? aspectFromData ?? DEFAULT_ASPECT
-  const resolvedSizes = typeof sizes === 'string' && sizes.trim().length > 0 ? sizes : DEFAULT_IMAGE_SIZES
-  const loadingMode = loading === 'eager' ? 'eager' : 'lazy'
-  const fitDirective = typeof dataProps['data-fit'] === 'string' ? dataProps['data-fit'] : undefined
-  const objectFitClass = fitDirective === 'cover' ? 'object-cover' : 'object-contain'
-  const unframed =
-    dataProps['data-unframed'] === true ||
-    dataProps['data-unframed'] === 'true' ||
-    dataProps['data-unframed'] === ''
-  const wrapperClasses = [
-    'relative w-full overflow-hidden',
-    unframed ? undefined : 'rounded-[28px] border border-white/20 bg-white/10',
-    className
-  ].filter(Boolean).join(' ')
-
-  const wrapperStyle: CSSProperties = {
-    ...(style as CSSProperties | undefined)
-  }
-
-  wrapperStyle.aspectRatio ??= aspectRatio
-  wrapperStyle.minHeight ??= DEFAULT_MIN_HEIGHT
-
-  return (
-    <div className={wrapperClasses} style={wrapperStyle}>
-      <NextImage
-        src={src}
-        alt={alt}
-        fill
-        sizes={resolvedSizes}
-        loading={loadingMode}
-        priority={loadingMode === 'eager'}
-        className={['h-full w-full', objectFitClass].filter(Boolean).join(' ')}
-        title={title}
-      />
-    </div>
-  )
-}
+import MdxImage from '@/components/MdxImage'
 
 const mdxComponents = {
   hr: () => <div className="my-10 h-px w-full bg-white/40" />,
