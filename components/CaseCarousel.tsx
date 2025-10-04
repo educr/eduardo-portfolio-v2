@@ -20,6 +20,7 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
   const [index, setIndex] = useState(0)
   const [prevIndex, setPrevIndex] = useState<number | null>(null)
   const [direction, setDirection] = useState<1 | -1>(1)
+  const [loadedMap, setLoadedMap] = useState<Record<string, boolean>>({})
   const carouselId = useId()
 
   const normalizedImages = useMemo(() => images.filter(Boolean), [images])
@@ -32,9 +33,15 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
     if (prevIndex === null) {
       return
     }
-    const timeout = setTimeout(() => setPrevIndex(null), 400)
+    const activeImage = normalizedImages[Math.min(index, normalizedImages.length - 1)]
+    const isActiveLoaded = Boolean(loadedMap[activeImage?.src ?? ''])
+    if (!isActiveLoaded) {
+      return
+    }
+
+    const timeout = setTimeout(() => setPrevIndex(null), 280)
     return () => clearTimeout(timeout)
-  }, [prevIndex])
+  }, [prevIndex, index, normalizedImages, loadedMap])
 
   useEffect(() => {
     if (normalizedImages.length <= 1) {
@@ -58,6 +65,10 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
 
   const activeImage = normalizedImages[Math.min(index, normalizedImages.length - 1)]
   const previousImage = prevIndex !== null ? normalizedImages[prevIndex] : null
+  const markLoaded = (src: string) => {
+    if (!src) return
+    setLoadedMap(prev => (prev[src] ? prev : { ...prev, [src]: true }))
+  }
 
   const next = () => {
     if (normalizedImages.length <= 1) return
@@ -103,7 +114,8 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
                     fill
                     sizes="(min-width: 1280px) 900px, (min-width: 768px) 720px, 100vw"
                     loading="lazy"
-                    className="carousel-image"
+                    className={`carousel-image transition-opacity duration-300 ${loadedMap[previousImage.src] ? 'opacity-100' : 'opacity-0'}`}
+                    onLoadingComplete={() => markLoaded(previousImage.src)}
                     aria-hidden
                   />
                 </div>
@@ -121,7 +133,8 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
                   sizes="(min-width: 1280px) 900px, (min-width: 768px) 720px, 100vw"
                   loading={index === 0 ? 'eager' : 'lazy'}
                   priority={index === 0}
-                  className="carousel-image"
+                  className={`carousel-image transition-opacity duration-300 ${loadedMap[activeImage.src] ? 'opacity-100' : 'opacity-0'}`}
+                  onLoadingComplete={() => markLoaded(activeImage.src)}
                 />
               </div>
             </div>

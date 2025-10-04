@@ -115,12 +115,10 @@ export default function CaseGrid({ cases }: { cases: CaseMeta[] }) {
   const hasActiveFilters = sectorFilters.length > 0 || categoryFilters.length > 0 || roleFilters.length > 0
   const activeCount = sectorFilters.length + categoryFilters.length + roleFilters.length
 
-  const toggleClass = (active: boolean) => [
-    'flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 whitespace-nowrap backdrop-blur-md bg-white/40',
-    active
-      ? 'border-accent bg-accent/80 text-white shadow-sm'
-      : 'border-white/40 text-fg/70 hover:border-accent/40 hover:text-fg'
-  ].join(' ')
+const toggleClass = (active: boolean) => [
+  'flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 whitespace-nowrap backdrop-blur-md bg-white/50 text-fg/70 hover:border-accent/40 hover:text-fg',
+  active ? 'border-accent bg-white/90 text-accent shadow-sm' : 'border-white/50'
+].join(' ')
 
   const sections: FilterSection[] = [
     {
@@ -196,7 +194,7 @@ export default function CaseGrid({ cases }: { cases: CaseMeta[] }) {
                             onClick={() => section.toggle(item)}
                             className={toggleClass(active)}
                           >
-                            <span className={['truncate text-sm font-medium', active ? 'text-white' : 'text-fg'].join(' ')}>
+                            <span className={['truncate text-sm font-medium', active ? 'text-accent' : 'text-fg'].join(' ')}>
                               {item}
                             </span>
                           </button>
