@@ -44,7 +44,7 @@ export default async function Home() {
             >
               LinkedIn
             </Link>
-            <a href="/Resume.pdf" className="glass-pill" target="_blank" rel="noopener noreferrer">
+            <a href="/resume.pdf" className="glass-pill" target="_blank" rel="noopener noreferrer">
               Resume
             </a>
           </div>
