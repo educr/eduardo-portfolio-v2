@@ -39,7 +39,7 @@ export default function AboutPage() {
             >
               LinkedIn
             </Link>
-            <a href="resume.pdf" className="glass-pill">
+            <a href="Resume.pdf" className="glass-pill">
               Resume
             </a>
             <a href="https://eduardoandrescrespo.com" className="glass-pill">
