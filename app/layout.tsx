@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${fraunces.variable} ${inter.variable} antialiased`}>
       <body>
         <header className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center border-b border-border">
-          <Link href="/" className="font-semibold">Eduardo Crespo</Link>
+          <Link href="/" className="site-brand">Eduardo Crespo</Link>
           <nav className="flex gap-6 text-sm">
             <Link href="/">Work</Link>
             <Link href="/about">About</Link>

@@ -31,7 +31,7 @@ function CaseCardComponent({ data }: { data: CaseMeta }) {
   return (
     <Link
       href={`/case/${data.slug}`}
-      className="block border border-border rounded-lg bg-white shadow hover:shadow-md transition overflow-hidden"
+      className="block border border-border rounded-lg bg-white opacity-90 shadow hover:shadow-md transition overflow-hidden"
     >
       {data.cover && (
         <div className="relative aspect-[16/9] w-full">

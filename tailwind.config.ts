@@ -9,11 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: "#f5f3f7",
-        fg: "#2c2635",
-        accent: "#8e7cc3",
-        "accent-dark": "#6d5ca6",
-        border: "#e2dce9"
+        bg: "#fef6ff",
+        fg: "#241b2e",
+        accent: "#c66a9b",
+        "accent-dark": "#914b6f",
+        border: "#e4d6e4",
+        role: "#6a74c8",
+        "role-dark": "#4f55a1"
       }
     }
   },

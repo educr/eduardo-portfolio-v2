@@ -6,15 +6,22 @@ html {
   font-family: var(--font-inter), 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
+.site-brand {
+  font-family: var(--font-fraunces), 'Fraunces', ui-serif;
+  font-weight: 600;
+}
+
 body {
   min-height: 100%;
   background-color: theme(colors.bg);
   background-image:
-    radial-gradient(circle at 20% 20%, rgba(158, 135, 210, 0.35), transparent 25%),
-    radial-gradient(circle at 80% 10%, rgba(242, 219, 255, 0.4), transparent 15%),
-    radial-gradient(circle at 50% 80%, rgba(200, 180, 230, 0.22), transparent 25%);
+    linear-gradient(135deg, rgba(198, 106, 165, 0.3), rgba(105, 75, 133, 0.25)),
+    radial-gradient(circle at 18% 22%, rgba(237, 200, 127, 0.18), transparent 45%),
+    radial-gradient(circle at 78% 72%, rgba(147, 119, 168, 0.2), transparent 40%);
+  background-blend-mode: lighten, normal;
   background-attachment: fixed;
   color: theme(colors.fg);
+  position: relative;
 }
 
 @layer base {
@@ -42,6 +49,7 @@ h5,
 h6 {
   font-family: var(--font-fraunces), 'Fraunces', ui-serif;
   font-weight: 600;
+  text-shadow: 0 1px 18px rgba(134, 63, 100, 0.32);
 }
 
 @layer components {
@@ -55,9 +63,9 @@ h6 {
   @media (min-width: 768px) {
     .glass-panel {
       border-color: rgba(255, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.22);
-      box-shadow: 0 20px 45px -25px rgba(57, 41, 94, 0.55);
-      backdrop-filter: blur(32px);
+      background: linear-gradient(150deg, rgba(255, 255, 255, 0.55), rgba(255, 209, 233, 0.267));
+      box-shadow: 0 26px 70px -32px rgba(31, 22, 39, 0.48);
+      backdrop-filter: blur(36px) saturate(122%);
     }
 
     .glass-panel::after {
@@ -65,7 +73,7 @@ h6 {
       position: absolute;
       inset: 1px;
       border-radius: calc(16px - 1px);
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(222, 201, 255, 0.1));
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(179, 93, 137, 0.2));
       opacity: 0;
       transition: opacity 0.3s ease;
       pointer-events: none;
@@ -77,19 +85,20 @@ h6 {
 
   .glass-pill {
     @apply inline-flex items-center justify-center whitespace-nowrap rounded-full border border-white/20 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.22em] text-fg/70 transition-colors duration-200;
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 6px 20px -14px rgba(31, 22, 39, 0.5);
   }
 
   .glass-pill-active {
     @apply text-white;
-    background: linear-gradient(120deg, rgba(142, 124, 195, 0.8), rgba(109, 92, 166, 0.85));
-    border-color: rgba(255, 255, 255, 0.4);
+    background: linear-gradient(132deg, rgba(179, 93, 137, 0.92), rgba(118, 63, 94, 0.9));
+    border-color: rgba(255, 255, 255, 0.55);
   }
 
   .glass-pill:hover,
   .glass-pill:focus-visible {
     color: var(--color-accent-dark);
-    border-color: rgba(142, 124, 195, 0.35);
+    border-color: rgba(179, 93, 137, 0.45);
   }
 
   .tag-chip {
@@ -99,35 +108,37 @@ h6 {
 
   .tag-sector {
     @apply border border-accent/40 text-accent;
-    background: rgba(142, 124, 195, 0.18);
+    background: rgba(179, 93, 137, 0.18);
   }
 
   .tag-sector:hover,
   .tag-sector:focus-visible {
     color: var(--color-accent-dark);
-    border-color: rgba(142, 124, 195, 0.6);
+    border-color: rgba(179, 93, 137, 0.55);
   }
 
   .tag-role {
-    @apply border border-fg/15 text-fg/70;
-    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(106, 116, 200, 0.45);
+    color: #3e437e;
+    background: rgba(106, 116, 200, 0.18);
   }
 
   .tag-role:hover,
   .tag-role:focus-visible {
-    @apply text-fg;
-    border-color: rgba(57, 41, 94, 0.2);
+    color: #2d3164;
+    border-color: rgba(106, 116, 200, 0.65);
   }
 
   .tag-category {
-    @apply border border-emerald-400/40 text-emerald-600;
-    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(237, 200, 127, 0.4);
+    color: #795728;
+    background: rgba(237, 200, 127, 0.22);
   }
 
   .tag-category:hover,
   .tag-category:focus-visible {
-    color: rgb(5, 150, 105);
-    border-color: rgba(16, 185, 129, 0.55);
+    color: #5f451f;
+    border-color: rgba(237, 200, 127, 0.55);
   }
 
   .carousel-slide {

@@ -115,10 +115,28 @@ export default function CaseGrid({ cases }: { cases: CaseMeta[] }) {
   const hasActiveFilters = sectorFilters.length > 0 || categoryFilters.length > 0 || roleFilters.length > 0
   const activeCount = sectorFilters.length + categoryFilters.length + roleFilters.length
 
-const toggleClass = (active: boolean) => [
-  'flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 whitespace-nowrap backdrop-blur-md bg-white/50 text-fg/70 hover:border-accent/40 hover:text-fg',
-  active ? 'border-accent bg-white/90 text-accent shadow-sm' : 'border-white/50'
-].join(' ')
+const filterBaseClass = 'flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30 whitespace-nowrap backdrop-blur-sm'
+
+const filterStyles: Record<FilterSection['key'], { activeButton: string; inactiveButton: string; activeLabel: string; inactiveLabel: string }> = {
+  sector: {
+    activeButton: 'border-accent bg-[rgba(179,93,137,0.18)] text-accent shadow-sm',
+    inactiveButton: 'border-white/40 bg-white/60 text-fg/70 hover:border-accent/35 hover:text-fg',
+    activeLabel: 'text-accent-dark',
+    inactiveLabel: 'text-fg'
+  },
+  category: {
+    activeButton: 'border-[rgba(237,200,127,0.55)] bg-[rgba(237,200,127,0.24)] text-[#6d4a2f] shadow-sm',
+    inactiveButton: 'border-white/40 bg-white/60 text-fg/70 hover:border-[rgba(237,200,127,0.5)] hover:text-fg',
+    activeLabel: 'text-[#6d4a2f]',
+    inactiveLabel: 'text-fg'
+  },
+  role: {
+    activeButton: 'border-role bg-[rgba(106,116,200,0.22)] text-role shadow-sm',
+    inactiveButton: 'border-white/40 bg-white/60 text-fg/70 hover:border-role hover:text-fg',
+    activeLabel: 'text-role-dark',
+    inactiveLabel: 'text-fg'
+  }
+}
 
   const sections: FilterSection[] = [
     {
@@ -187,16 +205,18 @@ const toggleClass = (active: boolean) => [
                     <div className="flex flex-wrap gap-2">
                       {section.items.map(item => {
                         const active = section.filters.includes(item)
+                        const palette = filterStyles[section.key]
+                        const buttonClass = [filterBaseClass, active ? palette.activeButton : palette.inactiveButton].join(' ')
+                        const labelClass = ['truncate text-sm font-medium', active ? palette.activeLabel : palette.inactiveLabel].join(' ')
+
                         return (
                           <button
                             key={`${section.key}-${item}`}
                             type="button"
                             onClick={() => section.toggle(item)}
-                            className={toggleClass(active)}
+                            className={buttonClass}
                           >
-                            <span className={['truncate text-sm font-medium', active ? 'text-accent' : 'text-fg'].join(' ')}>
-                              {item}
-                            </span>
+                            <span className={labelClass}>{item}</span>
                           </button>
                         )
                       })}
