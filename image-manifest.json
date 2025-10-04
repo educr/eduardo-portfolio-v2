@@ -1,0 +1,310 @@
+{
+  "/cases/aya-lounge/cover.jpg": {
+    "width": 1024,
+    "height": 595
+  },
+  "/cases/aya-lounge/existing.png": {
+    "width": 2656,
+    "height": 1976
+  },
+  "/cases/aya-lounge/graph.png": {
+    "width": 2049,
+    "height": 943
+  },
+  "/cases/aya-lounge/hero.png": {
+    "width": 1993,
+    "height": 751
+  },
+  "/cases/aya-lounge/overview.jpg": {
+    "width": 2026,
+    "height": 1212
+  },
+  "/cases/integrate/affinity-diagram.jpg": {
+    "width": 1920,
+    "height": 1719
+  },
+  "/cases/integrate/competitor-matrix.jpg": {
+    "width": 1528,
+    "height": 714
+  },
+  "/cases/integrate/cover.jpg": {
+    "width": 1890,
+    "height": 1267
+  },
+  "/cases/integrate/custom-flags.png": {
+    "width": 1920,
+    "height": 1110
+  },
+  "/cases/integrate/divider-1.png": {
+    "width": 1920,
+    "height": 8
+  },
+  "/cases/integrate/divider-2.png": {
+    "width": 1920,
+    "height": 8
+  },
+  "/cases/integrate/insights-ladder.jpg": {
+    "width": 1920,
+    "height": 1728
+  },
+  "/cases/integrate/journey-map.jpg": {
+    "width": 3840,
+    "height": 1836
+  },
+  "/cases/integrate/sketches.jpg": {
+    "width": 1920,
+    "height": 1777
+  },
+  "/cases/integrate/widget-behavior.png": {
+    "width": 1920,
+    "height": 1110
+  },
+  "/cases/integrate/wireframes.jpg": {
+    "width": 1920,
+    "height": 2269
+  },
+  "/cases/mass-times/cover.png": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/mass-times/final-prototype-1 2.png": {
+    "width": 1762,
+    "height": 769
+  },
+  "/cases/mass-times/final-prototype-1.png": {
+    "width": 1762,
+    "height": 769
+  },
+  "/cases/mass-times/general-painpoints.jpg": {
+    "width": 1920,
+    "height": 1456
+  },
+  "/cases/mass-times/ideation.jpg": {
+    "width": 1920,
+    "height": 918
+  },
+  "/cases/mass-times/interviews.png.jpg": {
+    "width": 1500,
+    "height": 1977
+  },
+  "/cases/mass-times/journey-angela.png": {
+    "width": 1920,
+    "height": 974
+  },
+  "/cases/mass-times/journey-robert.png": {
+    "width": 1920,
+    "height": 974
+  },
+  "/cases/mass-times/original-sites.png": {
+    "width": 1824,
+    "height": 806
+  },
+  "/cases/mass-times/persona-angela.png": {
+    "width": 1200,
+    "height": 939
+  },
+  "/cases/mass-times/persona-robert.png": {
+    "width": 1200,
+    "height": 939
+  },
+  "/cases/mass-times/tag-reviews.png": {
+    "width": 3840,
+    "height": 1184
+  },
+  "/cases/mass-times/wireframes-1.png": {
+    "width": 1920,
+    "height": 602
+  },
+  "/cases/mass-times/wireframes-2.png": {
+    "width": 1440,
+    "height": 1174
+  },
+  "/cases/mass-times/wireframes-3.png": {
+    "width": 1440,
+    "height": 1174
+  },
+  "/cases/msk-ds/audit-1.png": {
+    "width": 2118,
+    "height": 1602
+  },
+  "/cases/msk-ds/audit-2.png": {
+    "width": 1774,
+    "height": 2296
+  },
+  "/cases/msk-ds/audit-3.png": {
+    "width": 1545,
+    "height": 1770
+  },
+  "/cases/msk-ds/button.png": {
+    "width": 2036,
+    "height": 1554
+  },
+  "/cases/msk-ds/cover.jpg": {
+    "width": 2917,
+    "height": 1667
+  },
+  "/cases/msk-ds/desktop.png": {
+    "width": 3840,
+    "height": 2160
+  },
+  "/cases/msk-ds/drawer.png": {
+    "width": 2054,
+    "height": 2872
+  },
+  "/cases/msk-ds/modes.png": {
+    "width": 1920,
+    "height": 1097
+  },
+  "/cases/msk-ds/switch.png": {
+    "width": 2070,
+    "height": 1374
+  },
+  "/cases/msk-ds/tag.png": {
+    "width": 2466,
+    "height": 1524
+  },
+  "/cases/msk-ds/tokens.png": {
+    "width": 1908,
+    "height": 492
+  },
+  "/cases/msk-ds/use-1.png": {
+    "width": 1537,
+    "height": 972
+  },
+  "/cases/msk-ds/use-2.png": {
+    "width": 1537,
+    "height": 972
+  },
+  "/cases/msk-ds/use-3.png": {
+    "width": 1537,
+    "height": 972
+  },
+  "/cases/msk-ds/use-4.png": {
+    "width": 1537,
+    "height": 971
+  },
+  "/cases/msk-ds/use-5.png": {
+    "width": 1537,
+    "height": 971
+  },
+  "/cases/msk-ds/use-6.png": {
+    "width": 1537,
+    "height": 971
+  },
+  "/cases/msk-patient-guide/award.jpg": {
+    "width": 2560,
+    "height": 1707
+  },
+  "/cases/msk-patient-guide/cover.jpg": {
+    "width": 3840,
+    "height": 2160
+  },
+  "/cases/msk-patient-guide/hero.png": {
+    "width": 3840,
+    "height": 2160
+  },
+  "/cases/msk-patient-guide/iteration-1-2.png": {
+    "width": 8268,
+    "height": 6198
+  },
+  "/cases/msk-patient-guide/iteration-3.png": {
+    "width": 1920,
+    "height": 2347
+  },
+  "/cases/planq/ai.png": {
+    "width": 1262,
+    "height": 740
+  },
+  "/cases/planq/audit.jpg": {
+    "width": 1457,
+    "height": 552
+  },
+  "/cases/planq/card-view.png": {
+    "width": 1844,
+    "height": 1142
+  },
+  "/cases/planq/cover.jpg": {
+    "width": 1268,
+    "height": 1024
+  },
+  "/cases/planq/hero.png": {
+    "width": 1094,
+    "height": 716
+  },
+  "/cases/planq/mobile.png": {
+    "width": 890,
+    "height": 1926
+  },
+  "/cases/planq/observation-1.jpg": {
+    "width": 2000,
+    "height": 1500
+  },
+  "/cases/planq/observation-2.jpg": {
+    "width": 2000,
+    "height": 1125
+  },
+  "/cases/planq/observation-3.jpg": {
+    "width": 4032,
+    "height": 3024
+  },
+  "/cases/planq/observation-4.jpg": {
+    "width": 2000,
+    "height": 1500
+  },
+  "/cases/planq/observation-5.jpg": {
+    "width": 2000,
+    "height": 1500
+  },
+  "/cases/planq/observation-6.jpg": {
+    "width": 2000,
+    "height": 1500
+  },
+  "/cases/planq/workshop.jpg": {
+    "width": 2000,
+    "height": 973
+  },
+  "/cases/stealth/add-user.png": {
+    "width": 1296,
+    "height": 735
+  },
+  "/cases/stealth/cover.png": {
+    "width": 1130,
+    "height": 640
+  },
+  "/cases/stealth/design-system.png": {
+    "width": 1260,
+    "height": 1057
+  },
+  "/cases/stealth/flow-diagram.png": {
+    "width": 1800,
+    "height": 469
+  },
+  "/cases/stealth/icons.png": {
+    "width": 1296,
+    "height": 1695
+  },
+  "/cases/stealth/patient-flow.png": {
+    "width": 1440,
+    "height": 2784
+  },
+  "/cases/stealth/patient-portal.png": {
+    "width": 1200,
+    "height": 845
+  },
+  "/cases/stealth/provider-flow.png": {
+    "width": 1920,
+    "height": 772
+  },
+  "/cases/stealth/provider-portal.png": {
+    "width": 1920,
+    "height": 8
+  },
+  "/cases/stealth/wireframes.png": {
+    "width": 1440,
+    "height": 679
+  },
+  "/me.jpeg": {
+    "width": 886,
+    "height": 886
+  }
+}

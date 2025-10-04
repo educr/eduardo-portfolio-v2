@@ -17,7 +17,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'Eduardo Crespo — Product Designer',
-  description: 'Portfolio of Eduardo Crespo, product designer focused on healthcare UX.'
+  description: 'Portfolio of Eduardo Crespo, product designer focused on healthcare UX.',
+  icons: {
+    icon: "/favicon.ico", // or "/favicon.png" or even multiple
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

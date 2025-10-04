@@ -25,6 +25,27 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
 
   const normalizedImages = useMemo(() => images.filter(Boolean), [images])
 
+  const parseAspect = (value: string | number | undefined) => {
+    if (!value) {
+      return undefined
+    }
+    if (typeof value === 'number') {
+      return value
+    }
+    if (value.includes('/')) {
+      const [w, h] = value.split('/')
+      const width = Number.parseFloat(w)
+      const height = Number.parseFloat(h)
+      if (Number.isFinite(width) && Number.isFinite(height) && height !== 0) {
+        return width / height
+      }
+    }
+    const numeric = Number.parseFloat(value)
+    return Number.isFinite(numeric) ? numeric : undefined
+  }
+
+  const preferredAspect = parseAspect(aspect) ?? 16 / 9
+
   useEffect(() => {
     setIndex(prev => (normalizedImages.length ? Math.min(prev, normalizedImages.length - 1) : 0))
   }, [normalizedImages.length])
@@ -70,6 +91,24 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
     setLoadedMap(prev => (prev[src] ? prev : { ...prev, [src]: true }))
   }
 
+  useEffect(() => {
+    if (normalizedImages.length) {
+      markLoaded(normalizedImages[0].src)
+    }
+  }, [normalizedImages])
+
+  useEffect(() => {
+    normalizedImages.forEach(image => {
+      if (!image?.src || loadedMap[image.src]) {
+        return
+      }
+
+      const preload = new window.Image()
+      preload.src = image.src
+      preload.onload = () => markLoaded(image.src)
+    })
+  }, [normalizedImages, loadedMap])
+
   const next = () => {
     if (normalizedImages.length <= 1) return
     setIndex(prev => {
@@ -103,7 +142,7 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
   return (
     <figure className="my-10 space-y-4">
       <div className="relative">
-        <div className="relative w-full" style={{ aspectRatio: aspect }}>
+        <div className="relative w-full" style={{ aspectRatio: preferredAspect, minHeight: 320 }}>
           <div className="absolute inset-0">
             {previousImage ? (
               <div className={`carousel-slide ${direction === 1 ? 'carousel-exit-left' : 'carousel-exit-right'}`}>
