@@ -55,24 +55,24 @@ How do you create a **single design system** that works for:
 
 ## Early Days
 
-In 2021, MSK's products were siloed and diverged in front-end solutions, with the effect of visual inconsistencies across the board.
+In 2021, **MSK's products were siloed** and diverged in front-end solutions, mired in **visual inconsistencies** across the board.
 
 <Carousel
   images={[
-    {
-      src: '/cases/msk-ds/audit-1.png',
+        {
+      src: '/cases/msk-ds/compilation-1.jpg',
       alt: ''
     },
-    {
-      src: '/cases/msk-ds/audit-2.png',
+            {
+      src: '/cases/msk-ds/compilation-2.jpg',
       alt: ''
     },
-    {
-      src: '/cases/msk-ds/audit-3.png',
+            {
+      src: '/cases/msk-ds/compilation-3.jpg',
       alt: ''
     }
   ]}
-  caption="Audit of MSK's products, channels, and artifacts"
+  caption="Header components uncovered during audit"
 />
 
 We proceeded by customizing fork of **IBM’s Carbon Design System** (Figma + code).  
@@ -86,6 +86,23 @@ Our solution: a **dual style strategy**.
 - **Gotham** → friendly, large-scale typography for consumer apps  
 - **Source Sans Pro** → compact, legible typeface for staff interfaces  
 
+### Initial outcomes
+<div className="mt-10 rounded-[32px] bg-white/55 px-6 py-8 shadow-inner shadow-[#914b6f0d] ring-1 ring-white/40 backdrop-blur">
+  <dl className="grid gap-6 text-center text-sm text-fg/70 sm:grid-cols-3">
+    <div className="flex flex-col items-center gap-1">
+      <dt className="text-lg font-semibold text-fg">64%</dt>
+      <dd className="font-medium uppercase tracking-[0.25em] text-fg/60">Efficiency gain</dd>
+    </div>
+    <div className="flex flex-col items-center gap-1">
+      <dt className="text-lg font-semibold text-fg">15</dt>
+      <dd className="font-medium uppercase tracking-[0.25em] text-fg/60">Integrations</dd>
+    </div>
+    <div className="flex flex-col items-center gap-1">
+      <dt className="text-lg font-semibold text-fg">18</dt>
+      <dd className="font-medium uppercase tracking-[0.25em] text-fg/60">Components</dd>
+    </div>
+  </dl>
+</div>
 <Carousel
   images={[
     {
@@ -115,6 +132,8 @@ Our solution: a **dual style strategy**.
   ]}
   caption="Selected implementations across the org"
 />
+
+
 
 ---
 
