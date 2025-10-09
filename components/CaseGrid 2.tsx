@@ -1,0 +1,313 @@
+'use client'
+
+import { useDeferredValue, useEffect, useMemo, useRef, useState, useTransition } from 'react'
+import { Check, ChevronDown, RotateCcw } from 'lucide-react'
+import CaseCard from '@/components/CaseCard'
+import type { CaseMeta } from '@/lib/cases'
+
+export default function CaseGrid({ cases }: { cases: CaseMeta[] }) {
+  const [sectorFilters, setSectorFilters] = useState<string[]>([])
+  const [categoryFilters, setCategoryFilters] = useState<string[]>([])
+  const [roleFilters, setRoleFilters] = useState<string[]>([])
+  const [sectorOpen, setSectorOpen] = useState(false)
+  const [categoryOpen, setCategoryOpen] = useState(false)
+  const [roleOpen, setRoleOpen] = useState(false)
+  const [isPending, startTransition] = useTransition()
+  const sectorRef = useRef<HTMLDivElement>(null)
+  const categoryRef = useRef<HTMLDivElement>(null)
+  const roleRef = useRef<HTMLDivElement>(null)
+
+  const deferredCases = useDeferredValue(cases)
+  const deferredSectorFilters = useDeferredValue(sectorFilters)
+  const deferredCategoryFilters = useDeferredValue(categoryFilters)
+  const deferredRoleFilters = useDeferredValue(roleFilters)
+
+  const sectors = useMemo(
+    () => Array.from(new Set(deferredCases.flatMap(c => c.sector ?? []))).sort(),
+    [deferredCases]
+  )
+  const categories = useMemo(
+    () => Array.from(new Set(deferredCases.flatMap(c => c.category ?? []))).sort(),
+    [deferredCases]
+  )
+  const roles = useMemo(
+    () => Array.from(new Set(deferredCases.flatMap(c => c.role ?? []))).sort(),
+    [deferredCases]
+  )
+
+  const sectorFilterSet = useMemo(() => new Set(deferredSectorFilters), [deferredSectorFilters])
+  const categoryFilterSet = useMemo(() => new Set(deferredCategoryFilters), [deferredCategoryFilters])
+  const roleFilterSet = useMemo(() => new Set(deferredRoleFilters), [deferredRoleFilters])
+
+  const filtered = useMemo(() => {
+    if (!sectorFilterSet.size && !categoryFilterSet.size && !roleFilterSet.size) {
+      return deferredCases
+    }
+
+    return deferredCases.filter(caseItem => {
+      const caseSectors = caseItem.sector ?? []
+      const caseCategories = caseItem.category ?? []
+      const caseRoles = caseItem.role ?? []
+
+      const sectorMatch = !sectorFilterSet.size || caseSectors.some(sector => sectorFilterSet.has(sector))
+      if (!sectorMatch) {
+        return false
+      }
+
+      const categoryMatch = !categoryFilterSet.size || caseCategories.some(category => categoryFilterSet.has(category))
+      if (!categoryMatch) {
+        return false
+      }
+
+      const roleMatch = !roleFilterSet.size || caseRoles.some(role => roleFilterSet.has(role))
+      return roleMatch
+    })
+  }, [deferredCases, sectorFilterSet, categoryFilterSet, roleFilterSet])
+
+  useEffect(() => {
+    function handleClick(event: MouseEvent) {
+      const target = event.target as Node
+      if (sectorOpen && sectorRef.current && !sectorRef.current.contains(target)) {
+        setSectorOpen(false)
+      }
+      if (categoryOpen && categoryRef.current && !categoryRef.current.contains(target)) {
+        setCategoryOpen(false)
+      }
+      if (roleOpen && roleRef.current && !roleRef.current.contains(target)) {
+        setRoleOpen(false)
+      }
+    }
+
+    if (sectorOpen || categoryOpen || roleOpen) {
+      window.addEventListener('mousedown', handleClick)
+      return () => window.removeEventListener('mousedown', handleClick)
+    }
+    return undefined
+  }, [sectorOpen, categoryOpen, roleOpen])
+
+  const toggleSector = (value: string) => {
+    startTransition(() => {
+      setSectorFilters(prev => prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value])
+    })
+  }
+
+  const toggleCategory = (value: string) => {
+    startTransition(() => {
+      setCategoryFilters(prev => prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value])
+    })
+  }
+
+  const toggleRole = (value: string) => {
+    startTransition(() => {
+      setRoleFilters(prev => prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value])
+    })
+  }
+
+  const resetFilters = () => {
+    startTransition(() => {
+      setSectorFilters([])
+      setCategoryFilters([])
+      setRoleFilters([])
+      setSectorOpen(false)
+      setCategoryOpen(false)
+      setRoleOpen(false)
+    })
+  }
+
+  const hasActiveFilters = sectorFilters.length > 0 || categoryFilters.length > 0 || roleFilters.length > 0
+
+  const triggerClass = (active: boolean, open: boolean) => [
+    'inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40',
+    active || open
+      ? 'border-accent bg-accent text-white shadow-sm'
+      : 'border-white/40 bg-white/80 text-fg/70 hover:border-accent/40 hover:text-fg'
+  ].join(' ')
+
+  const optionClass = (checked: boolean) => [
+    'flex items-center justify-between gap-4 rounded-full border px-4 py-1.5 text-sm font-medium transition-colors whitespace-nowrap',
+    checked
+      ? 'border-accent/60 bg-accent/15 text-fg'
+      : 'border-transparent bg-white/60 text-fg/70 hover:border-accent/30 hover:text-fg'
+  ].join(' ')
+
+  return (
+    <div className="flex flex-col gap-6" aria-busy={isPending}>
+      {sectorOpen || categoryOpen || roleOpen ? (
+        <button
+          type="button"
+          aria-hidden="true"
+          tabIndex={-1}
+          className="fixed inset-0 z-20 cursor-default bg-transparent"
+          onClick={() => {
+            setSectorOpen(false)
+            setRoleOpen(false)
+          }}
+        />
+      ) : null}
+      <div className="flex flex-wrap items-center gap-3">
+        {sectors.length ? (
+          <div className="relative z-30" ref={sectorRef}>
+            <button
+              type="button"
+              onClick={() => setSectorOpen(open => !open)}
+              className={triggerClass(Boolean(sectorFilters.length), sectorOpen)}
+            >
+              <span>{sectorFilters.length ? `${sectorFilters.length} sector${sectorFilters.length > 1 ? 's' : ''}` : 'All Sectors'}</span>
+              <ChevronDown className={`h-4 w-4 transition ${sectorOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {sectorOpen ? (
+              <div className="absolute left-1/2 top-[calc(100%+0.75rem)] z-40 w-[min(90vw,320px)] -translate-x-1/2 space-y-3 rounded-3xl border border-white/60 bg-white p-5 shadow-xl sm:left-0 sm:w-auto sm:min-w-[220px] sm:translate-x-0">
+                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-fg/50">
+                  <span>Sector</span>
+                  {sectorFilters.length ? (
+                    <button
+                      type="button"
+                      className="text-accent underline-offset-4 hover:underline"
+                      onClick={() => setSectorFilters([])}
+                    >
+                      Clear
+                    </button>
+                  ) : null}
+                </div>
+                <div className="flex flex-col gap-2">
+                  {sectors.map(sector => {
+                    const checked = sectorFilters.includes(sector)
+                    return (
+                      <button
+                        key={sector}
+                        type="button"
+                        onClick={() => toggleSector(sector)}
+                        className={optionClass(checked)}
+                      >
+                        <span className="truncate">{sector}</span>
+                        {checked ? <Check className="h-4 w-4 text-accent" /> : null}
+                      </button>
+                    )
+                  })}
+                  {!sectors.length ? (
+                    <p className="text-xs text-fg/50">No sectors available.</p>
+                  ) : null}
+                </div>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
+
+        {categories.length ? (
+          <div className="relative z-30" ref={categoryRef}>
+            <button
+              type="button"
+              onClick={() => setCategoryOpen(open => !open)}
+              className={triggerClass(Boolean(categoryFilters.length), categoryOpen)}
+            >
+              <span>{categoryFilters.length ? `${categoryFilters.length} ${categoryFilters.length > 1 ? 'categories' : 'category'}` : 'All Categories'}</span>
+              <ChevronDown className={`h-4 w-4 transition ${categoryOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {categoryOpen ? (
+              <div className="absolute left-1/2 top-[calc(100%+0.75rem)] z-40 w-[min(90vw,320px)] -translate-x-1/2 space-y-3 rounded-3xl border border-white/60 bg-white p-5 shadow-xl sm:left-0 sm:w-auto sm:min-w-[220px] sm:translate-x-0">
+                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-fg/50">
+                  <span>Categories</span>
+                  {categoryFilters.length ? (
+                    <button
+                      type="button"
+                      className="text-accent underline-offset-4 hover:underline"
+                      onClick={() => setCategoryFilters([])}
+                    >
+                      Clear
+                    </button>
+                  ) : null}
+                </div>
+                <div className="flex flex-col gap-2">
+                  {categories.map(category => {
+                    const checked = categoryFilters.includes(category)
+                    return (
+                      <button
+                        key={category}
+                        type="button"
+                        onClick={() => toggleCategory(category)}
+                        className={optionClass(checked)}
+                      >
+                        <span className="truncate">{category}</span>
+                        {checked ? <Check className="h-4 w-4 text-accent" /> : null}
+                      </button>
+                    )
+                  })}
+                  {!categories.length ? (
+                    <p className="text-xs text-fg/50">No categories available.</p>
+                  ) : null}
+                </div>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
+
+        {roles.length ? (
+          <div className="relative z-30" ref={roleRef}>
+            <button
+              type="button"
+              onClick={() => setRoleOpen(open => !open)}
+              className={triggerClass(Boolean(roleFilters.length), roleOpen)}
+            >
+              <span>{roleFilters.length ? `${roleFilters.length} role${roleFilters.length > 1 ? 's' : ''}` : 'All Roles'}</span>
+              <ChevronDown className={`h-4 w-4 transition ${roleOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {roleOpen ? (
+              <div className="absolute left-1/2 top-[calc(100%+0.75rem)] z-40 w-[min(90vw,320px)] -translate-x-1/2 space-y-3 rounded-3xl border border-white/60 bg-white p-5 shadow-xl sm:left-0 sm:w-auto sm:min-w-[220px] sm:translate-x-0">
+                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-fg/50">
+                  <span>Roles</span>
+                  {roleFilters.length ? (
+                    <button
+                      type="button"
+                      className="text-accent underline-offset-4 hover:underline"
+                      onClick={() => setRoleFilters([])}
+                    >
+                      Clear
+                    </button>
+                  ) : null}
+                </div>
+                <div className="flex flex-col gap-2">
+                  {roles.map(role => {
+                    const checked = roleFilters.includes(role)
+                    return (
+                      <button
+                        key={role}
+                        type="button"
+                        onClick={() => toggleRole(role)}
+                        className={optionClass(checked)}
+                      >
+                        <span className="truncate">{role}</span>
+                        {checked ? <Check className="h-4 w-4 text-accent" /> : null}
+                      </button>
+                    )
+                  })}
+                  {!roles.length ? (
+                    <p className="text-xs text-fg/50">No roles available.</p>
+                  ) : null}
+                </div>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
+
+        {hasActiveFilters ? (
+          <button
+            type="button"
+            onClick={resetFilters}
+            className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/70 px-4 py-2 text-sm font-medium text-fg/70 shadow-sm transition hover:border-accent/40 hover:text-fg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+          >
+            <RotateCcw className="h-4 w-4" /> Reset
+          </button>
+        ) : null}
+      </div>
+
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {filtered.map(c => (
+          <CaseCard key={c.slug} data={c} />
+        ))}
+      </div>
+    </div>
+  )
+}

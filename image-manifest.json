@@ -1,4 +1,8 @@
 {
+  "/cases/aya-lounge/cover 2.jpg": {
+    "width": 1024,
+    "height": 595
+  },
   "/cases/aya-lounge/cover.jpg": {
     "width": 1024,
     "height": 595
@@ -139,9 +143,21 @@
     "width": 2036,
     "height": 1554
   },
+  "/cases/msk-ds/compilation-1.jpg": {
+    "width": 2000,
+    "height": 1125
+  },
+  "/cases/msk-ds/compilation-2.jpg": {
+    "width": 2000,
+    "height": 1125
+  },
+  "/cases/msk-ds/compilation-3.jpg": {
+    "width": 2000,
+    "height": 1125
+  },
   "/cases/msk-ds/cover.jpg": {
-    "width": 2917,
-    "height": 1667
+    "width": 2890,
+    "height": 1640
   },
   "/cases/msk-ds/desktop.png": {
     "width": 3840,
@@ -211,6 +227,94 @@
     "width": 1920,
     "height": 2347
   },
+  "/cases/pert/cover.png": {
+    "width": 3208,
+    "height": 1626
+  },
+  "/cases/pert/hero.png": {
+    "width": 3208,
+    "height": 1581
+  },
+  "/cases/pert/slide.002.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.003.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.004.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.005.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.006.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.007.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.008.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.009.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.010.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.011.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.012.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.013.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.014.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.015.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.016.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.017.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.018.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.019.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.020.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
+  "/cases/pert/slide.021.jpeg": {
+    "width": 1920,
+    "height": 1080
+  },
   "/cases/planq/ai.png": {
     "width": 1262,
     "height": 740
@@ -258,6 +362,10 @@
   "/cases/planq/observation-6.jpg": {
     "width": 2000,
     "height": 1500
+  },
+  "/cases/planq/workshop-board.png": {
+    "width": 2730,
+    "height": 2586
   },
   "/cases/planq/workshop.jpg": {
     "width": 2000,
