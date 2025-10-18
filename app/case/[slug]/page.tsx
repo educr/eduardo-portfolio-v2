@@ -109,7 +109,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
   })()
 
   return (
-    <div className="page-fade relative mx-auto flex max-w-5xl flex-col gap-6 px-6 py-16">
+    <div className="page-fade relative mx-auto flex max-w-5xl flex-col gap-6 px-4 py-16 sm:px-6">
       <div className="pointer-events-none absolute -left-16 top-40 h-64 w-64 rounded-full bg-accent/25 blur-3xl" />
       <div className="pointer-events-none absolute right-0 top-8 h-80 w-80 rounded-full bg-white/40 blur-3xl" />
 
@@ -120,7 +120,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
         <ArrowLeft className="h-4 w-4" /> back to work
       </Link>
 
-      <article className="glass-panel p-10">
+      <article className="glass-panel p-6 sm:p-8 md:p-10">
         <header className="flex flex-col gap-4">
           {(displayDate || sectors.length || categories.length || roles.length) ? (
             <div className="flex flex-wrap items-center gap-2">

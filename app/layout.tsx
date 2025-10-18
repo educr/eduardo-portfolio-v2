@@ -27,15 +27,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable} antialiased`}>
       <body>
-        <header className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center border-b border-border">
+        <header className="max-w-6xl mx-auto px-3 py-4 flex justify-between items-center border-b border-border sm:px-4">
           <Link href="/" className="site-brand">Eduardo Crespo</Link>
           <nav className="flex gap-6 text-sm">
             <Link href="/">Work</Link>
             <Link href="/about">About</Link>
           </nav>
         </header>
-        <main className="max-w-6xl mx-auto px-4">{children}</main>
-        <footer className="max-w-6xl mx-auto px-4 py-8 text-sm text-fg/70 border-t border-border mt-12">
+        <main className="max-w-6xl mx-auto px-3 sm:px-4">{children}</main>
+        <footer className="max-w-6xl mx-auto px-3 py-8 text-sm text-fg/70 border-t border-border mt-12 sm:px-4">
           © {new Date().getFullYear()} Eduardo Crespo
         </footer>
       </body>

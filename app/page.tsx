@@ -10,12 +10,12 @@ export default async function Home() {
   const others = cases.filter(c => !c.featured)
 
   return (
-    <div className="page-fade relative mx-auto flex max-w-6xl flex-col gap-16 px-6 pb-24 pt-16">
+    <div className="page-fade relative mx-auto flex max-w-6xl flex-col gap-16 px-4 pb-24 pt-16 sm:px-6">
       <div className="pointer-events-none absolute -left-10 top-24 h-56 w-56 rounded-full bg-accent/20 blur-3xl" />
       <div className="pointer-events-none absolute right-8 top-0 h-72 w-72 rounded-full bg-white/40 blur-3xl" />
 
       {/* Hero */}
-      <section className="glass-panel relative grid gap-10 px-4 py-6 md:grid-cols-[auto,1fr] md:items-center md:gap-12 md:px-8 md:py-10">
+      <section className="glass-panel relative grid gap-10 px-3 py-6 sm:px-4 md:grid-cols-[auto,1fr] md:items-center md:gap-12 md:px-8 md:py-10">
         <div className="pointer-events-none absolute -left-16 top-6 hidden h-44 w-44 rounded-full bg-white/30 blur-3xl md:block" />
         <div className="pointer-events-none absolute right-4 bottom-4 hidden h-40 w-40 rounded-full bg-accent/20 blur-3xl md:block" />
 
@@ -52,7 +52,7 @@ export default async function Home() {
       </section>
 
       {/* Featured */}
-      <section className="glass-panel space-y-6 px-4 py-6 md:px-8 md:py-10">
+      <section className="glass-panel space-y-6 px-3 py-6 sm:px-4 md:px-8 md:py-10">
         <div className="flex flex-col gap-2 text-center md:text-left">
           <h2 className="text-2xl font-semibold text-fg/90">Highlighted Projects</h2>
         </div>
@@ -62,7 +62,7 @@ export default async function Home() {
       </section>
 
       {/* All cases with filters */}
-      <section className="glass-panel space-y-6 px-4 py-6 md:px-8 md:py-10">
+      <section className="glass-panel space-y-6 px-3 py-6 sm:px-4 md:px-8 md:py-10">
         <div className="flex flex-col gap-2 text-center md:text-left">
           <h2 className="text-2xl font-semibold text-fg/90">All Work</h2>
         </div>

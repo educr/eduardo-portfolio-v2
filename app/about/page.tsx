@@ -5,11 +5,11 @@ export const metadata = { title: 'About' }
 
 export default function AboutPage() {
   return (
-    <div className="page-fade relative mx-auto flex max-w-5xl flex-col gap-12 px-6 py-16">
+    <div className="page-fade relative mx-auto flex max-w-5xl flex-col gap-12 px-4 py-16 sm:px-6">
       <div className="pointer-events-none absolute -left-14 top-20 h-56 w-56 rounded-full bg-accent/15 blur-3xl" />
       <div className="pointer-events-none absolute right-6 top-0 h-64 w-64 rounded-full bg-white/35 blur-3xl" />
 
-      <section className="glass-panel relative flex flex-col items-center gap-8 px-4 py-6 md:px-8 md:py-10">
+      <section className="glass-panel relative flex flex-col items-center gap-8 px-3 py-6 sm:px-4 md:px-8 md:py-10">
         <div className="pointer-events-none absolute -left-16 top-6 hidden h-44 w-44 rounded-full bg-white/30 blur-3xl md:block" />
         <div className="pointer-events-none absolute right-4 bottom-4 hidden h-40 w-40 rounded-full bg-accent/25 blur-3xl md:block" />
 
