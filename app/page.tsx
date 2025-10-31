@@ -10,7 +10,7 @@ export default async function Home() {
   const others = cases.filter(c => !c.featured)
 
   return (
-    <div className="page-fade relative mx-auto flex max-w-6xl flex-col gap-16 px-4 pb-24 pt-16 sm:px-6">
+    <div className="page-fade relative mx-auto flex max-w-6xl flex-col gap-16 pb-24 pt-16">
       <div className="pointer-events-none absolute -left-10 top-24 h-56 w-56 rounded-full bg-accent/20 blur-3xl" />
       <div className="pointer-events-none absolute right-8 top-0 h-72 w-72 rounded-full bg-white/40 blur-3xl" />
 
