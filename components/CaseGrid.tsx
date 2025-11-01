@@ -119,19 +119,19 @@ const filterBaseClass = 'flex items-center gap-2 rounded-full border px-3 py-1.5
 
 const filterStyles: Record<FilterSection['key'], { activeButton: string; inactiveButton: string; activeLabel: string; inactiveLabel: string }> = {
   sector: {
-    activeButton: 'border-accent bg-[rgba(179,93,137,0.18)] text-accent shadow-sm',
-    inactiveButton: 'border-white/40 bg-white/60 text-fg/70 hover:border-accent/35 hover:text-fg',
+    activeButton: 'border-accent bg-[rgba(47,158,153,0.18)] text-accent shadow-sm',
+    inactiveButton: 'border-white/40 bg-white/60 text-fg/70 hover:border-accent/40 hover:text-fg',
     activeLabel: 'text-accent-dark',
     inactiveLabel: 'text-fg'
   },
   category: {
-    activeButton: 'border-[rgba(237,200,127,0.55)] bg-[rgba(237,200,127,0.24)] text-[#6d4a2f] shadow-sm',
-    inactiveButton: 'border-white/40 bg-white/60 text-fg/70 hover:border-[rgba(237,200,127,0.5)] hover:text-fg',
-    activeLabel: 'text-[#6d4a2f]',
+    activeButton: 'border-[rgba(122,201,138,0.55)] bg-[rgba(122,201,138,0.24)] text-[#256845] shadow-sm',
+    inactiveButton: 'border-white/40 bg-white/60 text-fg/70 hover:border-[rgba(122,201,138,0.5)] hover:text-fg',
+    activeLabel: 'text-[#1f5538]',
     inactiveLabel: 'text-fg'
   },
   role: {
-    activeButton: 'border-role bg-[rgba(106,116,200,0.22)] text-role shadow-sm',
+    activeButton: 'border-role bg-[rgba(37,99,235,0.22)] text-role shadow-sm',
     inactiveButton: 'border-white/40 bg-white/60 text-fg/70 hover:border-role hover:text-fg',
     activeLabel: 'text-role-dark',
     inactiveLabel: 'text-fg'
