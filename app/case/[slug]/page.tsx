@@ -11,7 +11,7 @@ import ZoomImage from '@/components/ZoomImage'
 import MdxImage from '@/components/MdxImage'
 
 const mdxComponents = {
-  hr: () => <div className="my-10 h-px w-full bg-white/40" />,
+  hr: () => <div className="my-10 h-px w-full bg-bg" />,
   img: (props: ImgHTMLAttributes<HTMLImageElement>) => <MdxImage {...props} />,
   figure: ({ children, ...props }: HTMLAttributes<HTMLElement>) => (
     <figure
