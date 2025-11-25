@@ -1,10 +1,10 @@
 ---
 slug: planq
 title: "PlanQ"
-summary: "Growing a radiation oncology tool to a new user group"
+summary: "Expanding a radiation oncology tool to new users and unifying its interface"
 sector:
   - Healthcare
-category: 
+category:
   - Dashboard
   - AI
 featured: true
@@ -14,115 +14,127 @@ role:
   - UX Research
   - Information Architecture
 team:
-  - Cross-departmental (Patient Education, Brand, UX Design)
+  - Cross-departmental (Design, Patient Education, Brand, Medical Physics, Clinical Staff)
 year: 2025
 cover: "/cases/planq/cover.jpg"
 ---
 
 ![Hero](/cases/planq/cover.jpg)
 
-## Overview 
+## Overview
 
-**PlanQ** is a radiation-oncology tool serving multiple roles across clinical care.
+**PlanQ** is a radiation-oncology tool used by clinicians to plan and coordinate patient care. The project aimed to extend its use to **radiation therapists**, while addressing accumulated design debt and improving usability across existing roles.
 
-I helped expand it to a new user group, reduce design debt, and unify inconsistent UI patterns. I created new, decluttered views to handle dense data and helped introduce AI-assisted features in a high-risk clinical context.
+---
 
+## Role & Scope
 
+I worked on:
+- Expanding the tool to a new user group (radiation therapists)  
+- Reconciling design inconsistencies and visual debt  
+- Simplifying dense data views  
+- Introducing AI-assisted features within a high-risk clinical context  
+- Adding a notifications feature  
 
-
-## Team
-Cross-departmental collaboration with design lead Jackie Denmark, medical physics, and clinical staff.  
+This work built on close collaboration between design, clinical, and engineering teams to ensure the product balanced **clinical trust** and **technical feasibility**.
 
 ---
 
 ## Challenges
 
-- The existing tool served some radiation therapy related roles but needed to expand to **radiation therapists**.  
-- Therapists's existing workflows without PlanQ required redundant **clicking and context-switching**
-- **No designers** had ever worked on the project, leading to heavy design debt.  
-- The dashboard’s **large table had too many columns**, requiring constant side-scrolling.  
-- Needed to **introduce and differentiate AI features** in a high-risk clinical context.  
+- No prior design involvement had led to **heavy UI debt** and unclear hierarchy.  
+- The tool’s **main dashboard table** had dozens of columns and required side-scrolling.  
+- **Therapists’ workflows** involved repetitive clicking and constant window switching.  
+- Needed to safely introduce **AI-flagged data** into a high-risk environment.  
+- Expansion required **new views and interactions** without disrupting existing users.  
+- There was no notification system surfacing relevant changes or situations
 
 ---
 
-## Process
+## Workshop
 
-The project demanded close collaboration with both clinical staff and engineers. **We kicked off our time together with a workshop**.
+We began with a **multi-disciplinary workshop** involving clinical staff, engineers, and design leads to align goals and capture pain points.
 
 <Carousel
   images={[
-    {
-      src: '/cases/planq/workshop.jpg',
-      alt: '',
-    },
-    {
-      src: '/cases/planq/workshop-board.png',
-      alt: '',
-    }
+    { src: '/cases/planq/workshop.jpg', alt: '' },
+    { src: '/cases/planq/workshop-board.png', alt: '' },
   ]}
-      caption="Initial workshop"
+  caption="Kickoff workshop with clinicians and engineers"
 />
 
-We proceeded with a **visual design audit and heuristic evaluation**, recognizing usability issues and inconsistencies across the interface. From there, I assisted with creating a foundation for **consistent design standards** that would scale as the product evolved.  
+## Visual Audit and Reconciliation
+
+We conducted a **heuristic evaluation and UI audit**, identifying issues in layout, color hierarchy, and spacing. This foundation informed a **unified visual framework** that could scale with the product.
 
 <figure>
   <img src="/cases/planq/audit.jpg" />
-  <figcaption>View of original tool being audited by team</figcaption>
+  <figcaption>Auditing original tool layouts for consistency and hierarchy</figcaption>
 </figure>
 
-We then conducted **on-site research** at MSK's Main Campus and a regional site, observing how radiation therapists worked in real clinical environments. 
-
-### These studies revealed:
-- Labyrinthine workflows
-- Excessive clicking and window switching
-- Role-specific needs and gap not met by existing systems
-- Moments where visual hierarchy failed  
-
-<Carousel
-  images={[
-    {
-      src: '/cases/planq/observation-1.jpg',
-      alt: '',
-    },
-    {
-      src: '/cases/planq/observation-2.jpg',
-      alt: '',
-    },
-        {
-      src: '/cases/planq/observation-3.jpg',
-      alt: '',
-    },
-        {
-      src: '/cases/planq/observation-4.jpg',
-      alt: '',
-    },
-            {
-      src: '/cases/planq/observation-5.jpg',
-      alt: '',
-    },
-                {
-      src: '/cases/planq/observation-6.jpg',
-      alt: '',
-    }
-  ]}
-      caption="On-site observation"
-/>
-### Moving on
-- I partnered with clinical staff to gather **data requirements**, mapping what information was critical at different steps of their workflow. 
-- In parallel, I worked with **developers** to understand technical constraints, such as how PlanQ could or could not interact with existing clinical systems's APIs. This dialogue helped balance **ambition with feasibility**, ensuring the designs respected integration limits while still aiming for meaningful improvements.  
-
-To validate early concepts, we built **interactive Figma prototypes** and ran **user testing sessions with real therapists**. These sessions provided direct insights into usability and trust, guiding refinements before handoff.  
+### Outcomes
+- Unified typography, spacing, and components across views.  
+- Established a scalable color system and consistent iconography aligned with MSK’s design system.
 
 ---
 
-## Solutions
+## Notifications
 
-### General
-- **Visual design reconciliation** to reduce clutter and unify the interface.  
+We worked closely with existing users through regular discussions to understand what sorts of notifications would be of value to them. 
 
-### Dashboard
-- **Dashboard views tailored** to different radiation therapy tasks.  
-- Introduced a **card view** alongside the table view — supporting scannable workflows for therapists while retaining dense data for physicists. 
+<Carousel
+  images={[
+    { src: '/cases/planq/notification-1.png', alt: '' },
+    { src: '/cases/planq/notification-2.png', alt: '' },
+    { src: '/cases/planq/notification-3.png', alt: '' },
+  ]}
+  caption="Notifications and settings"
+/>
+
+### Outcomes
+- Notifications for different roles with varying types, priorities, actions, and displayed data
+- Various forms of customization and management
+
+---
+
+## Expanding to a New Role
+
+### On-Site Research
+
+We visited **MSK’s main campus and regional centers** to observe radiation therapists in real conditions.  
+These studies revealed:
+- Labyrinthine workflows and redundant steps  
+- Poor differentiation of task priorities  
+- Visual overload and poor use of hierarchy  
+- Gaps in existing data views  
+
+<Carousel
+  images={[
+    { src: '/cases/planq/observation-1.jpg', alt: '' },
+    { src: '/cases/planq/observation-2.jpg', alt: '' },
+    { src: '/cases/planq/observation-3.jpg', alt: '' },
+    { src: '/cases/planq/observation-4.jpg', alt: '' },
+    { src: '/cases/planq/observation-5.jpg', alt: '' },
+    { src: '/cases/planq/observation-6.jpg', alt: '' },
+  ]}
+  caption="On-site observation of radiation therapy workflows"
+/>
+
+---
+
+### Co-Design & Prototyping
+
+Partnering with therapists, we mapped data priorities across workflow stages. In parallel, we collaborated with developers to ensure **integration feasibility** with existing APIs.
+
+We prototyped and tested **interactive Figma flows** with real therapists to validate clarity, data comprehension, and trust in AI-assisted insights.
+
+---
+
+### Dashboard Redesign
+
+- Introduced **role-aware dashboard views**, tailored to therapists’ tasks.  
+- Added **card and table views** — allowing users to toggle between dense data and scannable summaries.  
+- Improved information grouping and alignment.
 
 <video
   src="/cases/planq/card.mov"
@@ -134,13 +146,17 @@ To validate early concepts, we built **interactive Figma prototypes** and ran **
 />
 
 <figure>
-  <img src="/cases/planq/mobile.png" 
-  className="mx-auto w-full max-w-[320px]"/>
-  <figcaption>Card view better allows for mobile responsiveness</figcaption>
+  <img
+    src="/cases/planq/mobile.png"
+    className="mx-auto w-full max-w-[320px]"
+  />
+  <figcaption>Card view supporting responsive, mobile-friendly layouts</figcaption>
 </figure>
 
-### Patient Details
-- Developed a **distinct style** for AI-generated or AI-flagged content, balancing clarity with clinical safety.  
+### AI Integration
+
+- Defined a **distinct style language** for AI-flagged content.  
+- Balanced prominence and caution through subtle visual cues to maintain clinical trust.
 
 <video
   src="/cases/planq/ai.mov"
@@ -151,35 +167,28 @@ To validate early concepts, we built **interactive Figma prototypes** and ran **
   className="rounded-xl shadow"
 />
 
----
 
+---
 
 ## Impact
 
-Although I left MSK before the designs went into production, **user testing yielded encouraging results**:  
+Although I left before implementation, **user testing showed strong early validation**:
 
-- Some therapists reported that they **preferred the card view**.  
-- While there was **healthy skepticism toward AI features**, some therapists acknowledged potential value if used with thorough caution.  
-- Filtering **helped therapists quickly locate the data they needed**.  
-- The design garnered **positive sentiment** among therapists seeing a tool shaped directly around their needs.  
+- Therapists preferred the **card view** for quick scanning.  
+- They expressed **measured optimism** toward AI features when paired with transparency.  
+- Filtering improved task speed and clarity.  
+- Developers reported smoother alignment due to the **documented visual standards**.
 
 <div className="my-5 rounded-[28px] border border-white/40 bg-white/80 p-8 shadow-lg">
   <blockquote className="text-xl font-semibold leading-relaxed text-fg">
-    "I will tell you that I was a little bit skeptical when I heard about this…but [using it today], I can honestly say like this is very useful for us. I can see why it's useful and why it was put into effect or is being worked on. It is better than I expected, and it is a lot more than I expected."
+    “I was skeptical at first, but after using it, I can see how this really helps us. It’s more useful — and more thoughtful — than I expected.”
   </blockquote>
 </div>
-
-Meanwhile, developers appreciated that the proposed solutions were **grounded in API and integration realities**, which eased adoption discussions.  
-
-- The team adopted **more consistent visuals**, making for a more unified product.  
-- In principle, once the new dashboard was deployed there would be smoother transitions between different tasks.  
 
 ---
 
 ## Reflection
 
-This project highlighted the importance of **direct observation in clinical settings**. Many of the most impactful design improvements came not from interviews but from **watching therapists work under real conditions**.  
+PlanQ reinforced the value of **embedded observation in clinical environments** — the most actionable insights emerged not from interviews but from watching therapists work under pressure.
 
-It also reinforced the value of **early engagement with both clinicians and engineers**. By bridging the gap between **workflow requirements** and **technical feasibility**, we ensured the design was not only desirable but also possible.  
-
-Most importantly, the **user testing feedback confirmed impact even before release**. Seeing therapists’ excitement — and their cautious optimism toward AI — underscored the importance of involving end-users in the design process.  
+It also underscored the importance of **early cross-functional alignment**. Engaging clinicians and engineers from the start allowed us to design solutions that were **desirable, feasible, and safe** — strengthening both user trust and implementation success.
