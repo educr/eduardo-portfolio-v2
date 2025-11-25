@@ -47,6 +47,9 @@ export default async function Home() {
             <a href="/Resume.pdf" className="glass-pill" target="_blank" rel="noopener noreferrer">
               Resume
             </a>
+            <a href="https://eduardoandrescrespo.com" className="glass-pill" target="_blank" rel="noopener noreferrer">
+              Artist Site
+            </a>
           </div>
         </div>
       </section>
