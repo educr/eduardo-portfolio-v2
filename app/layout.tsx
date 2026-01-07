@@ -1,19 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Fraunces, Inter } from 'next/font/google'
-
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-fraunces'
-})
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter'
-})
 
 export const metadata: Metadata = {
   title: 'Eduardo Crespo — Product Designer',
@@ -25,7 +12,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable} antialiased`}>
+    <html lang="en" className="antialiased">
+      <head>
+        <link rel="stylesheet" href="https://use.typekit.net/gyq0hts.css" />
+      </head>
       <body>
         <header className="max-w-6xl mx-auto px-3 py-4 flex justify-between items-center sm:px-4">
           <Link href="/" className="site-brand">Eduardo Crespo</Link>

@@ -3,12 +3,14 @@
 @tailwind utilities;
 
 html {
-  font-family: var(--font-inter), 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'pelago', 'Pelago', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 500;
 }
 
 .site-brand {
-  font-family: var(--font-fraunces), 'Fraunces', ui-serif;
+  font-family: 'fertigo-pro', serif;
   font-weight: 600;
+  letter-spacing: normal;
 }
 
 body {
@@ -46,8 +48,9 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-fraunces), 'Fraunces', ui-serif;
+  font-family: 'fertigo-pro', serif;
   font-weight: 600;
+  letter-spacing: normal;
   text-shadow: 0 1px 18px rgba(44, 102, 139, 0.28);
 }
 

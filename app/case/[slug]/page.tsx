@@ -146,7 +146,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
               ))}
             </div>
           ) : null}
-          <h1 className="text-3xl font-semibold tracking-tight text-fg">
+          <h1 className="text-3xl font-semibold tracking-normal text-fg">
             {entry.title}
           </h1>
           <p className="text-base font-semibold leading-relaxed text-fg/70">

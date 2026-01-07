@@ -18,7 +18,7 @@ export default function AboutPage() {
         </div>
         <div className="relative space-y-4 text-center md:max-w-3xl md:text-left">
           <div>
-            <h1 className="text-3xl font-semibold tracking-tight text-fg md:text-4xl">About Me</h1>
+            <h1 className="text-3xl font-semibold tracking-normal text-fg md:text-4xl">About Me</h1>
           </div>
           <p className="text-base text-fg/75 md:text-lg">
             I’m a product designer with over five years of experience, including 4+ years in healthcare technology, where I’ve designed solutions that support patients, clinicians, and complex care systems. With a foundation in visual art, I bring an approach that unites aesthetic sensitivity with technical rigor—balancing empathy and creativity with structure and functionality.

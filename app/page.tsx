@@ -24,7 +24,7 @@ export default async function Home() {
         </div>
         <div className="relative space-y-4 text-center md:text-left">
           <div>
-            <h1 className="mt-3 text-4xl font-semibold tracking-tight text-fg">
+            <h1 className="mt-3 text-4xl font-semibold text-fg">
               Eduardo Crespo
             </h1>
           </div>
