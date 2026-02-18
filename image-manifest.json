@@ -143,6 +143,10 @@
     "width": 2036,
     "height": 1554
   },
+  "/cases/msk-ds/colors.png": {
+    "width": 2484,
+    "height": 1477
+  },
   "/cases/msk-ds/compilation-1.jpg": {
     "width": 2000,
     "height": 1125
@@ -338,6 +342,18 @@
   "/cases/planq/mobile.png": {
     "width": 890,
     "height": 1926
+  },
+  "/cases/planq/notification-1.png": {
+    "width": 1254,
+    "height": 1440
+  },
+  "/cases/planq/notification-2.png": {
+    "width": 1658,
+    "height": 1348
+  },
+  "/cases/planq/notification-3.png": {
+    "width": 3070,
+    "height": 1008
   },
   "/cases/planq/observation-1.jpg": {
     "width": 2000,

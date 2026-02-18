@@ -11,7 +11,7 @@ export type CarouselImage = {
 }
 
 type CarouselProps = {
-  images: CarouselImage[]
+  images?: CarouselImage[]
   aspect?: string
   caption?: string
 }
@@ -23,7 +23,13 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
   const [loadedMap, setLoadedMap] = useState<Record<string, boolean>>({})
   const carouselId = useId()
 
-  const normalizedImages = useMemo(() => images.filter(Boolean), [images])
+  const normalizedImages = useMemo(
+    () =>
+      (Array.isArray(images) ? images : []).filter(
+        (image): image is CarouselImage => Boolean(image?.src)
+      ),
+    [images]
+  )
 
   const parseAspect = (value: string | number | undefined) => {
     if (!value) {
