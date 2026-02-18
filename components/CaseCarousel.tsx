@@ -209,6 +209,7 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
                     src={previousImage.src}
                     alt={previousImage.alt}
                     fill
+                    unoptimized
                     sizes="(min-width: 1280px) 900px, (min-width: 768px) 720px, 100vw"
                     loading="lazy"
                     className={`carousel-image transition-opacity duration-300 ${loadedMap[previousImage.src] ? 'opacity-100' : 'opacity-0'}`}
@@ -227,6 +228,7 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
                   src={activeImage.src}
                   alt={activeImage.alt}
                   fill
+                  unoptimized
                   sizes="(min-width: 1280px) 900px, (min-width: 768px) 720px, 100vw"
                   loading={index === 0 ? 'eager' : 'lazy'}
                   priority={index === 0}

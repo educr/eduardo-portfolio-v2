@@ -109,6 +109,7 @@ export default function MdxImage(props: MdxImageProps) {
         alt={alt}
         width={resolvedWidth}
         height={resolvedHeight}
+        unoptimized
         sizes={resolvedSizes}
         loading={loadingMode}
         priority={loadingMode === 'eager'}

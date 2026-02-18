@@ -35,6 +35,7 @@ const mdxComponents = {
       <div className="my-10 overflow-hidden rounded-[32px] border border-white/20 bg-white/10 p-2">
         <NextImage
           {...rest}
+          unoptimized
           className={['h-auto w-full rounded-[28px] object-cover', className].filter(Boolean).join(' ')}
         />
       </div>
