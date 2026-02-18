@@ -1,8 +1,3 @@
-'use client'
-
-import { useEffect, useId, useMemo, useState } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
-
 export type CarouselImage = {
   src: string
   alt: string
@@ -13,6 +8,35 @@ type CarouselProps = {
   images?: unknown
   aspect?: string
   caption?: string
+}
+
+function resolveSrc(value: unknown): string {
+  if (typeof value === 'string') {
+    return value
+  }
+
+  if (!value || typeof value !== 'object') {
+    return ''
+  }
+
+  const record = value as Record<string, unknown>
+
+  if (typeof record.src === 'string') {
+    return record.src
+  }
+
+  if (record.src && typeof record.src === 'object') {
+    const nested = record.src as Record<string, unknown>
+    if (typeof nested.src === 'string') {
+      return nested.src
+    }
+  }
+
+  if (typeof record.default === 'string') {
+    return record.default
+  }
+
+  return ''
 }
 
 function normalizeImagesInput(images: unknown): unknown[] {
@@ -45,263 +69,95 @@ function normalizeImagesInput(images: unknown): unknown[] {
   return []
 }
 
-function resolveSrc(value: unknown): string {
-  if (typeof value === 'string') {
-    return value
+function parseAspect(value: string | number | undefined): string {
+  if (!value) {
+    return '16 / 9'
   }
 
-  if (!value || typeof value !== 'object') {
-    return ''
+  if (typeof value === 'number' && Number.isFinite(value) && value > 0) {
+    return `${value}`
   }
 
-  const record = value as Record<string, unknown>
-
-  if (typeof record.src === 'string') {
-    return record.src
+  if (typeof value === 'string' && value.trim()) {
+    return value.trim()
   }
 
-  if (record.src && typeof record.src === 'object') {
-    const nested = record.src as Record<string, unknown>
-    if (typeof nested.src === 'string') {
-      return nested.src
-    }
-  }
-
-  if (typeof record.default === 'string') {
-    return record.default
-  }
-
-  return ''
+  return '16 / 9'
 }
 
 export default function CaseCarousel({ images, aspect = '16/9', caption }: CarouselProps) {
-  const [index, setIndex] = useState(0)
-  const [prevIndex, setPrevIndex] = useState<number | null>(null)
-  const [direction, setDirection] = useState<1 | -1>(1)
-  const [loadedMap, setLoadedMap] = useState<Record<string, boolean>>({})
-  const carouselId = useId()
-
-  const normalizedImages = useMemo(
-    () => {
-      const items = normalizeImagesInput(images)
-      return items
-        .map((image): CarouselImage | null => {
-          if (!image) {
-            return null
-          }
-
-          if (typeof image === 'string') {
-            return image.trim() ? { src: image, alt: '' } : null
-          }
-
-          const imageRecord = image as Record<string, unknown>
-          const resolvedSrc = resolveSrc(imageRecord)
-
-          if (!resolvedSrc.trim()) {
-            return null
-          }
-
-          return {
-            src: resolvedSrc,
-            alt: typeof imageRecord.alt === 'string' ? imageRecord.alt : '',
-            caption: typeof imageRecord.caption === 'string' ? imageRecord.caption : undefined
-          }
-        })
-        .filter((image): image is CarouselImage => Boolean(image))
-    },
-    [images]
-  )
-
-  const parseAspect = (value: string | number | undefined) => {
-    if (!value) {
-      return undefined
-    }
-    if (typeof value === 'number') {
-      return value
-    }
-    if (value.includes('/')) {
-      const [w, h] = value.split('/')
-      const width = Number.parseFloat(w)
-      const height = Number.parseFloat(h)
-      if (Number.isFinite(width) && Number.isFinite(height) && height !== 0) {
-        return width / height
+  const normalizedImages = normalizeImagesInput(images)
+    .map((image): CarouselImage | null => {
+      if (!image) {
+        return null
       }
-    }
-    const numeric = Number.parseFloat(value)
-    return Number.isFinite(numeric) ? numeric : undefined
-  }
 
-  const preferredAspect = parseAspect(aspect) ?? 16 / 9
+      if (typeof image === 'string') {
+        return image.trim() ? { src: image, alt: '' } : null
+      }
 
-  useEffect(() => {
-    setIndex(prev => (normalizedImages.length ? Math.min(prev, normalizedImages.length - 1) : 0))
-  }, [normalizedImages.length])
+      const record = image as Record<string, unknown>
+      const src = resolveSrc(record)
+      if (!src.trim()) {
+        return null
+      }
 
-  useEffect(() => {
-    if (prevIndex === null) {
-      return
-    }
-    const activeImage = normalizedImages[Math.min(index, normalizedImages.length - 1)]
-    const isActiveLoaded = Boolean(loadedMap[activeImage?.src ?? ''])
-    if (!isActiveLoaded) {
-      return
-    }
-
-    const timeout = setTimeout(() => setPrevIndex(null), 280)
-    return () => clearTimeout(timeout)
-  }, [prevIndex, index, normalizedImages, loadedMap])
-
-  useEffect(() => {
-    if (normalizedImages.length <= 1) {
-      return
-    }
-
-    const handle = setInterval(() => {
-      setIndex(prev => {
-        setPrevIndex(prev)
-        setDirection(1)
-        return (prev + 1) % normalizedImages.length
-      })
-    }, 5000)
-
-    return () => clearInterval(handle)
-  }, [normalizedImages.length])
+      return {
+        src,
+        alt: typeof record.alt === 'string' ? record.alt : '',
+        caption: typeof record.caption === 'string' ? record.caption : undefined
+      }
+    })
+    .filter((image): image is CarouselImage => Boolean(image))
 
   if (!normalizedImages.length) {
     return null
   }
 
-  const activeImage = normalizedImages[Math.min(index, normalizedImages.length - 1)]
-  const previousImage = prevIndex !== null ? normalizedImages[prevIndex] : null
-  const markLoaded = (src: string) => {
-    if (!src) return
-    setLoadedMap(prev => (prev[src] ? prev : { ...prev, [src]: true }))
-  }
-
-  useEffect(() => {
-    if (normalizedImages.length) {
-      markLoaded(normalizedImages[0].src)
-    }
-  }, [normalizedImages])
-
-  useEffect(() => {
-    normalizedImages.forEach(image => {
-      if (!image?.src || loadedMap[image.src]) {
-        return
-      }
-
-      const preload = new window.Image()
-      preload.src = image.src
-      preload.onload = () => markLoaded(image.src)
-    })
-  }, [normalizedImages, loadedMap])
-
-  const next = () => {
-    if (normalizedImages.length <= 1) return
-    setIndex(prev => {
-      setPrevIndex(prev)
-      setDirection(1)
-      return (prev + 1) % normalizedImages.length
-    })
-  }
-
-  const prev = () => {
-    if (normalizedImages.length <= 1) return
-    setIndex(prev => {
-      setPrevIndex(prev)
-      setDirection(-1)
-      return (prev - 1 + normalizedImages.length) % normalizedImages.length
-    })
-  }
-
-  const selectIndex = (target: number) => {
-    if (target === index || target < 0 || target >= normalizedImages.length) {
-      return
-    }
-    const len = normalizedImages.length
-    const forwardSteps = (target - index + len) % len
-    const backwardSteps = (index - target + len) % len
-    setPrevIndex(index)
-    setDirection(forwardSteps <= backwardSteps ? 1 : -1)
-    setIndex(target)
-  }
+  const carouselId = `carousel-${normalizedImages[0].src.replace(/[^a-z0-9]/gi, '')}`
+  const ratio = parseAspect(aspect)
 
   return (
     <figure className="my-10 space-y-4">
-      <div className="relative">
-        <div className="relative w-full" style={{ aspectRatio: preferredAspect, minHeight: 320 }}>
-          <div className="absolute inset-0">
-            {previousImage ? (
-              <div className={`carousel-slide ${direction === 1 ? 'carousel-exit-left' : 'carousel-exit-right'}`}>
-                <div className="relative h-full w-full">
-                  <img
-                    src={previousImage.src}
-                    alt={previousImage.alt}
-                    loading="lazy"
-                    className={`carousel-image transition-opacity duration-300 ${loadedMap[previousImage.src] ? 'opacity-100' : 'opacity-0'}`}
-                    style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                    onLoad={() => markLoaded(previousImage.src)}
-                    aria-hidden
-                  />
-                </div>
-              </div>
-            ) : null}
-            <div
-              key={`${carouselId}-${index}`}
-              className={`carousel-slide ${prevIndex !== null ? (direction === 1 ? 'carousel-enter-right' : 'carousel-enter-left') : 'carousel-steady'}`}
-            >
-              <div className="relative h-full w-full">
-                <img
-                  src={activeImage.src}
-                  alt={activeImage.alt}
-                  loading={index === 0 ? 'eager' : 'lazy'}
-                  className={`carousel-image transition-opacity duration-300 ${loadedMap[activeImage.src] ? 'opacity-100' : 'opacity-0'}`}
-                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                  onLoad={() => markLoaded(activeImage.src)}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        {normalizedImages.length > 1 ? (
-          <>
-            <button
-              type="button"
-              onClick={prev}
-              className="absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/50 bg-white/85 text-fg/80 shadow transition hover:text-fg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
-              aria-label="Previous slide"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              type="button"
-              onClick={next}
-              className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/50 bg-white/85 text-fg/80 shadow transition hover:text-fg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
-              aria-label="Next slide"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
-          </>
-        ) : null}
+      <div
+        className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2"
+        aria-label="Image carousel"
+      >
+        {normalizedImages.map((image, index) => (
+          <a
+            id={`${carouselId}-${index}`}
+            key={`${carouselId}-${index}-${image.src}`}
+            href={`#${carouselId}-${index}`}
+            className="block min-w-full snap-center overflow-hidden rounded-[28px] border border-white/20 bg-white/10"
+            style={{ aspectRatio: ratio }}
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              loading={index === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              className="h-full w-full object-contain"
+            />
+          </a>
+        ))}
       </div>
 
       {normalizedImages.length > 1 ? (
         <div className="flex items-center justify-center gap-3">
-          {normalizedImages.map((image, dotIndex) => (
-            <button
-              type="button"
-              key={`${carouselId}-dot-${image.src}`}
-              onClick={() => selectIndex(dotIndex)}
-              aria-label={`View slide ${dotIndex + 1}`}
-              className={`h-2.5 w-2.5 rounded-full transition ${dotIndex === index ? 'bg-accent' : 'bg-fg/20 hover:bg-fg/40'}`}
+          {normalizedImages.map((image, index) => (
+            <a
+              key={`${carouselId}-dot-${index}-${image.src}`}
+              href={`#${carouselId}-${index}`}
+              aria-label={`View slide ${index + 1}`}
+              className="h-2.5 w-2.5 rounded-full bg-fg/30 transition hover:bg-fg/60"
             />
           ))}
         </div>
       ) : null}
 
-      {(caption || activeImage.caption) ? (
+      {(caption || normalizedImages[0].caption) ? (
         <figcaption className="text-center text-sm text-fg/70">
-          {activeImage.caption ?? caption}
+          {caption ?? normalizedImages[0].caption}
         </figcaption>
       ) : null}
     </figure>
