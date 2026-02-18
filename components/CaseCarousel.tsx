@@ -1,3 +1,8 @@
+'use client'
+
+import { useEffect, useMemo, useState } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+
 export type CarouselImage = {
   src: string
   alt: string
@@ -42,8 +47,6 @@ function normalizeImages(images: unknown): CarouselImage[] {
     }
   }
 
-  if (!source.length) return []
-
   const normalized = source
     .map((item): CarouselImage | null => {
       if (!item) return null
@@ -77,7 +80,26 @@ function resolveAspect(value: string | number | undefined): string {
 }
 
 export default function CaseCarousel({ images, aspect = '16/9', caption }: CarouselProps) {
-  const normalizedImages = normalizeImages(images)
+  const normalizedImages = useMemo(() => normalizeImages(images), [images])
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    if (normalizedImages.length <= 1) return
+
+    const timer = setInterval(() => {
+      setIndex(prev => (prev + 1) % normalizedImages.length)
+    }, 5000)
+
+    return () => clearInterval(timer)
+  }, [normalizedImages.length])
+
+  useEffect(() => {
+    if (!normalizedImages.length) {
+      setIndex(0)
+      return
+    }
+    setIndex(prev => Math.min(prev, normalizedImages.length - 1))
+  }, [normalizedImages.length])
 
   if (!normalizedImages.length) {
     return (
@@ -89,31 +111,62 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
     )
   }
 
+  const active = normalizedImages[index]
   const ratio = resolveAspect(aspect)
 
   return (
     <figure className="my-10 space-y-4">
-      <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2">
-        {normalizedImages.map((image, index) => (
-          <div
-            key={`${image.src}-${index}`}
-            className="min-w-full snap-center overflow-hidden rounded-[28px] border border-white/20 bg-white/10"
-            style={{ aspectRatio: ratio, minHeight: 320 }}
-          >
-            <img
-              src={image.src}
-              alt={image.alt}
-              loading={index === 0 ? 'eager' : 'lazy'}
-              decoding="async"
-              className="h-full w-full object-contain"
-            />
-          </div>
-        ))}
+      <div
+        className="relative overflow-hidden rounded-[28px] border border-white/20 bg-white/10"
+        style={{ aspectRatio: ratio, minHeight: 320 }}
+      >
+        <img
+          src={active.src}
+          alt={active.alt}
+          loading={index === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+          className="h-full w-full object-contain"
+        />
+
+        {normalizedImages.length > 1 ? (
+          <>
+            <button
+              type="button"
+              onClick={() => setIndex(prev => (prev - 1 + normalizedImages.length) % normalizedImages.length)}
+              className="absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/50 bg-white/85 text-fg/80 shadow transition hover:text-fg"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setIndex(prev => (prev + 1) % normalizedImages.length)}
+              className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/50 bg-white/85 text-fg/80 shadow transition hover:text-fg"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </>
+        ) : null}
       </div>
 
-      {(caption || normalizedImages[0].caption) ? (
+      {normalizedImages.length > 1 ? (
+        <div className="flex items-center justify-center gap-3">
+          {normalizedImages.map((image, dotIndex) => (
+            <button
+              type="button"
+              key={`${image.src}-${dotIndex}`}
+              onClick={() => setIndex(dotIndex)}
+              aria-label={`View slide ${dotIndex + 1}`}
+              className={`h-2.5 w-2.5 rounded-full transition ${dotIndex === index ? 'bg-accent' : 'bg-fg/20 hover:bg-fg/40'}`}
+            />
+          ))}
+        </div>
+      ) : null}
+
+      {(active.caption || caption) ? (
         <figcaption className="text-center text-sm text-fg/70">
-          {caption ?? normalizedImages[0].caption}
+          {active.caption ?? caption}
         </figcaption>
       ) : null}
     </figure>
