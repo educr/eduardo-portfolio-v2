@@ -31,8 +31,33 @@ function resolveSrc(value: unknown): string {
   return ''
 }
 
+function normalizeImagesInput(images: unknown): unknown[] {
+  if (Array.isArray(images)) return images
+  if (!images) return []
+
+  if (typeof images === 'string') {
+    try {
+      const parsed = JSON.parse(images) as unknown
+      return Array.isArray(parsed) ? parsed : []
+    } catch {
+      return []
+    }
+  }
+
+  if (typeof images === 'object') {
+    const iterable = images as { [Symbol.iterator]?: () => Iterator<unknown> }
+    if (typeof iterable[Symbol.iterator] === 'function') {
+      return Array.from(iterable as Iterable<unknown>)
+    }
+
+    return Object.values(images as Record<string, unknown>)
+  }
+
+  return []
+}
+
 function normalizeImages(images: unknown): CarouselImage[] {
-  const source = Array.isArray(images) ? images : []
+  const source = normalizeImagesInput(images)
 
   return source
     .map((item): CarouselImage | null => {
@@ -63,7 +88,15 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
   const normalizedImages = useMemo(() => normalizeImages(images), [images])
   const [index, setIndex] = useState(0)
 
-  if (!normalizedImages.length) return null
+  if (!normalizedImages.length) {
+    return (
+      <figure className="my-10 space-y-4">
+        <div className="rounded-[20px] border border-rose-300/60 bg-rose-50/70 px-4 py-3 text-sm text-rose-800">
+          Carousel received no valid images.
+        </div>
+      </figure>
+    )
+  }
 
   const activeIndex = Math.min(index, normalizedImages.length - 1)
   const active = normalizedImages[activeIndex]
