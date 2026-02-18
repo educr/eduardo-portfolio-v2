@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useId, useMemo, useState } from 'react'
-import NextImage from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 export type CarouselImage = {
@@ -205,15 +204,13 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
             {previousImage ? (
               <div className={`carousel-slide ${direction === 1 ? 'carousel-exit-left' : 'carousel-exit-right'}`}>
                 <div className="relative h-full w-full">
-                  <NextImage
+                  <img
                     src={previousImage.src}
                     alt={previousImage.alt}
-                    fill
-                    unoptimized
-                    sizes="(min-width: 1280px) 900px, (min-width: 768px) 720px, 100vw"
                     loading="lazy"
                     className={`carousel-image transition-opacity duration-300 ${loadedMap[previousImage.src] ? 'opacity-100' : 'opacity-0'}`}
-                    onLoadingComplete={() => markLoaded(previousImage.src)}
+                    style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    onLoad={() => markLoaded(previousImage.src)}
                     aria-hidden
                   />
                 </div>
@@ -224,16 +221,13 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
               className={`carousel-slide ${prevIndex !== null ? (direction === 1 ? 'carousel-enter-right' : 'carousel-enter-left') : 'carousel-steady'}`}
             >
               <div className="relative h-full w-full">
-                <NextImage
+                <img
                   src={activeImage.src}
                   alt={activeImage.alt}
-                  fill
-                  unoptimized
-                  sizes="(min-width: 1280px) 900px, (min-width: 768px) 720px, 100vw"
                   loading={index === 0 ? 'eager' : 'lazy'}
-                  priority={index === 0}
                   className={`carousel-image transition-opacity duration-300 ${loadedMap[activeImage.src] ? 'opacity-100' : 'opacity-0'}`}
-                  onLoadingComplete={() => markLoaded(activeImage.src)}
+                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                  onLoad={() => markLoaded(activeImage.src)}
                 />
               </div>
             </div>

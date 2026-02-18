@@ -1,10 +1,8 @@
 'use client'
 
-import NextImage from 'next/image'
 import type { CSSProperties, ImgHTMLAttributes } from 'react'
 import imageManifest from '@/lib/imageManifest'
 
-const DEFAULT_IMAGE_SIZES = '(min-width: 1280px) 960px, (min-width: 768px) 720px, 100vw'
 const FALLBACK_ASPECT = 16 / 9
 
 function parseDimension(value: unknown): number | undefined {
@@ -55,7 +53,6 @@ export default function MdxImage(props: MdxImageProps) {
     className,
     width,
     height,
-    sizes,
     loading,
     style,
     title,
@@ -100,22 +97,18 @@ export default function MdxImage(props: MdxImageProps) {
     aspectRatio
   }
 
-  const resolvedSizes = typeof sizes === 'string' && sizes.trim().length > 0 ? sizes : DEFAULT_IMAGE_SIZES
-
   return (
     <div className={wrapperClasses} style={wrapperStyle}>
-      <NextImage
+      <img
         src={src}
         alt={alt}
         width={resolvedWidth}
         height={resolvedHeight}
-        unoptimized
-        sizes={resolvedSizes}
         loading={loadingMode}
-        priority={loadingMode === 'eager'}
         className={dataFit === 'cover' ? 'object-cover' : 'object-contain'}
         style={{ width: '100%', height: 'auto' }}
         title={title}
+        decoding="async"
       />
     </div>
   )

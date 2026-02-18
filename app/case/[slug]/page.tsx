@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
-import NextImage, { type ImageProps } from 'next/image'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import remarkGfm from 'remark-gfm'
 import type { AnchorHTMLAttributes, HTMLAttributes, ImgHTMLAttributes, ReactElement } from 'react'
@@ -29,14 +28,19 @@ const mdxComponents = {
         .join(' ')}
     />
   ),
-  Image: (props: ImageProps) => {
-    const { className, ...rest } = props
+  Image: (props: ImgHTMLAttributes<HTMLImageElement>) => {
+    const { className, src, alt = '', ...rest } = props
+    if (!src) {
+      return null
+    }
     return (
       <div className="my-10 overflow-hidden rounded-[32px] border border-white/20 bg-white/10 p-2">
-        <NextImage
+        <img
+          src={src}
+          alt={alt}
           {...rest}
-          unoptimized
           className={['h-auto w-full rounded-[28px] object-cover', className].filter(Boolean).join(' ')}
+          decoding="async"
         />
       </div>
     )
