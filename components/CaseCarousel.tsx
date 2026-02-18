@@ -1,3 +1,8 @@
+'use client'
+
+import { useMemo, useState } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+
 export type CarouselImage = {
   src: string
   alt: string
@@ -11,96 +16,32 @@ type CarouselProps = {
 }
 
 function resolveSrc(value: unknown): string {
-  if (typeof value === 'string') {
-    return value
-  }
-
-  if (!value || typeof value !== 'object') {
-    return ''
-  }
+  if (typeof value === 'string') return value
+  if (!value || typeof value !== 'object') return ''
 
   const record = value as Record<string, unknown>
-
-  if (typeof record.src === 'string') {
-    return record.src
-  }
+  if (typeof record.src === 'string') return record.src
 
   if (record.src && typeof record.src === 'object') {
     const nested = record.src as Record<string, unknown>
-    if (typeof nested.src === 'string') {
-      return nested.src
-    }
+    if (typeof nested.src === 'string') return nested.src
   }
 
-  if (typeof record.default === 'string') {
-    return record.default
-  }
-
+  if (typeof record.default === 'string') return record.default
   return ''
 }
 
-function normalizeImagesInput(images: unknown): unknown[] {
-  if (Array.isArray(images)) {
-    return images
-  }
+function normalizeImages(images: unknown): CarouselImage[] {
+  const source = Array.isArray(images) ? images : []
 
-  if (!images) {
-    return []
-  }
+  return source
+    .map((item): CarouselImage | null => {
+      if (!item) return null
+      if (typeof item === 'string') return item.trim() ? { src: item, alt: '' } : null
 
-  if (typeof images === 'string') {
-    try {
-      const parsed = JSON.parse(images) as unknown
-      return Array.isArray(parsed) ? parsed : []
-    } catch {
-      return []
-    }
-  }
-
-  if (typeof images === 'object') {
-    const iterable = images as { [Symbol.iterator]?: () => Iterator<unknown> }
-    if (typeof iterable[Symbol.iterator] === 'function') {
-      return Array.from(iterable as Iterable<unknown>)
-    }
-
-    return Object.values(images as Record<string, unknown>)
-  }
-
-  return []
-}
-
-function parseAspect(value: string | number | undefined): string {
-  if (!value) {
-    return '16 / 9'
-  }
-
-  if (typeof value === 'number' && Number.isFinite(value) && value > 0) {
-    return `${value}`
-  }
-
-  if (typeof value === 'string' && value.trim()) {
-    return value.trim()
-  }
-
-  return '16 / 9'
-}
-
-export default function CaseCarousel({ images, aspect = '16/9', caption }: CarouselProps) {
-  const normalizedImages = normalizeImagesInput(images)
-    .map((image): CarouselImage | null => {
-      if (!image) {
-        return null
-      }
-
-      if (typeof image === 'string') {
-        return image.trim() ? { src: image, alt: '' } : null
-      }
-
-      const record = image as Record<string, unknown>
-      const src = resolveSrc(record)
-      if (!src.trim()) {
-        return null
-      }
+      const record = item as Record<string, unknown>
+      const src = resolveSrc(record).trim()
+      if (!src) return null
 
       return {
         src,
@@ -108,56 +49,78 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
         caption: typeof record.caption === 'string' ? record.caption : undefined
       }
     })
-    .filter((image): image is CarouselImage => Boolean(image))
+    .filter((item): item is CarouselImage => Boolean(item))
+}
 
-  if (!normalizedImages.length) {
-    return null
-  }
+function resolveAspect(value: string | number | undefined): string {
+  if (!value) return '16 / 9'
+  if (typeof value === 'number' && Number.isFinite(value) && value > 0) return `${value}`
+  if (typeof value === 'string' && value.trim()) return value.trim()
+  return '16 / 9'
+}
 
-  const carouselId = `carousel-${normalizedImages[0].src.replace(/[^a-z0-9]/gi, '')}`
-  const ratio = parseAspect(aspect)
+export default function CaseCarousel({ images, aspect = '16/9', caption }: CarouselProps) {
+  const normalizedImages = useMemo(() => normalizeImages(images), [images])
+  const [index, setIndex] = useState(0)
+
+  if (!normalizedImages.length) return null
+
+  const activeIndex = Math.min(index, normalizedImages.length - 1)
+  const active = normalizedImages[activeIndex]
+
+  const next = () => setIndex(prev => (prev + 1) % normalizedImages.length)
+  const prev = () => setIndex(prev => (prev - 1 + normalizedImages.length) % normalizedImages.length)
 
   return (
     <figure className="my-10 space-y-4">
-      <div
-        className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2"
-        aria-label="Image carousel"
-      >
-        {normalizedImages.map((image, index) => (
-          <a
-            id={`${carouselId}-${index}`}
-            key={`${carouselId}-${index}-${image.src}`}
-            href={`#${carouselId}-${index}`}
-            className="block min-w-full snap-center overflow-hidden rounded-[28px] border border-white/20 bg-white/10"
-            style={{ aspectRatio: ratio }}
-          >
-            <img
-              src={image.src}
-              alt={image.alt}
-              loading={index === 0 ? 'eager' : 'lazy'}
-              decoding="async"
-              className="h-full w-full object-contain"
-            />
-          </a>
-        ))}
+      <div className="relative overflow-hidden rounded-[28px] border border-white/20 bg-white/10" style={{ aspectRatio: resolveAspect(aspect), minHeight: 320 }}>
+        <img
+          src={active.src}
+          alt={active.alt}
+          loading={activeIndex === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+          className="h-full w-full object-contain"
+        />
+
+        {normalizedImages.length > 1 ? (
+          <>
+            <button
+              type="button"
+              onClick={prev}
+              className="absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/50 bg-white/85 text-fg/80 shadow transition hover:text-fg"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              onClick={next}
+              className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/50 bg-white/85 text-fg/80 shadow transition hover:text-fg"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </>
+        ) : null}
       </div>
 
       {normalizedImages.length > 1 ? (
         <div className="flex items-center justify-center gap-3">
-          {normalizedImages.map((image, index) => (
-            <a
-              key={`${carouselId}-dot-${index}-${image.src}`}
-              href={`#${carouselId}-${index}`}
-              aria-label={`View slide ${index + 1}`}
-              className="h-2.5 w-2.5 rounded-full bg-fg/30 transition hover:bg-fg/60"
+          {normalizedImages.map((image, dotIndex) => (
+            <button
+              type="button"
+              key={`${image.src}-${dotIndex}`}
+              onClick={() => setIndex(dotIndex)}
+              aria-label={`View slide ${dotIndex + 1}`}
+              className={`h-2.5 w-2.5 rounded-full transition ${dotIndex === activeIndex ? 'bg-accent' : 'bg-fg/20 hover:bg-fg/40'}`}
             />
           ))}
         </div>
       ) : null}
 
-      {(caption || normalizedImages[0].caption) ? (
+      {(active.caption || caption) ? (
         <figcaption className="text-center text-sm text-fg/70">
-          {caption ?? normalizedImages[0].caption}
+          {active.caption ?? caption}
         </figcaption>
       ) : null}
     </figure>
