@@ -10,8 +10,14 @@ export type CarouselImage = {
   caption?: string
 }
 
+type CarouselImageInput = {
+  src?: string | { src?: string } | null
+  alt?: string
+  caption?: string
+}
+
 type CarouselProps = {
-  images?: Array<CarouselImage | string | null | undefined>
+  images?: Array<CarouselImageInput | string | null | undefined>
   aspect?: string
   caption?: string
 }
