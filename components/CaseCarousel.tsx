@@ -15,6 +15,36 @@ type CarouselProps = {
   caption?: string
 }
 
+function normalizeImagesInput(images: unknown): unknown[] {
+  if (Array.isArray(images)) {
+    return images
+  }
+
+  if (!images) {
+    return []
+  }
+
+  if (typeof images === 'string') {
+    try {
+      const parsed = JSON.parse(images) as unknown
+      return Array.isArray(parsed) ? parsed : []
+    } catch {
+      return []
+    }
+  }
+
+  if (typeof images === 'object') {
+    const iterable = images as { [Symbol.iterator]?: () => Iterator<unknown> }
+    if (typeof iterable[Symbol.iterator] === 'function') {
+      return Array.from(iterable as Iterable<unknown>)
+    }
+
+    return Object.values(images as Record<string, unknown>)
+  }
+
+  return []
+}
+
 function resolveSrc(value: unknown): string {
   if (typeof value === 'string') {
     return value
@@ -53,7 +83,7 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
 
   const normalizedImages = useMemo(
     () => {
-      const items = Array.isArray(images) ? images : []
+      const items = normalizeImagesInput(images)
       return items
         .map((image): CarouselImage | null => {
           if (!image) {
