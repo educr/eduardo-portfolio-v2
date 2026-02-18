@@ -10,16 +10,39 @@ export type CarouselImage = {
   caption?: string
 }
 
-type CarouselImageInput = {
-  src?: string | { src?: string } | null
-  alt?: string
+type CarouselProps = {
+  images?: unknown
+  aspect?: string
   caption?: string
 }
 
-type CarouselProps = {
-  images?: Array<CarouselImageInput | string | null | undefined>
-  aspect?: string
-  caption?: string
+function resolveSrc(value: unknown): string {
+  if (typeof value === 'string') {
+    return value
+  }
+
+  if (!value || typeof value !== 'object') {
+    return ''
+  }
+
+  const record = value as Record<string, unknown>
+
+  if (typeof record.src === 'string') {
+    return record.src
+  }
+
+  if (record.src && typeof record.src === 'object') {
+    const nested = record.src as Record<string, unknown>
+    if (typeof nested.src === 'string') {
+      return nested.src
+    }
+  }
+
+  if (typeof record.default === 'string') {
+    return record.default
+  }
+
+  return ''
 }
 
 export default function CaseCarousel({ images, aspect = '16/9', caption }: CarouselProps) {
@@ -42,22 +65,8 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
             return image.trim() ? { src: image, alt: '' } : null
           }
 
-          const resolvedSrc = (() => {
-            if (typeof image.src === 'string') {
-              return image.src
-            }
-
-            if (
-              image.src &&
-              typeof image.src === 'object' &&
-              'src' in image.src &&
-              typeof image.src.src === 'string'
-            ) {
-              return image.src.src
-            }
-
-            return ''
-          })()
+          const imageRecord = image as Record<string, unknown>
+          const resolvedSrc = resolveSrc(imageRecord)
 
           if (!resolvedSrc.trim()) {
             return null
@@ -65,8 +74,8 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
 
           return {
             src: resolvedSrc,
-            alt: typeof image.alt === 'string' ? image.alt : '',
-            caption: typeof image.caption === 'string' ? image.caption : undefined
+            alt: typeof imageRecord.alt === 'string' ? imageRecord.alt : '',
+            caption: typeof imageRecord.caption === 'string' ? imageRecord.caption : undefined
           }
         })
         .filter((image): image is CarouselImage => Boolean(image))
