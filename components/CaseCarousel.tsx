@@ -31,50 +31,78 @@ function resolveSrc(value: unknown): string {
   return ''
 }
 
-function normalizeImagesInput(images: unknown): unknown[] {
-  if (Array.isArray(images)) return images
-  if (!images) return []
+function looksLikeImagePath(value: string): boolean {
+  const normalized = value.toLowerCase().split('?')[0]
+  return (
+    normalized.startsWith('/') &&
+    (normalized.endsWith('.png') ||
+      normalized.endsWith('.jpg') ||
+      normalized.endsWith('.jpeg') ||
+      normalized.endsWith('.gif') ||
+      normalized.endsWith('.webp') ||
+      normalized.endsWith('.avif') ||
+      normalized.endsWith('.svg'))
+  )
+}
 
-  if (typeof images === 'string') {
-    try {
-      const parsed = JSON.parse(images) as unknown
-      return Array.isArray(parsed) ? parsed : []
-    } catch {
-      return []
+function extractImagesDeep(value: unknown, seen = new Set<unknown>()): CarouselImage[] {
+  if (!value) return []
+  if (seen.has(value)) return []
+
+  if (typeof value === 'string') {
+    const trimmed = value.trim()
+    if (!trimmed) return []
+
+    if (looksLikeImagePath(trimmed)) {
+      return [{ src: trimmed, alt: '' }]
     }
+
+    if ((trimmed.startsWith('[') || trimmed.startsWith('{')) && (trimmed.endsWith(']') || trimmed.endsWith('}'))) {
+      try {
+        return extractImagesDeep(JSON.parse(trimmed), seen)
+      } catch {
+        return []
+      }
+    }
+
+    return []
   }
 
-  if (typeof images === 'object') {
-    const iterable = images as { [Symbol.iterator]?: () => Iterator<unknown> }
-    if (typeof iterable[Symbol.iterator] === 'function') {
-      return Array.from(iterable as Iterable<unknown>)
-    }
+  if (typeof value !== 'object') return []
 
-    return Object.values(images as Record<string, unknown>)
+  seen.add(value)
+
+  if (Array.isArray(value)) {
+    return value.flatMap(item => extractImagesDeep(item, seen))
   }
 
-  return []
+  const record = value as Record<string, unknown>
+  const directSrc = resolveSrc(record).trim()
+  const fromNode =
+    directSrc && looksLikeImagePath(directSrc)
+      ? [{
+          src: directSrc,
+          alt: typeof record.alt === 'string' ? record.alt : '',
+          caption: typeof record.caption === 'string' ? record.caption : undefined
+        }]
+      : []
+
+  const nested = Object.values(record).flatMap(item => extractImagesDeep(item, seen))
+  return [...fromNode, ...nested]
 }
 
 function normalizeImages(images: unknown): CarouselImage[] {
-  const source = normalizeImagesInput(images)
+  const extracted = extractImagesDeep(images)
+  const deduped: CarouselImage[] = []
+  const seen = new Set<string>()
 
-  return source
-    .map((item): CarouselImage | null => {
-      if (!item) return null
-      if (typeof item === 'string') return item.trim() ? { src: item, alt: '' } : null
+  for (const image of extracted) {
+    if (!image.src || seen.has(image.src)) continue
+    seen.add(image.src)
+    deduped.push(image)
+  }
 
-      const record = item as Record<string, unknown>
-      const src = resolveSrc(record).trim()
-      if (!src) return null
-
-      return {
-        src,
-        alt: typeof record.alt === 'string' ? record.alt : '',
-        caption: typeof record.caption === 'string' ? record.caption : undefined
-      }
-    })
-    .filter((item): item is CarouselImage => Boolean(item))
+  return deduped
 }
 
 function resolveAspect(value: string | number | undefined): string {
