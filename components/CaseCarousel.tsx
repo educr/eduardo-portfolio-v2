@@ -27,9 +27,24 @@ function resolveSrc(value: unknown): string {
 }
 
 function normalizeImages(images: unknown): CarouselImage[] {
-  if (!Array.isArray(images)) return []
+  let source: unknown[] = []
 
-  const normalized = images
+  if (Array.isArray(images)) {
+    source = images
+  } else if (typeof images === 'string') {
+    try {
+      const parsed = JSON.parse(images) as unknown
+      if (Array.isArray(parsed)) {
+        source = parsed
+      }
+    } catch {
+      source = []
+    }
+  }
+
+  if (!source.length) return []
+
+  const normalized = source
     .map((item): CarouselImage | null => {
       if (!item) return null
       if (typeof item === 'string') return item.trim() ? { src: item.trim(), alt: '' } : null
