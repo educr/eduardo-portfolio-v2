@@ -45,6 +45,21 @@ function looksLikeImagePath(value: string): boolean {
   )
 }
 
+function extractImagePathsFromText(text: string): string[] {
+  const matches = text.match(/\/cases\/[^"'`\s)]+?\.(png|jpe?g|gif|webp|avif|svg)/gi) ?? []
+  return matches.map(match => match.trim())
+}
+
+function previewValue(value: unknown): string {
+  try {
+    const serialized = JSON.stringify(value)
+    if (!serialized) return String(value)
+    return serialized.length > 220 ? `${serialized.slice(0, 220)}...` : serialized
+  } catch {
+    return Object.prototype.toString.call(value)
+  }
+}
+
 function extractImagesDeep(value: unknown, seen = new Set<unknown>()): CarouselImage[] {
   if (!value) return []
   if (seen.has(value)) return []
@@ -61,11 +76,11 @@ function extractImagesDeep(value: unknown, seen = new Set<unknown>()): CarouselI
       try {
         return extractImagesDeep(JSON.parse(trimmed), seen)
       } catch {
-        return []
+        return extractImagePathsFromText(trimmed).map(src => ({ src, alt: '' }))
       }
     }
 
-    return []
+    return extractImagePathsFromText(trimmed).map(src => ({ src, alt: '' }))
   }
 
   if (typeof value !== 'object') return []
@@ -121,6 +136,9 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
       <figure className="my-10 space-y-4">
         <div className="rounded-[20px] border border-rose-300/60 bg-rose-50/70 px-4 py-3 text-sm text-rose-800">
           Carousel received no valid images.
+          <div className="mt-2 break-all font-mono text-[11px] leading-snug text-rose-700/90">
+            {`type=${Array.isArray(images) ? 'array' : typeof images} value=${previewValue(images)}`}
+          </div>
         </div>
       </figure>
     )
