@@ -11,7 +11,7 @@ export type CarouselImage = {
 }
 
 type CarouselProps = {
-  images?: CarouselImage[]
+  images?: Array<CarouselImage | string | null | undefined>
   aspect?: string
   caption?: string
 }
@@ -24,10 +24,47 @@ export default function CaseCarousel({ images, aspect = '16/9', caption }: Carou
   const carouselId = useId()
 
   const normalizedImages = useMemo(
-    () =>
-      (Array.isArray(images) ? images : []).filter(
-        (image): image is CarouselImage => Boolean(image?.src)
-      ),
+    () => {
+      const items = Array.isArray(images) ? images : []
+      return items
+        .map((image): CarouselImage | null => {
+          if (!image) {
+            return null
+          }
+
+          if (typeof image === 'string') {
+            return image.trim() ? { src: image, alt: '' } : null
+          }
+
+          const resolvedSrc = (() => {
+            if (typeof image.src === 'string') {
+              return image.src
+            }
+
+            if (
+              image.src &&
+              typeof image.src === 'object' &&
+              'src' in image.src &&
+              typeof image.src.src === 'string'
+            ) {
+              return image.src.src
+            }
+
+            return ''
+          })()
+
+          if (!resolvedSrc.trim()) {
+            return null
+          }
+
+          return {
+            src: resolvedSrc,
+            alt: typeof image.alt === 'string' ? image.alt : '',
+            caption: typeof image.caption === 'string' ? image.caption : undefined
+          }
+        })
+        .filter((image): image is CarouselImage => Boolean(image))
+    },
     [images]
   )
 
