@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run generate:images && next build",
+    "build": "npm run fix:deps && npm run generate:images && next build",
     "start": "next start",
     "lint": "next lint",
-    "generate:images": "node scripts/generate-image-manifest.mjs"
+    "generate:images": "node scripts/generate-image-manifest.mjs",
+    "fix:deps": "node scripts/fix-unist-resolution.mjs"
   },
   "dependencies": {
     "autoprefixer": "^10.4.20",
