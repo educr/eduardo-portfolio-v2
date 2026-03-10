@@ -9,9 +9,11 @@ import { getAllCases, getCaseBySlug } from '@/lib/cases'
 import CaseCarousel from '@/components/CaseCarousel'
 import ZoomImage from '@/components/ZoomImage'
 import MdxImage from '@/components/MdxImage'
+import ExpandableFigure from '@/components/ExpandableFigure'
+import FigureAside from '@/components/FigureAside'
 
 const mdxComponents = {
-  hr: () => <div className="my-10 h-px w-full bg-bg" />,
+  hr: () => <div className="my-10 h-px w-full clear-both bg-bg" />,
   img: (props: ImgHTMLAttributes<HTMLImageElement>) => <MdxImage {...props} />,
   figure: ({ children, ...props }: HTMLAttributes<HTMLElement>) => (
     <figure
@@ -41,7 +43,9 @@ const mdxComponents = {
     )
   },
   Carousel: CaseCarousel,
-  ZoomImage
+  ZoomImage,
+  ExpandableFigure,
+  FigureAside
 }
 
 async function MdxContent({ source }: { source: string }): Promise<ReactElement> {
