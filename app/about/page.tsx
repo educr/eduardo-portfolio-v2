@@ -25,7 +25,7 @@ Product designer. Former visual artist. Five years of experience, mostly in heal
           </p>
           <p className="text-base text-fg/75 md:text-lg">
 I came to design through fine art, which means I think differently about form, meaning, and what it actually feels like to use something. That background shows up in my work — in the care I put into visual systems, and in the questions I ask before I start designing.          </p>
-<p>Most of my work has been in healthcare, where the stakes make the craft matter more.</p>
+<p className="text-base text-fg/75 md:text-lg">Most of my work has been in healthcare, where the stakes make the craft matter more.</p>
           <div className="flex flex-wrap items-center justify-center gap-3 text-sm md:justify-start">
             <a href="mailto:crespoeduardo@icloud.com" className="glass-pill">
               Email

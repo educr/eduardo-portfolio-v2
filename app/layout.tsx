@@ -25,8 +25,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </nav>
         </header>
         <main className="max-w-6xl mx-auto px-3 sm:px-4">{children}</main>
-        <footer className="max-w-6xl mx-auto px-3 py-8 text-sm text-fg/70 border-t border-border mt-12 sm:px-4">
-          © {new Date().getFullYear()} Eduardo Crespo
+        <footer className="max-w-6xl mx-auto px-3 py-8 text-sm text-fg/70 border-t border-border mt-12 sm:px-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <span>© {new Date().getFullYear()} Eduardo Crespo</span>
+          <nav className="flex gap-4">
+            <a href="mailto:crespoeduardo@icloud.com" className="hover:text-fg transition-colors">Email</a>
+            <Link href="https://www.linkedin.com/in/eduardo-crespo-20138a192" target="_blank" rel="noopener noreferrer" className="hover:text-fg transition-colors">LinkedIn</Link>
+            <a href="/Resume.pdf" className="hover:text-fg transition-colors">Resume</a>
+            <a href="https://eduardoandrescrespo.com" target="_blank" rel="noopener noreferrer" className="hover:text-fg transition-colors">Artist Site</a>
+          </nav>
         </footer>
       </body>
     </html>
