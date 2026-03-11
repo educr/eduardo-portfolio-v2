@@ -21,11 +21,11 @@ export default function AboutPage() {
             <h1 className="text-3xl font-semibold tracking-normal text-fg md:text-4xl">About Me</h1>
           </div>
           <p className="text-base text-fg/75 md:text-lg">
-            I’m a product designer with over five years of experience, including 4+ years in healthcare technology, where I’ve designed solutions that support patients, clinicians, and complex care systems. With a foundation in visual art, I bring an approach that unites aesthetic sensitivity with technical rigor—balancing empathy and creativity with structure and functionality.
+Product designer. Former visual artist. Five years of experience, mostly in healthcare.
           </p>
           <p className="text-base text-fg/75 md:text-lg">
-            As an artist, I’ve explored themes of embodiment, sensory experience, mental health, disability, and spirituality, which deeply inform my design practice. This perspective equips me to create experiences that are not only useful and accessible, but also ethically grounded, dignified, and formally beautiful.
-          </p>
+I came to design through fine art, which means I think differently about form, meaning, and what it actually feels like to use something. That background shows up in my work — in the care I put into visual systems, and in the questions I ask before I start designing.          </p>
+<p>Most of my work has been in healthcare, where the stakes make the craft matter more.</p>
           <div className="flex flex-wrap items-center justify-center gap-3 text-sm md:justify-start">
             <a href="mailto:crespoeduardo@icloud.com" className="glass-pill">
               Email

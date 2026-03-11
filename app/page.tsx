@@ -29,7 +29,7 @@ export default async function Home() {
             </h1>
           </div>
           <p className="text-lg text-fg/80">
-            Product Designer blending deep healthcare experience with a visual art foundation, crafting experiences that are intuitive, empathetic, and visually refined.
+            Product designer with a visual art foundation — specializing in healthcare, systems, and human-centered experiences.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 text-sm md:justify-start">
             <a href="mailto:crespoeduardo@icloud.com" className="glass-pill">
