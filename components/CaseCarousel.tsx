@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useMemo, useState } from 'react'
 import NextImage from 'next/image'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
 
 export type CarouselImage = {
   src: string
@@ -21,6 +21,7 @@ export default function CaseCarousel({ images: imagesProp, aspect = '16/9', capt
   const [index, setIndex] = useState(0)
   const [prevIndex, setPrevIndex] = useState<number | null>(null)
   const [direction, setDirection] = useState<1 | -1>(1)
+  const [isPaused, setIsPaused] = useState(false)
   const [loadedMap, setLoadedMap] = useState<Record<string, boolean>>({})
   const carouselId = useId()
 
@@ -66,7 +67,7 @@ export default function CaseCarousel({ images: imagesProp, aspect = '16/9', capt
   }, [prevIndex, index, normalizedImages, loadedMap])
 
   useEffect(() => {
-    if (normalizedImages.length <= 1) {
+    if (normalizedImages.length <= 1 || isPaused) {
       return
     }
 
@@ -79,7 +80,7 @@ export default function CaseCarousel({ images: imagesProp, aspect = '16/9', capt
     }, 5000)
 
     return () => clearInterval(handle)
-  }, [normalizedImages.length])
+  }, [normalizedImages.length, isPaused])
 
   if (!normalizedImages.length) {
     return null
@@ -197,6 +198,14 @@ export default function CaseCarousel({ images: imagesProp, aspect = '16/9', capt
               aria-label="Next slide"
             >
               <ChevronRight className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsPaused(prev => !prev)}
+              aria-label={isPaused ? 'Resume autoplay' : 'Pause autoplay'}
+              className="absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center rounded-full border border-white/50 bg-white/85 text-fg/80 shadow transition hover:text-fg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+            >
+              {isPaused ? <Play className="h-3.5 w-3.5" /> : <Pause className="h-3.5 w-3.5" />}
             </button>
           </>
         ) : null}
