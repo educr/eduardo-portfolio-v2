@@ -66,10 +66,10 @@ In 2021, **MSK's products were siloed** and diverged in front-end solutions, mir
 
 We proceeded by customizing fork of **IBM’s Carbon Design System** (Figma + code). This involved the modification of foundational elements like colors and typography as well as the components.
 
-<figure>
-  <img src="/cases/msk-ds/colors.png" alt="Color scales in a color tool" />
-  <figcaption>A color tool displaying our color scales with contrast ratios</figcaption>
-</figure>
+<Carousel
+  images='[{"src":"/cases/msk-ds/colors.png","alt":""},{"src":"/cases/msk-ds/storybook.png","alt":""},{"src":"/cases/msk-ds/venn.jpg","alt":""}]'
+  caption="Artifacts and tools from our early days"
+/>
 
 While Carbon gave us a strong base, it quickly showed limitations:
 
@@ -141,18 +141,23 @@ Key milestones:
 
 - **MSK Sans** → proprietary typographic system (courtesy of the Brand team) balancing readability and brand  
 - **Adaptive tokens** → scale & spacing shift automatically by mode  
-- **Mode-aware components** → same codebase, optimized differently for each audience  
+- **Mode-aware components** → same codebase, optimized differently for each audience (Pro and Consumer) 
 
 <figure>
-  <img src="/cases/msk-ds/modes.png" alt="Toggle consumer vs pro mode" />
-  <figcaption>Example toggle: light/dark + consumer/pro mode switch</figcaption>
+  <img src="/cases/planq/card-view.png" alt="Semantic tokens example" />
+  <figcaption>Mockup of PlanQ, an early adopter of our Ant Design theme</figcaption>
 </figure>
-
-This unlocked **new flexibility**: developers could build once, and the system adapted depending on whether the user was a patient or clinician.
 
 ---
 
 ## Mode Toggle
+
+<figure>
+  <img src="/cases/msk-ds/modes.png" alt="Toggle consumer vs pro mode" />
+  <figcaption>Consumer and Pro users</figcaption>
+</figure>
+
+Mode toggling via tokens unlocked **new flexibility**: developers could build once, and the system adapted depending on whether the user was a patient or clinician.
 
 The system supports seamless switching between:
 
