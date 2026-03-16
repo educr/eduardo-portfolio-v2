@@ -31,27 +31,31 @@ function CaseCardComponent({ data }: { data: CaseMeta }) {
   return (
     <Link
       href={`/case/${data.slug}`}
-      className="block border border-border rounded-lg bg-white opacity-90 shadow hover:shadow-md transition overflow-hidden"
+      className="block paper-card"
     >
       {data.cover && (
-        <div className="relative aspect-[16/9] w-full">
-          <Image
-            src={data.cover}
-            alt={data.title}
-            fill
-            sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover"
-          />
+        <div className="p-3 pb-0">
+          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl"
+            style={{ border: '1px solid rgba(30,18,12,0.06)' }}
+          >
+            <Image
+              src={data.cover}
+              alt={data.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 33vw"
+              className="object-cover"
+            />
+          </div>
         </div>
       )}
       <div className="p-4 space-y-3">
-        <h3 className="font-semibold text-lg">{data.title}</h3>
+        <h3 className="text-lg">{data.title}</h3>
         {displayDate ? (
-          <span className="text-xs font-medium uppercase tracking-[0.3em] text-fg/50">
+          <span className="text-xs font-medium uppercase tracking-[0.3em] text-fg/45">
             {displayDate}
           </span>
         ) : null}
-        <p className="text-sm text-fg/70">{data.summary}</p>
+        <p className="text-sm text-fg/65 leading-relaxed">{data.summary}</p>
         {(sectors.length || categories.length || (data.role?.length ?? 0) > 0) ? (
           <div className="flex flex-wrap gap-1.5">
             {sectors.map(sector => (

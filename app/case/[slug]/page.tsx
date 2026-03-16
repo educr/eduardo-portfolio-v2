@@ -34,10 +34,12 @@ const mdxComponents = {
   Image: (props: ImageProps) => {
     const { className, ...rest } = props
     return (
-      <div className="my-10 overflow-hidden rounded-[32px] border border-white/20 bg-white/10 p-2">
+      <div className="my-10 overflow-hidden rounded-sm p-3"
+        style={{ border: '1px solid rgba(30,18,12,0.07)', background: '#faf6f0', boxShadow: '0 2px 12px rgba(30,18,12,0.08), inset 0 1px 0 rgba(255,255,255,0.85)' }}
+      >
         <NextImage
           {...rest}
-          className={['h-auto w-full rounded-[28px] object-cover', className].filter(Boolean).join(' ')}
+          className={['h-auto w-full rounded-xl object-cover', className].filter(Boolean).join(' ')}
         />
       </div>
     )
@@ -114,8 +116,6 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
 
   return (
     <div className="page-fade relative mx-auto flex max-w-5xl flex-col gap-6 px-4 py-16 sm:px-6">
-      <div className="pointer-events-none absolute -left-16 top-40 h-64 w-64 rounded-full bg-accent/25 blur-3xl" />
-      <div className="pointer-events-none absolute right-0 top-8 h-80 w-80 rounded-full bg-white/40 blur-3xl" />
 
       <Link
         href="/"
@@ -124,12 +124,12 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
         <ArrowLeft className="h-4 w-4" /> back to work
       </Link>
 
-      <article className="glass-panel p-6 sm:p-8 md:p-10">
-        <header className="flex flex-col gap-4">
+      <article className="glass-panel p-6 sm:p-8 md:p-12">
+        <header className="flex flex-col gap-5">
           {(displayDate || sectors.length || categories.length || roles.length) ? (
             <div className="flex flex-wrap items-center gap-2">
               {displayDate ? (
-                <span className="text-xs font-medium uppercase tracking-[0.3em] text-fg/50">
+                <span className="text-xs font-medium uppercase tracking-[0.3em] text-fg/40">
                   {displayDate}
                 </span>
               ) : null}
@@ -150,10 +150,10 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
               ))}
             </div>
           ) : null}
-          <h1 className="text-3xl font-semibold tracking-normal text-fg">
+          <h1 className="text-4xl leading-tight tracking-normal text-fg md:text-5xl">
             {entry.title}
           </h1>
-          <p className="text-base font-semibold leading-relaxed text-fg/70">
+          <p className="text-lg leading-[1.8] text-fg/65">
             {entry.summary}
           </p>
         </header>

@@ -31,6 +31,10 @@
     "width": 3204,
     "height": 1767
   },
+  "/cases/con-solatio/logos.png": {
+    "width": 2088,
+    "height": 474
+  },
   "/cases/con-solatio/missionary-program.png": {
     "width": 3650,
     "height": 14456
@@ -195,6 +199,10 @@
     "width": 1920,
     "height": 1097
   },
+  "/cases/msk-ds/storybook.png": {
+    "width": 3358,
+    "height": 2006
+  },
   "/cases/msk-ds/switch.png": {
     "width": 2070,
     "height": 1374
@@ -204,8 +212,8 @@
     "height": 1524
   },
   "/cases/msk-ds/tokens.png": {
-    "width": 1908,
-    "height": 492
+    "width": 1934,
+    "height": 522
   },
   "/cases/msk-ds/use-1.png": {
     "width": 1537,
@@ -230,6 +238,10 @@
   "/cases/msk-ds/use-6.png": {
     "width": 1537,
     "height": 971
+  },
+  "/cases/msk-ds/venn.jpg": {
+    "width": 2241,
+    "height": 1500
   },
   "/cases/msk-patient-guide/award.jpg": {
     "width": 2560,
@@ -342,6 +354,22 @@
   "/cases/planq/ai.png": {
     "width": 1262,
     "height": 740
+  },
+  "/cases/planq/audit-1.png": {
+    "width": 2192,
+    "height": 2340
+  },
+  "/cases/planq/audit-2.png": {
+    "width": 4896,
+    "height": 2070
+  },
+  "/cases/planq/audit-3.png": {
+    "width": 2114,
+    "height": 1942
+  },
+  "/cases/planq/audit-4.png": {
+    "width": 3080,
+    "height": 1786
   },
   "/cases/planq/audit.jpg": {
     "width": 1457,

@@ -10,26 +10,29 @@ export default async function Home() {
   const others = cases.filter(c => !c.featured)
 
   return (
-    <div className="page-fade relative mx-auto flex max-w-6xl flex-col gap-16 pb-24 pt-16">
-      <div className="pointer-events-none absolute -left-10 top-24 h-56 w-56 rounded-full bg-accent/20 blur-3xl" />
-      <div className="pointer-events-none absolute right-8 top-0 h-72 w-72 rounded-full bg-white/40 blur-3xl" />
+    <div className="page-fade relative mx-auto flex max-w-6xl flex-col gap-8 pb-32 pt-16">
 
       {/* Hero */}
-      <section className="glass-panel relative grid gap-10 px-3 py-6 sm:px-4 md:grid-cols-[auto,1fr] md:items-center md:gap-12 md:px-8 md:py-10">
-        <div className="pointer-events-none absolute -left-16 top-6 hidden h-44 w-44 rounded-full bg-white/30 blur-3xl md:block" />
-        <div className="pointer-events-none absolute right-4 bottom-4 hidden h-40 w-40 rounded-full bg-accent/20 blur-3xl md:block" />
-
-        <div className="relative mx-auto mb-4 w-40 aspect-square overflow-hidden rounded-full border border-white/40 bg-white/40 p-1 shadow-inner md:mx-0 md:mb-0 md:border-white/60">
-          <Image src="/me.jpeg" alt="Eduardo Crespo" fill className="object-cover mix-blend-multiply" />
+      <section className="glass-panel relative grid gap-10 px-5 py-8 sm:px-8 md:grid-cols-[auto,1fr] md:items-center md:gap-16 md:px-12 md:py-14">
+        <div className="relative mx-auto mb-4 w-36 aspect-square overflow-hidden rounded-xl md:mx-0 md:mb-0"
+          style={{
+            border: '1px solid rgba(30,18,12,0.08)',
+            boxShadow: '0 2px 12px rgba(30,18,12,0.10), inset 0 1px 0 rgba(255,255,255,0.8)'
+          }}
+        >
+          <Image src="/me.jpeg" alt="Eduardo Crespo" fill className="object-cover" />
         </div>
-        <div className="relative space-y-4 text-center md:text-left">
+        <div className="relative space-y-5 text-center md:text-left">
           <div>
-            <h1 className="mt-3 text-4xl font-semibold text-fg">
+            <h1 className="text-5xl leading-tight text-fg md:text-6xl">
               Eduardo Crespo
             </h1>
+            <p className="mt-2 text-xs uppercase tracking-[0.28em] text-fg/40">
+              Product Designer
+            </p>
           </div>
-          <p className="text-lg text-fg/80">
-            Product designer with a visual art foundation — specializing in healthcare, systems, and human-centered experiences.
+          <p className="text-base text-fg/70 leading-[1.8] md:text-lg md:max-w-xl">
+            Visual art foundation. Five years in healthcare. I think differently about form, meaning, and what it actually feels like to use something.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 text-sm md:justify-start">
             <a href="mailto:crespoeduardo@icloud.com" className="glass-pill">
@@ -55,9 +58,10 @@ export default async function Home() {
       </section>
 
       {/* Featured */}
-      <section className="glass-panel space-y-6 px-3 py-6 sm:px-4 md:px-8 md:py-10">
-        <div className="flex flex-col gap-2 text-center md:text-left">
-          <h2 className="text-2xl font-semibold text-fg/90">Highlighted Projects</h2>
+      <section className="glass-panel space-y-8 px-5 py-8 sm:px-8 md:px-12 md:py-12">
+        <div className="flex flex-col gap-1">
+          <p className="text-xs uppercase tracking-[0.3em] text-fg/40">Selected work</p>
+          <h2 className="text-2xl text-fg/90">Highlighted Projects</h2>
         </div>
         <div className="grid gap-8 sm:grid-cols-2">
           {featured.map(c => <CaseCard key={c.slug} data={c} />)}
@@ -65,9 +69,10 @@ export default async function Home() {
       </section>
 
       {/* All cases with filters */}
-      <section className="glass-panel space-y-6 px-3 py-6 sm:px-4 md:px-8 md:py-10">
-        <div className="flex flex-col gap-2 text-center md:text-left">
-          <h2 className="text-2xl font-semibold text-fg/90">All Work</h2>
+      <section className="glass-panel space-y-8 px-5 py-8 sm:px-8 md:px-12 md:py-12">
+        <div className="flex flex-col gap-1">
+          <p className="text-xs uppercase tracking-[0.3em] text-fg/40">Full archive</p>
+          <h2 className="text-2xl text-fg/90">All Work</h2>
         </div>
         <CaseGrid cases={others} />
       </section>

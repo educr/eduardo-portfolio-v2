@@ -6,27 +6,35 @@ export const metadata = { title: 'About' }
 export default function AboutPage() {
   return (
     <div className="page-fade relative mx-auto flex max-w-5xl flex-col gap-12 px-4 py-16 sm:px-6">
-      <div className="pointer-events-none absolute -left-14 top-20 h-56 w-56 rounded-full bg-accent/15 blur-3xl" />
-      <div className="pointer-events-none absolute right-6 top-0 h-64 w-64 rounded-full bg-white/35 blur-3xl" />
 
-      <section className="glass-panel relative flex flex-col items-center gap-8 px-3 py-6 sm:px-4 md:px-8 md:py-10">
-        <div className="pointer-events-none absolute -left-16 top-6 hidden h-44 w-44 rounded-full bg-white/30 blur-3xl md:block" />
-        <div className="pointer-events-none absolute right-4 bottom-4 hidden h-40 w-40 rounded-full bg-accent/25 blur-3xl md:block" />
+      <section className="glass-panel relative flex flex-col items-center gap-10 px-5 py-8 sm:px-8 md:flex-row md:items-start md:px-12 md:py-14 md:gap-16">
 
-        <div className="relative mx-auto w-80 aspect-square overflow-hidden rounded-full border border-white/40 bg-white/40 p-1 shadow-inner md:border-white/60">
-          <Image src="/me.jpeg" alt="Eduardo Crespo" fill className="object-cover mix-blend-multiply" />
+        <div className="relative mx-auto w-56 shrink-0 aspect-[3/4] overflow-hidden rounded-2xl md:mx-0"
+          style={{
+            border: '1px solid rgba(30,18,12,0.08)',
+            boxShadow: '0 4px 20px rgba(30,18,12,0.12), inset 0 1px 0 rgba(255,255,255,0.8)'
+          }}
+        >
+          <Image src="/me.jpeg" alt="Eduardo Crespo" fill className="object-cover object-top" />
         </div>
-        <div className="relative space-y-4 text-center md:max-w-3xl md:text-left">
+
+        <div className="relative space-y-6 text-center md:text-left md:pt-2">
           <div>
-            <h1 className="text-3xl font-semibold tracking-normal text-fg md:text-4xl">About Me</h1>
+            <p className="text-xs uppercase tracking-[0.28em] text-fg/40 mb-2">About</p>
+            <h1 className="text-4xl text-fg md:text-5xl">Eduardo Crespo</h1>
           </div>
-          <p className="text-base text-fg/75 md:text-lg">
-Product designer. Former visual artist. Five years of experience, mostly in healthcare.
-          </p>
-          <p className="text-base text-fg/75 md:text-lg">
-I came to design through fine art, which means I think differently about form, meaning, and what it actually feels like to use something. That background shows up in my work — in the care I put into visual systems, and in the questions I ask before I start designing.          </p>
-<p className="text-base text-fg/75 md:text-lg">Most of my work has been in healthcare, where the stakes make the craft matter more.</p>
-          <div className="flex flex-wrap items-center justify-center gap-3 text-sm md:justify-start">
+          <div className="space-y-4">
+            <p className="text-base text-fg/75 leading-[1.85] md:text-lg">
+              Product designer. Former visual artist. Five years of experience, mostly in healthcare.
+            </p>
+            <p className="text-base text-fg/75 leading-[1.85] md:text-lg">
+              I came to design through fine art, which means I think differently about form, meaning, and what it actually feels like to use something. That background shows up in my work — in the care I put into visual systems, and in the questions I ask before I start designing.
+            </p>
+            <p className="text-base text-fg/75 leading-[1.85] md:text-lg">
+              Most of my work has been in healthcare, where the stakes make the craft matter more.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-3 text-sm md:justify-start pt-2">
             <a href="mailto:crespoeduardo@icloud.com" className="glass-pill">
               Email
             </a>
@@ -46,11 +54,9 @@ I came to design through fine art, which means I think differently about form, m
               Artist Site
             </a>
           </div>
-
         </div>
 
       </section>
     </div>
-
   )
 }
