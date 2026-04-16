@@ -94,26 +94,6 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
   const sectors = entry.sector ?? []
   const categories = entry.category ?? []
   const roles = entry.role ?? []
-  const displayDate = (() => {
-    if (entry.date) {
-      const parsed = Date.parse(entry.date)
-      if (!Number.isNaN(parsed)) {
-        return new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric' }).format(new Date(parsed))
-      }
-      return entry.date
-    }
-
-    if (entry.yearLabel) {
-      return entry.yearLabel
-    }
-
-    if (typeof entry.year === 'number') {
-      return entry.year.toString()
-    }
-
-    return null
-  })()
-
   return (
     <div className="page-fade relative mx-auto flex max-w-5xl flex-col gap-6 px-4 py-16 sm:px-6">
 
@@ -126,13 +106,8 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
 
       <article className="glass-panel p-6 sm:p-8 md:p-12">
         <header className="flex flex-col gap-5">
-          {(displayDate || sectors.length || categories.length || roles.length) ? (
+          {(sectors.length || categories.length || roles.length) ? (
             <div className="flex flex-wrap items-center gap-2">
-              {displayDate ? (
-                <span className="text-xs font-medium uppercase tracking-[0.3em] text-fg/40">
-                  {displayDate}
-                </span>
-              ) : null}
               {sectors.map(sector => (
                 <span key={`sector-${sector}`} className="tag-chip tag-sector text-xs">
                   {sector}

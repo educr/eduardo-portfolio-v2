@@ -60,16 +60,29 @@ How do you create a **single design system** that works for:
 In 2021, **MSK's products were siloed** and diverged in front-end solutions, mired in **visual inconsistencies** across the board.
 
 <Carousel
-  images='[{"src":"/cases/msk-ds/compilation-1.jpg","alt":""},{"src":"/cases/msk-ds/compilation-2.jpg","alt":""},{"src":"/cases/msk-ds/compilation-3.jpg","alt":""}]'
+  images={[
+        {
+      src: '/cases/msk-ds/compilation-1.jpg',
+      alt: ''
+    },
+            {
+      src: '/cases/msk-ds/compilation-2.jpg',
+      alt: ''
+    },
+            {
+      src: '/cases/msk-ds/compilation-3.jpg',
+      alt: ''
+    }
+  ]}
   caption="Header components uncovered during audit"
 />
 
 We proceeded by customizing fork of **IBM’s Carbon Design System** (Figma + code). This involved the modification of foundational elements like colors and typography as well as the components.
 
-<Carousel
-  images='[{"src":"/cases/msk-ds/colors.png","alt":""},{"src":"/cases/msk-ds/storybook.png","alt":""},{"src":"/cases/msk-ds/venn.jpg","alt":""}]'
-  caption="Artifacts and tools from our early days"
-/>
+<figure>
+  <img src="/cases/msk-ds/colors.png" alt="Color scales in a color tool" />
+  <figcaption>A color tool displaying our color scales with contrast ratios</figcaption>
+</figure>
 
 While Carbon gave us a strong base, it quickly showed limitations:
 
@@ -99,7 +112,32 @@ Our solution: a **dual style strategy**.
   </dl>
 </div>
 <Carousel
-  images='[{"src":"/cases/msk-ds/use-1.png","alt":""},{"src":"/cases/msk-ds/use-2.png","alt":""},{"src":"/cases/msk-ds/use-3.png","alt":""},{"src":"/cases/msk-ds/use-4.png","alt":""},{"src":"/cases/msk-ds/use-5.png","alt":""},{"src":"/cases/msk-ds/use-6.png","alt":""}]'
+  images={[
+    {
+      src: '/cases/msk-ds/use-1.png',
+      alt: ''
+    },
+    {
+      src: '/cases/msk-ds/use-2.png',
+      alt: ''
+    },
+    {
+      src: '/cases/msk-ds/use-3.png',
+      alt: ''
+    },
+        {
+      src: '/cases/msk-ds/use-4.png',
+      alt: ''
+    },
+        {
+      src: '/cases/msk-ds/use-5.png',
+      alt: ''
+    },
+        {
+      src: '/cases/msk-ds/use-6.png',
+      alt: ''
+    }
+  ]}
   caption="Selected implementations across the org"
 />
 
@@ -133,7 +171,24 @@ Tokens became the backbone for adaptability — a **single source of truth** pow
 As adoption grew, we transitioned from a Carbon fork to a **headless, MSK-owned system**.  
 
 <Carousel
-  images='[{"src":"/cases/msk-ds/tag.png","alt":""},{"src":"/cases/msk-ds/drawer.png","alt":""},{"src":"/cases/msk-ds/switch.png","alt":""},{"src":"/cases/msk-ds/button.png","alt":""}]'
+  images={[
+    {
+      src: '/cases/msk-ds/tag.png',
+      alt: ''
+    },
+    {
+      src: '/cases/msk-ds/drawer.png',
+      alt: ''
+    },
+    {
+      src: '/cases/msk-ds/switch.png',
+      alt: ''
+    },
+        {
+      src: '/cases/msk-ds/button.png',
+      alt: ''
+    }
+  ]}
   caption="Select AntD components using our tokens"
 />
 
@@ -141,23 +196,18 @@ Key milestones:
 
 - **MSK Sans** → proprietary typographic system (courtesy of the Brand team) balancing readability and brand  
 - **Adaptive tokens** → scale & spacing shift automatically by mode  
-- **Mode-aware components** → same codebase, optimized differently for each audience (Pro and Consumer) 
+- **Mode-aware components** → same codebase, optimized differently for each audience  
 
 <figure>
-  <img src="/cases/planq/card-view.png" alt="Semantic tokens example" />
-  <figcaption>Mockup of PlanQ, an early adopter of our Ant Design theme</figcaption>
+  <img src="/cases/msk-ds/modes.png" alt="Toggle consumer vs pro mode" />
+  <figcaption>Example toggle: light/dark + consumer/pro mode switch</figcaption>
 </figure>
+
+This unlocked **new flexibility**: developers could build once, and the system adapted depending on whether the user was a patient or clinician.
 
 ---
 
 ## Mode Toggle
-
-<figure>
-  <img src="/cases/msk-ds/modes.png" alt="Toggle consumer vs pro mode" />
-  <figcaption>Consumer and Pro users</figcaption>
-</figure>
-
-Mode toggling via tokens unlocked **new flexibility**: developers could build once, and the system adapted depending on whether the user was a patient or clinician.
 
 The system supports seamless switching between:
 

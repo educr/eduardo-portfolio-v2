@@ -8,25 +8,6 @@ import type { CaseMeta } from '@/lib/cases'
 function CaseCardComponent({ data }: { data: CaseMeta }) {
   const sectors = data.sector ?? []
   const categories = data.category ?? []
-  const displayDate = (() => {
-    if (data.date) {
-      const parsed = Date.parse(data.date)
-      if (!Number.isNaN(parsed)) {
-        return new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric' }).format(new Date(parsed))
-      }
-      return data.date
-    }
-
-    if (data.yearLabel) {
-      return data.yearLabel
-    }
-
-    if (typeof data.year === 'number') {
-      return data.year.toString()
-    }
-
-    return null
-  })()
 
   return (
     <Link
@@ -50,11 +31,6 @@ function CaseCardComponent({ data }: { data: CaseMeta }) {
       )}
       <div className="p-4 space-y-3">
         <h3 className="text-lg">{data.title}</h3>
-        {displayDate ? (
-          <span className="text-xs font-medium uppercase tracking-[0.3em] text-fg/45">
-            {displayDate}
-          </span>
-        ) : null}
         <p className="text-sm text-fg/65 leading-relaxed">{data.summary}</p>
         {(sectors.length || categories.length || (data.role?.length ?? 0) > 0) ? (
           <div className="flex flex-wrap gap-1.5">
