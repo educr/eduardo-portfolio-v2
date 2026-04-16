@@ -17,7 +17,7 @@ type CarouselProps = {
 }
 
 export default function CaseCarousel({ images: imagesProp, aspect = '16/9', caption }: CarouselProps) {
-  const images: CarouselImage[] = typeof imagesProp === 'string' ? JSON.parse(imagesProp) : imagesProp
+  const images: CarouselImage[] = typeof imagesProp === 'string' ? JSON.parse(imagesProp) : Array.isArray(imagesProp) ? imagesProp : []
   const [index, setIndex] = useState(0)
   const [prevIndex, setPrevIndex] = useState<number | null>(null)
   const [direction, setDirection] = useState<1 | -1>(1)
