@@ -115,26 +115,26 @@ export default function CaseGrid({ cases }: { cases: CaseMeta[] }) {
   const hasActiveFilters = sectorFilters.length > 0 || categoryFilters.length > 0 || roleFilters.length > 0
   const activeCount = sectorFilters.length + categoryFilters.length + roleFilters.length
 
-const filterBaseClass = 'flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30 whitespace-nowrap backdrop-blur-sm'
+const filterBaseClass = 'flex items-center gap-2 rounded-xl border-2 border-fg px-3 py-1.5 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/30 whitespace-nowrap'
 
 const filterStyles: Record<FilterSection['key'], { activeButton: string; inactiveButton: string; activeLabel: string; inactiveLabel: string }> = {
   sector: {
-    activeButton: 'border-accent bg-[rgba(47,158,153,0.18)] text-accent shadow-sm',
-    inactiveButton: 'border-white/40 bg-white/60 text-fg/70 hover:border-accent/40 hover:text-fg',
-    activeLabel: 'text-accent-dark',
-    inactiveLabel: 'text-fg'
+    activeButton: 'bg-[rgba(215,140,2,0.15)]',
+    inactiveButton: 'bg-transparent text-fg/65 hover:bg-[rgba(215,140,2,0.08)] hover:text-fg',
+    activeLabel: 'text-[#82531A] font-semibold',
+    inactiveLabel: 'text-fg/65'
   },
   category: {
-    activeButton: 'border-[rgba(122,201,138,0.55)] bg-[rgba(122,201,138,0.24)] text-[#256845] shadow-sm',
-    inactiveButton: 'border-white/40 bg-white/60 text-fg/70 hover:border-[rgba(122,201,138,0.5)] hover:text-fg',
-    activeLabel: 'text-[#1f5538]',
-    inactiveLabel: 'text-fg'
+    activeButton: 'bg-[rgba(140,214,156,0.2)]',
+    inactiveButton: 'bg-transparent text-fg/65 hover:bg-[rgba(140,214,156,0.1)] hover:text-fg',
+    activeLabel: 'text-[#1e6b3a] font-semibold',
+    inactiveLabel: 'text-fg/65'
   },
   role: {
-    activeButton: 'border-role bg-[rgba(37,99,235,0.22)] text-role shadow-sm',
-    inactiveButton: 'border-white/40 bg-white/60 text-fg/70 hover:border-role hover:text-fg',
-    activeLabel: 'text-role-dark',
-    inactiveLabel: 'text-fg'
+    activeButton: 'bg-[rgba(114,49,214,0.12)]',
+    inactiveButton: 'bg-transparent text-fg/65 hover:bg-[rgba(114,49,214,0.08)] hover:text-fg',
+    activeLabel: 'text-role font-semibold',
+    inactiveLabel: 'text-fg/65'
   }
 }
 
@@ -172,12 +172,12 @@ const filterStyles: Record<FilterSection['key'], { activeButton: string; inactiv
           <button
             type="button"
             onClick={() => setFiltersOpen(open => !open)}
-            className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/30 px-4 py-2 text-sm font-medium text-fg/70 shadow-sm backdrop-blur-md transition hover:border-accent/40 hover:text-fg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+            className="inline-flex items-center gap-2 rounded-xl border-2 border-fg bg-transparent px-4 py-2 text-sm font-medium text-fg transition hover:bg-accent/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
             aria-expanded={filtersOpen}
           >
             <SlidersHorizontal className="h-4 w-4" /> Filters
             {activeCount > 0 ? (
-              <span className="rounded-full bg-accent/15 px-2 py-0.5 text-xs font-semibold text-accent">
+              <span className="rounded bg-accent px-2 py-0.5 text-xs font-semibold text-fg">
                 {activeCount}
               </span>
             ) : null}
@@ -186,7 +186,7 @@ const filterStyles: Record<FilterSection['key'], { activeButton: string; inactiv
             <button
               type="button"
               onClick={resetFilters}
-              className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/25 px-4 py-2 text-sm font-medium text-fg/70 backdrop-blur transition hover:border-accent/40 hover:text-fg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+              className="inline-flex items-center gap-2 rounded-xl border-2 border-fg bg-transparent px-4 py-2 text-sm font-medium text-fg transition hover:bg-accent/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
             >
               <RotateCcw className="h-4 w-4" /> Reset all
             </button>
@@ -194,7 +194,7 @@ const filterStyles: Record<FilterSection['key'], { activeButton: string; inactiv
         </div>
 
         {filtersOpen ? (
-          <div className="flex flex-col gap-5 rounded-3xl border border-white/30 bg-white/15 p-5 shadow-2xl backdrop-blur-2xl">
+          <div className="flex flex-col gap-5 rounded-2xl border-2 border-fg bg-paper p-5 shadow-[5px_5px_0_rgba(130,83,26,0.35)]">
             <div className="grid gap-5 md:grid-cols-3">
               {sections.map(section => (
                 <div key={section.key} className="space-y-3">

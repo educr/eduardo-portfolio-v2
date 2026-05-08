@@ -9,10 +9,10 @@ export default function AboutPage() {
 
       <section className="glass-panel relative flex flex-col items-center gap-10 px-5 py-8 sm:px-8 md:flex-row md:items-start md:px-12 md:py-14 md:gap-16">
 
-        <div className="relative mx-auto w-56 shrink-0 aspect-[3/4] overflow-hidden rounded-2xl md:mx-0"
+        <div className="relative mx-auto w-56 shrink-0 aspect-[3/4] overflow-hidden rounded-3xl md:mx-0"
           style={{
-            border: '1px solid rgba(30,18,12,0.08)',
-            boxShadow: '0 4px 20px rgba(30,18,12,0.12), inset 0 1px 0 rgba(255,255,255,0.8)'
+            border: '3px solid #351F57',
+            boxShadow: '5px 5px 0 rgba(130, 83, 26, 0.35)'
           }}
         >
           <Image src="/me.jpeg" alt="Eduardo Crespo" fill className="object-cover object-top" />

@@ -34,12 +34,12 @@ const mdxComponents = {
   Image: (props: ImageProps) => {
     const { className, ...rest } = props
     return (
-      <div className="my-10 overflow-hidden rounded-sm p-3"
-        style={{ border: '1px solid rgba(30,18,12,0.07)', background: '#faf6f0', boxShadow: '0 2px 12px rgba(30,18,12,0.08), inset 0 1px 0 rgba(255,255,255,0.85)' }}
+      <div className="my-10 overflow-hidden rounded-3xl p-3"
+        style={{ border: '3px solid #351F57', background: '#FFFFFF', boxShadow: '5px 5px 0 rgba(130, 83, 26, 0.35)' }}
       >
         <NextImage
           {...rest}
-          className={['h-auto w-full rounded-xl object-cover', className].filter(Boolean).join(' ')}
+          className={['h-auto w-full rounded-3xl object-cover', className].filter(Boolean).join(' ')}
         />
       </div>
     )

@@ -88,7 +88,7 @@ export default function MdxImage(props: MdxImageProps) {
     'overflow-hidden',
     dataUnframed === true || dataUnframed === 'true' || dataUnframed === ''
       ? undefined
-      : 'rounded-[28px] border border-white/20 bg-white/10',
+      : 'rounded-[40px] border border-white/20 bg-white/10',
     className
   ].filter(Boolean).join(' ')
 

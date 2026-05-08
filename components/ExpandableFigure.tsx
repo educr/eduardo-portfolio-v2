@@ -23,7 +23,7 @@ export default function ExpandableFigure({
       <div className="relative">
         {/* Clipped image */}
         <div
-          className="overflow-hidden rounded-[28px] border border-white/20 bg-white/10 transition-[max-height] duration-500 ease-in-out"
+          className="overflow-hidden rounded-[40px] transition-[max-height] duration-500 ease-in-out"
           style={{ maxHeight: expanded ? 2000 : previewHeight }}
         >
           <img
@@ -37,7 +37,7 @@ export default function ExpandableFigure({
 
         {/* Gradient fade (collapsed only) */}
         {!expanded && (
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 rounded-b-[28px] bg-gradient-to-t from-white/80 via-white/40 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 rounded-b-[40px] bg-gradient-to-t from-white/80 via-white/40 to-transparent" />
         )}
 
         {/* Toggle button, always inside image at bottom */}

@@ -39,12 +39,12 @@ export default function ZoomImage({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="group relative mx-auto block w-full overflow-hidden rounded-[28px] border border-white/20 bg-white/10 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+        className="group relative mx-auto block w-full overflow-hidden rounded-[40px] border border-white/20 bg-white/10 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
       >
         <img
           src={src}
           alt={alt}
-          className="mx-auto w-full rounded-[28px] object-contain"
+          className="mx-auto w-full rounded-[40px] object-contain"
         />
         <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/10 opacity-0 transition group-hover:opacity-100">
           <span className="rounded-full bg-black/60 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-white">
@@ -77,7 +77,7 @@ export default function ZoomImage({
                 <img
                   src={src}
                   alt={alt}
-                  className="mx-auto h-full max-h-[95vh] w-full rounded-[32px] border border-white/25 object-contain"
+                  className="mx-auto h-full max-h-[95vh] w-full rounded-[40px] border border-white/25 object-contain"
                   draggable={false}
                 />
               </div>

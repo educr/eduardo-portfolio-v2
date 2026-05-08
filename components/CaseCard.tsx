@@ -16,8 +16,8 @@ function CaseCardComponent({ data }: { data: CaseMeta }) {
     >
       {data.cover && (
         <div className="p-3 pb-0">
-          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl"
-            style={{ border: '1px solid rgba(30,18,12,0.06)' }}
+          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl"
+            style={{ border: '2px solid rgba(53, 31, 87, 0.25)' }}
           >
             <Image
               src={data.cover}

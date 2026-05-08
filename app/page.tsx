@@ -14,10 +14,10 @@ export default async function Home() {
 
       {/* Hero */}
       <section className="glass-panel relative grid gap-10 px-5 py-8 sm:px-8 md:grid-cols-[auto,1fr] md:items-center md:gap-16 md:px-12 md:py-14">
-        <div className="relative mx-auto mb-4 w-36 aspect-square overflow-hidden rounded-xl md:mx-0 md:mb-0"
+        <div className="relative mx-auto mb-4 w-36 aspect-square overflow-hidden rounded-3xl md:mx-0 md:mb-0"
           style={{
-            border: '1px solid rgba(30,18,12,0.08)',
-            boxShadow: '0 2px 12px rgba(30,18,12,0.10), inset 0 1px 0 rgba(255,255,255,0.8)'
+            border: '3px solid #351F57',
+            boxShadow: '4px 4px 0 rgba(130, 83, 26, 0.35)'
           }}
         >
           <Image src="/me.jpeg" alt="Eduardo Crespo" fill className="object-cover" />
@@ -58,7 +58,7 @@ export default async function Home() {
       </section>
 
       {/* Featured */}
-      <section className="glass-panel space-y-8 px-5 py-8 sm:px-8 md:px-12 md:py-12">
+      <section className="space-y-6 pt-4">
         <div className="flex flex-col gap-1">
           <p className="text-xs uppercase tracking-[0.3em] text-fg/40">Selected work</p>
           <h2 className="text-2xl text-fg/90">Highlighted Projects</h2>
@@ -69,7 +69,7 @@ export default async function Home() {
       </section>
 
       {/* All cases with filters */}
-      <section className="glass-panel space-y-8 px-5 py-8 sm:px-8 md:px-12 md:py-12">
+      <section className="space-y-6 pt-4">
         <div className="flex flex-col gap-1">
           <p className="text-xs uppercase tracking-[0.3em] text-fg/40">Full archive</p>
           <h2 className="text-2xl text-fg/90">All Work</h2>

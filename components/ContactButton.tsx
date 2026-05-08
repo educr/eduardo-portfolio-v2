@@ -28,14 +28,14 @@ export default function ContactButton() {
         <div className="absolute bottom-full mb-2 left-0 glass-panel flex flex-col gap-1 p-2 min-w-[160px] text-sm">
           <a
             href="mailto:crespoeduardo@icloud.com"
-            className="px-3 py-2 rounded-md hover:bg-white/20 transition-colors"
+            className="px-3 py-2 rounded-md hover:bg-accent/10 transition-colors"
             onClick={() => setOpen(false)}
           >
             Email
           </a>
           <a
             href="tel:+17863191427"
-            className="px-3 py-2 rounded-md hover:bg-white/20 transition-colors"
+            className="px-3 py-2 rounded-md hover:bg-accent/10 transition-colors"
             onClick={() => setOpen(false)}
           >
             Phone
