@@ -82,12 +82,6 @@ export default function CaseCarousel({ images: imagesProp, aspect = '16/9', capt
     return () => clearInterval(handle)
   }, [normalizedImages.length, isPaused])
 
-  if (!normalizedImages.length) {
-    return null
-  }
-
-  const activeImage = normalizedImages[Math.min(index, normalizedImages.length - 1)]
-  const previousImage = prevIndex !== null ? normalizedImages[prevIndex] : null
   const markLoaded = (src: string) => {
     if (!src) return
     setLoadedMap(prev => (prev[src] ? prev : { ...prev, [src]: true }))
@@ -110,6 +104,13 @@ export default function CaseCarousel({ images: imagesProp, aspect = '16/9', capt
       preload.onload = () => markLoaded(image.src)
     })
   }, [normalizedImages, loadedMap])
+
+  if (!normalizedImages.length) {
+    return null
+  }
+
+  const activeImage = normalizedImages[Math.min(index, normalizedImages.length - 1)]
+  const previousImage = prevIndex !== null ? normalizedImages[prevIndex] : null
 
   const next = () => {
     if (normalizedImages.length <= 1) return
@@ -156,7 +157,7 @@ export default function CaseCarousel({ images: imagesProp, aspect = '16/9', capt
                     sizes="(min-width: 1280px) 900px, (min-width: 768px) 720px, 100vw"
                     loading="lazy"
                     className={`carousel-image transition-opacity duration-300 ${loadedMap[previousImage.src] ? 'opacity-100' : 'opacity-0'}`}
-                    onLoadingComplete={() => markLoaded(previousImage.src)}
+                    onLoad={() => markLoaded(previousImage.src)}
                     aria-hidden
                   />
                 </div>
@@ -175,7 +176,7 @@ export default function CaseCarousel({ images: imagesProp, aspect = '16/9', capt
                   loading={index === 0 ? 'eager' : 'lazy'}
                   priority={index === 0}
                   className={`carousel-image transition-opacity duration-300 ${loadedMap[activeImage.src] ? 'opacity-100' : 'opacity-0'}`}
-                  onLoadingComplete={() => markLoaded(activeImage.src)}
+                  onLoad={() => markLoaded(activeImage.src)}
                 />
               </div>
             </div>
@@ -186,7 +187,7 @@ export default function CaseCarousel({ images: imagesProp, aspect = '16/9', capt
             <button
               type="button"
               onClick={prev}
-              className="absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/50 bg-white/85 text-fg/80 shadow transition hover:text-fg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+              className="absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border-2 border-fg bg-paper text-fg shadow-[2px_2px_0_rgba(130,83,26,0.35)] transition hover:bg-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
               aria-label="Previous slide"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -194,7 +195,7 @@ export default function CaseCarousel({ images: imagesProp, aspect = '16/9', capt
             <button
               type="button"
               onClick={next}
-              className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/50 bg-white/85 text-fg/80 shadow transition hover:text-fg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+              className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border-2 border-fg bg-paper text-fg shadow-[2px_2px_0_rgba(130,83,26,0.35)] transition hover:bg-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
               aria-label="Next slide"
             >
               <ChevronRight className="h-5 w-5" />
@@ -203,7 +204,7 @@ export default function CaseCarousel({ images: imagesProp, aspect = '16/9', capt
               type="button"
               onClick={() => setIsPaused(prev => !prev)}
               aria-label={isPaused ? 'Resume autoplay' : 'Pause autoplay'}
-              className="absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center rounded-full border border-white/50 bg-white/85 text-fg/80 shadow transition hover:text-fg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+              className="absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center rounded-full border-2 border-fg bg-paper text-fg shadow-[2px_2px_0_rgba(130,83,26,0.35)] transition hover:bg-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
             >
               {isPaused ? <Play className="h-3.5 w-3.5" /> : <Pause className="h-3.5 w-3.5" />}
             </button>
@@ -219,7 +220,7 @@ export default function CaseCarousel({ images: imagesProp, aspect = '16/9', capt
               key={`${carouselId}-dot-${image.src}`}
               onClick={() => selectIndex(dotIndex)}
               aria-label={`View slide ${dotIndex + 1}`}
-              className={`h-2.5 w-2.5 rounded-full transition ${dotIndex === index ? 'bg-accent' : 'bg-fg/20 hover:bg-fg/40'}`}
+              className={`h-2.5 w-2.5 rounded-full border border-fg/30 transition ${dotIndex === index ? 'bg-accent border-fg scale-110' : 'bg-paper hover:bg-accent/40'}`}
             />
           ))}
         </div>
