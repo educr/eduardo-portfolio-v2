@@ -11,6 +11,7 @@ import ZoomImage from '@/components/ZoomImage'
 import MdxImage from '@/components/MdxImage'
 import ExpandableFigure from '@/components/ExpandableFigure'
 import FigureAside from '@/components/FigureAside'
+import BeforeAfterSlider from '@/components/BeforeAfterSlider'
 
 const mdxComponents = {
   hr: () => <div className="my-10 h-px w-full clear-both bg-bg" />,
@@ -47,7 +48,8 @@ const mdxComponents = {
   Carousel: CaseCarousel,
   ZoomImage,
   ExpandableFigure,
-  FigureAside
+  FigureAside,
+  BeforeAfterSlider,
 }
 
 async function MdxContent({ source }: { source: string }): Promise<ReactElement> {
