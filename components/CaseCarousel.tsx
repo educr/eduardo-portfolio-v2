@@ -141,6 +141,7 @@ export default function CaseCarousel({ images: imagesProp, aspect = '16/9', capt
             maxHeight: '90dvh', maxWidth: '92vw', objectFit: 'contain',
             borderRadius: 12, border: '3px solid #351F57',
             boxShadow: '5px 5px 0 rgba(130,83,26,0.35)', display: 'block',
+            backgroundColor: '#FFFFFF',
           }}
         />
         {normalizedImages.length > 1 ? (

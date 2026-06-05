@@ -77,7 +77,7 @@ export default function ZoomImage({
                 <img
                   src={src}
                   alt={alt}
-                  className="mx-auto h-full max-h-[95vh] w-full rounded-[40px] border border-white/25 object-contain"
+                  className="mx-auto h-full max-h-[95vh] w-full rounded-[40px] border border-white/25 bg-white object-contain"
                   draggable={false}
                 />
               </div>
