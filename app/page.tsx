@@ -13,7 +13,7 @@ export default async function Home() {
     <div className="page-fade relative mx-auto flex max-w-6xl flex-col gap-8 pb-32 pt-16">
 
       {/* Hero */}
-      <section className="glass-panel relative grid gap-10 px-5 py-8 sm:px-8 md:grid-cols-[auto,1fr] md:items-center md:gap-16 md:px-12 md:py-14">
+      <section className="glass-panel relative grid gap-10 py-4 sm:px-8 sm:py-8 md:grid-cols-[auto,1fr] md:items-center md:gap-16 md:px-12 md:py-14">
         <div className="relative mx-auto mb-4 w-36 aspect-square overflow-hidden rounded-3xl md:mx-0 md:mb-0"
           style={{
             border: '3px solid #351F57',

@@ -52,9 +52,14 @@ h6 {
 
   .glass-panel {
     @apply relative rounded-3xl;
-    border: 3px solid theme(colors.fg);
-    background: theme(colors.paper);
-    box-shadow: 5px 5px 0 rgba(130, 83, 26, 0.35);
+  }
+
+  @media (min-width: 640px) {
+    .glass-panel {
+      border: 3px solid theme(colors.fg);
+      background: theme(colors.paper);
+      box-shadow: 5px 5px 0 rgba(130, 83, 26, 0.35);
+    }
   }
 
   .paper-card {

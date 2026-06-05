@@ -106,7 +106,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
         <ArrowLeft className="h-4 w-4" /> back to work
       </Link>
 
-      <article className="glass-panel p-6 sm:p-8 md:p-12">
+      <article className="glass-panel sm:p-8 md:p-12">
         <header className="flex flex-col gap-5">
           {(sectors.length || categories.length || roles.length) ? (
             <div className="flex flex-wrap items-center gap-2">
