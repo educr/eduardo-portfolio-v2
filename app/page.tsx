@@ -35,7 +35,7 @@ export default async function Home() {
             Visual art foundation. Five years in healthcare. I think differently about form, meaning, and what it actually feels like to use something.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 text-sm md:justify-start">
-            <a href="mailto:crespoeduardo@icloud.com" className="glass-pill">
+            <a href="mailto:eduardo.a.crespo@icloud.com" className="glass-pill">
               Email
             </a>
             <Link

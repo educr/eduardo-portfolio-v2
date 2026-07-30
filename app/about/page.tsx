@@ -35,7 +35,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-3 text-sm md:justify-start pt-2">
-            <a href="mailto:crespoeduardo@icloud.com" className="glass-pill">
+            <a href="mailto:eduardo.a.crespo@icloud.com" className="glass-pill">
               Email
             </a>
             <Link
