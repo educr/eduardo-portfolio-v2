@@ -17,7 +17,7 @@ export default async function Home() {
         <div className="relative mx-auto mb-4 w-36 aspect-square overflow-hidden rounded-3xl md:mx-0 md:mb-0"
           style={{
             border: '3px solid #351F57',
-            boxShadow: '4px 4px 0 rgba(130, 83, 26, 0.35)'
+            boxShadow: '4px 4px 0 rgba(46, 91, 61, 0.35)'
           }}
         >
           <Image src="/me.jpeg" alt="Eduardo Crespo" fill className="object-cover" />

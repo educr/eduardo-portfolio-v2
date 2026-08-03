@@ -14,7 +14,7 @@ type BeforeAfterSliderProps = {
 }
 
 const pillClass =
-  'pointer-events-none absolute bottom-3 flex h-8 items-center rounded-full border-2 border-fg bg-paper px-3 text-xs font-medium text-fg shadow-[2px_2px_0_rgba(130,83,26,0.35)]'
+  'pointer-events-none absolute bottom-3 flex h-8 items-center rounded-full border-2 border-fg bg-paper px-3 text-xs font-medium text-fg shadow-[2px_2px_0_rgba(46,91,61,0.35)]'
 
 // rounded-xl = 12px — inset the line so it doesn't poke into the rounded corners
 const CORNER_RADIUS = 12
@@ -155,7 +155,7 @@ export default function BeforeAfterSlider({
           />
 
           {/* Drag handle */}
-          <div className="absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-fg bg-paper text-fg shadow-[2px_2px_0_rgba(130,83,26,0.35)]">
+          <div className="absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-fg bg-paper text-fg shadow-[2px_2px_0_rgba(46,91,61,0.35)]">
             <ChevronLeft className="h-3.5 w-3.5" />
             <ChevronRight className="h-3.5 w-3.5" />
           </div>

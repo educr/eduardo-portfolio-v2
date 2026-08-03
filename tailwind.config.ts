@@ -9,11 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: "#FDF8EE",
+        bg: "#EDF6EE",
         fg: "#351F57",
         paper: "#FFFFFF",
-        accent: "#D78C02",
-        "accent-dark": "#82531A",
+        accent: "#4C8C5E",
+        "accent-dark": "#2E5B3D",
         border: "#7231D6",
         role: "#7231D6",
         "role-dark": "#5a28a8"
