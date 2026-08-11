@@ -92,7 +92,7 @@ h6 {
   .glass-pill:hover,
   .glass-pill:focus-visible {
     background: theme(colors.accent);
-    color: theme(colors.fg);
+    color: theme(colors.paper);
     border-color: theme(colors.fg);
   }
 

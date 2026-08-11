@@ -101,7 +101,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
 
       <Link
         href="/"
-        className="glass-pill w-fit gap-2 text-[0.7rem] lowercase tracking-[0.3em] text-fg/60 hover:text-fg"
+        className="glass-pill w-fit gap-2 text-[0.7rem] lowercase tracking-[0.3em] text-fg/60 hover:text-paper"
       >
         <ArrowLeft className="h-4 w-4" /> back to work
       </Link>
