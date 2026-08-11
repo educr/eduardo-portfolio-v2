@@ -121,7 +121,7 @@ export default function CaseCarousel({ images: imagesProp, aspect = '16/9', capt
     setIndex(target)
   }
 
-  const btnClass = 'flex items-center justify-center rounded-full border-2 border-fg bg-paper text-fg shadow-[2px_2px_0_rgba(46,91,61,0.35)] transition hover:bg-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40'
+  const btnClass = 'flex items-center justify-center rounded-full border-2 border-fg bg-paper text-fg shadow-[2px_2px_0_rgba(53, 97, 125, 0.35)] transition hover:bg-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40'
 
   const lightbox = mounted && lightboxOpen ? createPortal(
     <div
@@ -140,7 +140,7 @@ export default function CaseCarousel({ images: imagesProp, aspect = '16/9', capt
           style={{
             maxHeight: '90dvh', maxWidth: '92vw', objectFit: 'contain',
             borderRadius: 12, border: '3px solid #351F57',
-            boxShadow: '5px 5px 0 rgba(46,91,61,0.35)', display: 'block',
+            boxShadow: '5px 5px 0 rgba(53, 97, 125, 0.35)', display: 'block',
             backgroundColor: '#FFFFFF',
           }}
         />

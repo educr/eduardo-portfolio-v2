@@ -36,7 +36,7 @@ const mdxComponents = {
     const { className, ...rest } = props
     return (
       <div className="my-10 overflow-hidden rounded-3xl p-3"
-        style={{ border: '3px solid #351F57', background: '#FFFFFF', boxShadow: '5px 5px 0 rgba(46, 91, 61, 0.35)' }}
+        style={{ border: '3px solid #351F57', background: '#FFFFFF', boxShadow: '5px 5px 0 rgba(53, 97, 125, 0.35)' }}
       >
         <NextImage
           {...rest}

@@ -58,7 +58,7 @@ h6 {
     .glass-panel {
       border: 3px solid theme(colors.fg);
       background: theme(colors.paper);
-      box-shadow: 5px 5px 0 rgba(46, 91, 61, 0.35);
+      box-shadow: 5px 5px 0 rgba(53, 97, 125, 0.35);
     }
   }
 
@@ -66,13 +66,13 @@ h6 {
     border: 3px solid theme(colors.fg);
     background: theme(colors.paper);
     border-radius: 20px;
-    box-shadow: 4px 4px 0 rgba(46, 91, 61, 0.35);
+    box-shadow: 4px 4px 0 rgba(53, 97, 125, 0.35);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
     overflow: hidden;
   }
 
   .paper-card:hover {
-    box-shadow: 6px 6px 0 rgba(46, 91, 61, 0.35);
+    box-shadow: 6px 6px 0 rgba(53, 97, 125, 0.35);
     transform: translate(-2px, -2px);
   }
 
@@ -103,12 +103,12 @@ h6 {
   .tag-sector {
     border: 1.5px solid theme(colors.accent);
     color: theme(colors.accent-dark);
-    background: rgba(76, 140, 94, 0.12);
+    background: rgba(91, 143, 176, 0.12);
   }
 
   .tag-sector:hover,
   .tag-sector:focus-visible {
-    background: rgba(76, 140, 94, 0.22);
+    background: rgba(91, 143, 176, 0.22);
   }
 
   .tag-role {

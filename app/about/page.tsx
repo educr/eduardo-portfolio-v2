@@ -12,7 +12,7 @@ export default function AboutPage() {
         <div className="relative mx-auto w-56 shrink-0 aspect-[3/4] overflow-hidden rounded-3xl md:mx-0"
           style={{
             border: '3px solid #351F57',
-            boxShadow: '5px 5px 0 rgba(46, 91, 61, 0.35)'
+            boxShadow: '5px 5px 0 rgba(53, 97, 125, 0.35)'
           }}
         >
           <Image src="/me.jpeg" alt="Eduardo Crespo" fill className="object-cover object-top" />
